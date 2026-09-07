@@ -36,7 +36,6 @@
             border: 1px solid rgba(255, 200, 0, 0.08);
         }
 
-        /* ===== HEADER ===== */
         .header {
             text-align: center;
             margin-bottom: 20px;
@@ -63,7 +62,6 @@
             font-weight: 900;
             letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
         }
 
         .header .subtitle {
@@ -105,7 +103,6 @@
             border-color: #ffd700;
         }
 
-        /* ===== SECCIONES ===== */
         .section {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 14px;
@@ -123,6 +120,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .section-title .badge {
@@ -133,7 +131,6 @@
             border-radius: 20px;
         }
 
-        /* ===== FORMULARIOS ===== */
         .form-group {
             display: flex;
             flex-direction: column;
@@ -172,7 +169,17 @@
             color: #555;
         }
 
-        /* ===== BOTONES GRANDES ===== */
+        .form-group input[type="date"] {
+            color-scheme: dark;
+            min-height: 48px;
+        }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
+            padding: 4px;
+        }
+
         .btn {
             padding: 16px 24px;
             border: none;
@@ -221,6 +228,16 @@
             box-shadow: 0 10px 40px rgba(0, 200, 80, 0.25);
         }
 
+        .btn-info {
+            background: linear-gradient(135deg, #0288d1, #01579b);
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: linear-gradient(135deg, #039be5, #0288d1);
+            box-shadow: 0 10px 40px rgba(2, 136, 209, 0.25);
+        }
+
         .btn-danger {
             background: linear-gradient(135deg, #d32f2f, #b71c1c);
             color: white;
@@ -241,27 +258,17 @@
             box-shadow: 0 10px 40px rgba(245, 124, 0, 0.25);
         }
 
-        .btn-info {
-            background: linear-gradient(135deg, #0288d1, #01579b);
-            color: white;
-        }
-
-        .btn-info:hover {
-            background: linear-gradient(135deg, #039be5, #0288d1);
-            box-shadow: 0 10px 40px rgba(2, 136, 209, 0.25);
+        .btn-xs {
+            padding: 4px 10px;
+            font-size: 10px;
+            min-height: 28px;
+            width: auto;
         }
 
         .btn-sm {
             padding: 8px 16px;
             font-size: 12px;
             min-height: 36px;
-            width: auto;
-        }
-
-        .btn-xs {
-            padding: 4px 10px;
-            font-size: 10px;
-            min-height: 28px;
             width: auto;
         }
 
@@ -273,10 +280,9 @@
 
         .btn-group .btn {
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
         }
 
-        /* ===== INFO DÍA ACTUAL ===== */
         .dia-actual-box {
             background: rgba(255, 215, 0, 0.06);
             border-radius: 10px;
@@ -292,7 +298,7 @@
 
         .dia-actual-box .label {
             color: #888;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -309,47 +315,12 @@
             font-size: 14px;
         }
 
-        /* ===== TABLA ===== */
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            -webkit-overflow-scrolling: touch;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            min-width: 500px;
-        }
-
-        th {
-            background: rgba(255, 215, 0, 0.08);
-            color: #ffd700;
-            padding: 8px 6px;
-            text-align: left;
+        .dia-actual-box .autos-count {
+            color: #4caf50;
             font-weight: 700;
-            text-transform: uppercase;
-            font-size: 9px;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.1);
-            white-space: nowrap;
+            font-size: 16px;
         }
 
-        td {
-            padding: 6px 6px;
-            color: #ccc;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 11px;
-        }
-
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        /* ===== ESTADÍSTICAS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -383,7 +354,43 @@
         .stats-card.orange .number { color: #ff9800; }
         .stats-card.purple .number { color: #ce93d8; }
 
-        /* ===== REGISTROS ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 500px;
+        }
+
+        th {
+            background: rgba(255, 215, 0, 0.08);
+            color: #ffd700;
+            padding: 8px 6px;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.1);
+        }
+
+        td {
+            padding: 6px 6px;
+            color: #ccc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 11px;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
         .registro-item {
             display: flex;
             justify-content: space-between;
@@ -436,7 +443,6 @@
             font-weight: 700;
         }
 
-        /* ===== MENSAJES ===== */
         .mensaje {
             padding: 10px 16px;
             border-radius: 10px;
@@ -463,7 +469,6 @@
             border-left: 4px solid #0288d1;
         }
 
-        /* ===== FOOTER ===== */
         .footer-actions {
             display: flex;
             gap: 8px;
@@ -476,8 +481,8 @@
 
         .footer-actions .btn {
             flex: 1;
-            min-width: 100px;
-            max-width: 180px;
+            min-width: 80px;
+            max-width: 160px;
             min-height: 44px;
             font-size: 13px;
             padding: 12px 16px;
@@ -487,74 +492,26 @@
             display: none !important;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            body {
-                padding: 6px;
-            }
-            .main-card {
-                padding: 12px;
-                border-radius: 14px;
-            }
-            .header h1 {
-                font-size: 1.4em;
-            }
-            .header .logo-icon {
-                font-size: 28px;
-            }
-            .section {
-                padding: 12px;
-                margin-bottom: 12px;
-            }
-            .btn {
-                font-size: 14px;
-                padding: 14px 20px;
-                min-height: 50px;
-            }
-            .footer-actions .btn {
-                min-width: 80px;
-                font-size: 12px;
-                padding: 10px 14px;
-                min-height: 40px;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-            }
-            .stats-card .number {
-                font-size: 18px;
-            }
-            .dia-actual-box {
-                flex-direction: column;
-                text-align: center;
-            }
-            .btn-group .btn {
-                min-width: 100%;
-            }
-            .registro-item .info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
-            .registro-item .acciones {
-                width: 100%;
-                justify-content: flex-end;
-            }
+            body { padding: 6px; }
+            .main-card { padding: 12px; border-radius: 14px; }
+            .header h1 { font-size: 1.4em; }
+            .header .logo-icon { font-size: 28px; }
+            .section { padding: 12px; margin-bottom: 12px; }
+            .btn { font-size: 14px; padding: 14px 20px; min-height: 50px; }
+            .footer-actions .btn { min-width: 70px; font-size: 12px; padding: 10px 14px; min-height: 40px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .stats-card .number { font-size: 18px; }
+            .dia-actual-box { flex-direction: column; text-align: center; }
+            .btn-group .btn { min-width: 100%; }
+            .registro-item .info { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .registro-item .acciones { width: 100%; justify-content: flex-end; }
         }
 
         @media print {
-            .btn, .footer-actions, .idioma-selector, .btn-group {
-                display: none !important;
-            }
-            .main-card {
-                background: white !important;
-                padding: 10px !important;
-                box-shadow: none !important;
-            }
-            body {
-                background: white !important;
-                padding: 10px !important;
-            }
+            .btn, .footer-actions, .idioma-selector, .btn-group { display: none !important; }
+            .main-card { background: white !important; padding: 10px !important; box-shadow: none !important; }
+            body { background: white !important; padding: 10px !important; }
             .header h1 { color: #000 !important; }
             .section { border-color: #ccc !important; background: #f9f9f9 !important; }
             th { background: #333 !important; color: white !important; }
@@ -589,12 +546,16 @@
 
             <!-- ===== CONFIGURACIÓN ===== -->
             <div id="configSection" class="section">
-                <div class="section-title" id="lblConfigTitle">👤 Iniciar Día</div>
+                <div class="section-title" id="lblConfigTitle">👤 Iniciar Registro</div>
                 <div class="form-group">
                     <label id="lblEmployeeName">Nombre del Empleado</label>
                     <input type="text" id="empleadoNombre" placeholder="Ej: Juan Pérez" required>
                 </div>
-                <button class="btn btn-gold" onclick="iniciarJornada()" id="btnStart">🚀 Iniciar Día</button>
+                <div class="form-group">
+                    <label id="lblStartDate">📅 Selecciona el primer día</label>
+                    <input type="date" id="fechaInicio" required>
+                </div>
+                <button class="btn btn-gold" onclick="iniciarJornada()" id="btnStart">🚀 Iniciar</button>
                 <div id="mensajeConfig" style="margin-top:10px;"></div>
             </div>
 
@@ -605,7 +566,7 @@
                 <!-- INFO DEL DÍA ACTUAL -->
                 <div class="dia-actual-box">
                     <div>
-                        <div class="label" id="lblCurrentDay">📅 Día actual</div>
+                        <div class="label" id="lblCurrentDay">📅 Día trabajando</div>
                         <div class="fecha" id="fechaActualDisplay">--/--/----</div>
                     </div>
                     <div>
@@ -614,8 +575,14 @@
                     </div>
                     <div>
                         <div class="label" id="lblVehiclesToday">🚗 Autos hoy</div>
-                        <div class="fecha" id="autosHoyDisplay">0</div>
+                        <div class="autos-count" id="autosHoyDisplay">0</div>
                     </div>
+                </div>
+
+                <!-- BOTONES PARA CAMBIAR DE DÍA -->
+                <div class="btn-group" style="margin-bottom:12px;">
+                    <button class="btn btn-info btn-sm" onclick="cambiarDia(-1)" id="btnPrevDay">◀ Día anterior</button>
+                    <button class="btn btn-warning btn-sm" onclick="cambiarDia(1)" id="btnNextDay">Día siguiente ▶</button>
                 </div>
 
                 <!-- CAMPOS RÁPIDOS -->
@@ -687,9 +654,10 @@
         const textos = {
             es: {
                 subtitle: 'Registro',
-                configTitle: '👤 Iniciar Día',
+                configTitle: '👤 Iniciar Registro',
                 employeeName: 'Nombre del Empleado',
-                start: '🚀 Iniciar Día',
+                startDate: '📅 Selecciona el primer día',
+                start: '🚀 Iniciar',
                 registerTitle: '🚗 Agregar Auto',
                 newRecord: 'Nuevo',
                 entryTime: '🕐 Hora Entrada',
@@ -707,8 +675,8 @@
                 exportExcel: '📊 Excel',
                 print: '🖨️ Imprimir',
                 clearAll: '🗑️ Limpiar',
-                startSuccess: '✅ Día iniciado para ',
-                startError: '⚠️ Ingresa tu nombre.',
+                startSuccess: '✅ Registro iniciado para ',
+                startError: '⚠️ Ingresa tu nombre y selecciona una fecha.',
                 recordSuccess: '✅ Auto "',
                 recordError: '⚠️ Ingresa hora de entrada y salida.',
                 deleteConfirm: '¿Eliminar este registro?',
@@ -717,17 +685,21 @@
                 exportEmpty: '⚠️ No hay registros para exportar.',
                 deleteMsg: '🗑️ Registro eliminado.',
                 clearMsg: '🗑️ Todos los registros eliminados.',
-                currentDay: '📅 Día actual',
+                currentDay: '📅 Día trabajando',
                 employee: '👤 Empleado',
                 vehiclesToday: '🚗 Autos hoy',
                 auto: 'auto',
-                autos: 'autos'
+                autos: 'autos',
+                dayChanged: '📅 Cambiado al día ',
+                prevDay: '◀ Día anterior',
+                nextDay: 'Día siguiente ▶'
             },
             en: {
                 subtitle: 'Log',
-                configTitle: '👤 Start Day',
+                configTitle: '👤 Start Log',
                 employeeName: 'Employee Name',
-                start: '🚀 Start Day',
+                startDate: '📅 Select the first day',
+                start: '🚀 Start',
                 registerTitle: '🚗 Add Vehicle',
                 newRecord: 'New',
                 entryTime: '🕐 Entry Time',
@@ -745,8 +717,8 @@
                 exportExcel: '📊 Excel',
                 print: '🖨️ Print',
                 clearAll: '🗑️ Clear',
-                startSuccess: '✅ Day started for ',
-                startError: '⚠️ Enter your name.',
+                startSuccess: '✅ Log started for ',
+                startError: '⚠️ Enter your name and select a date.',
                 recordSuccess: '✅ Vehicle "',
                 recordError: '⚠️ Enter entry and exit time.',
                 deleteConfirm: 'Delete this record?',
@@ -755,11 +727,14 @@
                 exportEmpty: '⚠️ No records to export.',
                 deleteMsg: '🗑️ Record deleted.',
                 clearMsg: '🗑️ All records deleted.',
-                currentDay: '📅 Current day',
+                currentDay: '📅 Working day',
                 employee: '👤 Employee',
                 vehiclesToday: '🚗 Vehicles today',
                 auto: 'vehicle',
-                autos: 'vehicles'
+                autos: 'vehicles',
+                dayChanged: '📅 Changed to ',
+                prevDay: '◀ Previous day',
+                nextDay: 'Next day ▶'
             }
         };
 
@@ -774,6 +749,7 @@
             document.getElementById('headerSubtitle').textContent = t.subtitle;
             document.getElementById('lblConfigTitle').textContent = t.configTitle;
             document.getElementById('lblEmployeeName').textContent = t.employeeName;
+            document.getElementById('lblStartDate').textContent = t.startDate;
             document.getElementById('btnStart').textContent = t.start;
             document.getElementById('lblRegisterTitle').innerHTML = t.registerTitle + ' <span class="badge" id="lblNewRecord">' + t.newRecord + '</span>';
             document.getElementById('lblEntryTime').textContent = t.entryTime;
@@ -794,6 +770,8 @@
             document.getElementById('lblCurrentDay').textContent = t.currentDay;
             document.getElementById('lblEmployee').textContent = t.employee;
             document.getElementById('lblVehiclesToday').textContent = t.vehiclesToday;
+            document.getElementById('btnPrevDay').textContent = t.prevDay;
+            document.getElementById('btnNextDay').textContent = t.nextDay;
         }
 
         // ============ VARIABLES ============
@@ -801,7 +779,7 @@
         let empleadoActual = '';
         let fechaActual = '';
 
-        // ============ INICIALIZAR ============
+        // ============ FUNCIONES DE FECHA ============
         function getFechaHoy() {
             const hoy = new Date();
             const year = hoy.getFullYear();
@@ -820,31 +798,68 @@
             return `${month}/${day}/${year}`;
         }
 
-        // ============ INICIAR DÍA ============
+        function sumarDias(fechaStr, dias) {
+            const fecha = new Date(fechaStr + 'T00:00:00');
+            fecha.setDate(fecha.getDate() + dias);
+            const year = fecha.getFullYear();
+            const month = String(fecha.getMonth() + 1).padStart(2, '0');
+            const day = String(fecha.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // ============ INICIAR JORNADA ============
         function iniciarJornada() {
             const nombre = document.getElementById('empleadoNombre').value.trim();
+            const fechaInicio = document.getElementById('fechaInicio').value;
             const t = textos[idiomaActual];
 
-            if (!nombre) {
+            if (!nombre || !fechaInicio) {
                 mostrarMensaje('configSection', t.startError, 'error');
                 return;
             }
 
             empleadoActual = nombre;
-            fechaActual = getFechaHoy();
+            fechaActual = fechaInicio;
             registros = [];
 
             document.getElementById('configSection').classList.add('hidden');
             document.getElementById('registroSection').classList.remove('hidden');
             document.getElementById('listaSection').classList.remove('hidden');
 
-            // Actualizar info del día
-            document.getElementById('fechaActualDisplay').textContent = formatDateDisplay(fechaActual);
-            document.getElementById('empleadoActualDisplay').textContent = empleadoActual;
-            document.getElementById('autosHoyDisplay').textContent = '0';
-
+            actualizarInfoDia();
             mostrarMensaje('configSection', t.startSuccess + nombre, 'exito');
             actualizarLista();
+        }
+
+        // ============ CAMBIAR DÍA ============
+        function cambiarDia(direccion) {
+            const t = textos[idiomaActual];
+            fechaActual = sumarDias(fechaActual, direccion);
+            actualizarInfoDia();
+            mostrarMensaje('registroSection', t.dayChanged + formatDateDisplay(fechaActual), 'info');
+            
+            // Limpiar campos de hora al cambiar de día
+            document.getElementById('horaEntrada').value = '';
+            document.getElementById('horaSalida').value = '';
+            document.getElementById('auto').value = '';
+            document.getElementById('servicio').value = '';
+            document.getElementById('cobro').value = '';
+            document.getElementById('propina').value = '';
+            
+            // Actualizar contador de autos del día
+            const autosHoy = registros.filter(r => r.fecha === fechaActual).length;
+            document.getElementById('autosHoyDisplay').textContent = autosHoy;
+            
+            // Poner foco en hora entrada
+            document.getElementById('horaEntrada').focus();
+        }
+
+        // ============ ACTUALIZAR INFO DEL DÍA ============
+        function actualizarInfoDia() {
+            document.getElementById('fechaActualDisplay').textContent = formatDateDisplay(fechaActual);
+            document.getElementById('empleadoActualDisplay').textContent = empleadoActual;
+            const autosHoy = registros.filter(r => r.fecha === fechaActual).length;
+            document.getElementById('autosHoyDisplay').textContent = autosHoy;
         }
 
         // ============ AGREGAR AUTO ============
@@ -877,12 +892,9 @@
 
             registros.push(registro);
             actualizarLista();
+            actualizarInfoDia();
 
-            // Actualizar contador de autos hoy
-            const autosHoy = registros.filter(r => r.fecha === fechaActual).length;
-            document.getElementById('autosHoyDisplay').textContent = autosHoy;
-
-            // Limpiar campos (menos la fecha que está fija)
+            // Limpiar campos
             document.getElementById('horaEntrada').value = '';
             document.getElementById('horaSalida').value = '';
             document.getElementById('auto').value = '';
@@ -890,7 +902,6 @@
             document.getElementById('cobro').value = '';
             document.getElementById('propina').value = '';
 
-            // Poner el foco en hora entrada para el siguiente auto
             document.getElementById('horaEntrada').focus();
 
             mostrarMensaje('registroSection', t.recordSuccess + auto + '" registrado.', 'exito');
@@ -902,11 +913,7 @@
             if (confirm(t.deleteConfirm)) {
                 registros.splice(index, 1);
                 actualizarLista();
-                
-                // Actualizar contador de autos hoy
-                const autosHoy = registros.filter(r => r.fecha === fechaActual).length;
-                document.getElementById('autosHoyDisplay').textContent = autosHoy;
-                
+                actualizarInfoDia();
                 mostrarMensaje('listaSection', t.deleteMsg, 'info');
             }
         }
@@ -917,7 +924,7 @@
             if (confirm(t.clearConfirm)) {
                 registros = [];
                 actualizarLista();
-                document.getElementById('autosHoyDisplay').textContent = '0';
+                actualizarInfoDia();
                 mostrarMensaje('listaSection', t.clearMsg, 'info');
             }
         }
@@ -935,7 +942,6 @@
             }
 
             let html = '';
-            // Mostrar todos los registros en orden (más reciente primero)
             const registrosReves = [...registros].reverse();
             
             registrosReves.forEach((r, i) => {
@@ -947,6 +953,7 @@
                     <div class="registro-item">
                         <div class="info">
                             <span class="numero-auto">#${numAuto}</span>
+                            <span style="color:#ffd700;font-size:11px;">${formatDateDisplay(r.fecha)}</span>
                             <span class="auto">🚗 ${r.auto}</span>
                             <span class="detalle">⏱ ${r.horaEntrada} - ${r.horaSalida} · ${horasFormateadas}</span>
                             <span class="detalle">🔧 ${r.servicio}</span>
@@ -1015,14 +1022,13 @@
             csv += '\nTOTALES,,,,,' + totalHoras.toFixed(2).replace('.', ',') + ',,' + totalCobro.toFixed(2).replace('.', ',') + ',' + totalPropina.toFixed(2).replace('.', ',');
 
             csv += `\n\nEmpleado: ${empleadoActual}`;
-            csv += `\nFecha: ${formatDateDisplay(fechaActual)}`;
             csv += `\nCapitol Shine - Detailing & Auto Spa`;
 
             const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.href = url;
-            link.download = `CapitolShine_${empleadoActual}_${fechaActual}.csv`;
+            link.download = `CapitolShine_${empleadoActual}_${new Date().toISOString().slice(0,10)}.csv`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -1069,9 +1075,12 @@
         }
 
         // ============ INICIALIZAR ============
-        console.log('✨ Capitol Shine - Sistema Simplificado');
-        console.log('🚀 2 BOTONES: Iniciar Día + Agregar Auto');
-        console.log('📱 Optimizado para PC y Celular');
+        // Poner fecha de hoy por defecto en el selector
+        document.getElementById('fechaInicio').value = getFechaHoy();
+
+        console.log('✨ Capitol Shine - Sistema con control de días');
+        console.log('📅 Selecciona el primer día y navega entre días');
+        console.log('🚗 Múltiples autos por día');
         console.log('🌍 Idiomas: Español/Inglés');
     </script>
 </body>
