@@ -457,27 +457,6 @@
             min-width: 150px;
         }
 
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            background: white;
-            border-radius: 6px;
-            margin-bottom: 5px;
-            border: 1px solid #e0e6ed;
-            transition: background 0.5s;
-        }
-
-        .list-item .item-name {
-            font-weight: 500;
-        }
-
-        .list-item .item-actions {
-            display: flex;
-            gap: 5px;
-        }
-
         .logo-upload {
             display: flex;
             gap: 10px;
@@ -490,15 +469,6 @@
             padding: 8px;
             border: 2px solid #e0e6ed;
             border-radius: 8px;
-        }
-
-        .logo-preview {
-            max-height: 60px;
-            max-width: 200px;
-            object-fit: contain;
-            border: 1px solid #e0e6ed;
-            border-radius: 8px;
-            padding: 5px;
         }
 
         .mensaje-exito {
@@ -547,19 +517,32 @@
             color: #c0392b;
         }
 
-        .boss-management {
+        .historial-empleado {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: background 0.5s;
+        }
+
+        .historial-empleado h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .filtro-fecha {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             align-items: center;
+            margin-bottom: 15px;
         }
 
-        .boss-management input {
-            padding: 10px;
+        .filtro-fecha input {
+            padding: 8px 12px;
             border: 2px solid #e0e6ed;
             border-radius: 8px;
             font-size: 14px;
-            min-width: 150px;
         }
 
         @media print {
@@ -572,7 +555,8 @@
             .btn-primary,
             .btn-edit,
             .btn-danger,
-            .modal {
+            .modal,
+            .filtro-fecha {
                 display: none !important;
             }
             .tab-content {
@@ -689,7 +673,53 @@
                         <button type="submit" class="btn-primary">📝 Guardar Registro</button>
                     </form>
 
-                    <div id="employeeTotals" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; transition: background 0.5s;">
+                    <!-- HISTORIAL DEL EMPLEADO -->
+                    <div class="historial-empleado">
+                        <h3>📊 Tu Historial</h3>
+                        <div class="filtro-fecha">
+                            <label>📅 Filtrar por fecha:</label>
+                            <input type="date" id="empleadoFiltroFecha" onchange="renderEmpleadoHistorial()">
+                            <button class="btn-info btn-sm" onclick="empleadoFiltroFecha.value=''; renderEmpleadoHistorial();">Mostrar todo</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Entrada</th>
+                                        <th>Salida</th>
+                                        <th>Auto</th>
+                                        <th>Servicio</th>
+                                        <th>Cobro</th>
+                                        <th>Propina</th>
+                                        <th>Quincena</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="empleadoHistorialBody">
+                                    <tr>
+                                        <td colspan="8" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="stats-grid" id="empleadoHistorialStats">
+                            <div class="stats-card blue">
+                                <div class="number" id="empHistorialTotal">0</div>
+                                <div class="label">Total Registros</div>
+                            </div>
+                            <div class="stats-card green">
+                                <div class="number" id="empHistorialCobros">$0</div>
+                                <div class="label">Total Cobros</div>
+                            </div>
+                            <div class="stats-card orange">
+                                <div class="number" id="empHistorialPropinas">$0</div>
+                                <div class="label">Total Propinas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Totales del empleado actual (quincena) -->
+                    <div id="employeeTotals" style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; transition: background 0.5s;">
                         <h3 style="margin-bottom: 15px;">📊 Tus Totales de Esta Quincena</h3>
                         <div class="stats-grid" id="employeeStatsGrid">
                             <div class="stats-card blue">
@@ -757,6 +787,10 @@
                             <select id="filterEmployee">
                                 <option value="todos">Todos</option>
                             </select>
+                        </div>
+                        <div>
+                            <label style="font-weight:600; margin-right:10px;">📅 Fecha:</label>
+                            <input type="date" id="bossFiltroFecha" onchange="renderTable()" style="padding:8px; border-radius:8px; border:2px solid #e0e6ed;">
                         </div>
                     </div>
 
@@ -1274,7 +1308,6 @@
             const passwords = getPasswords();
             const empleados = Object.keys(passwords.empleados).sort();
             
-            // Para el JEFE
             const bossContainer = document.getElementById('bossPasswordList');
             if (bossContainer) {
                 bossContainer.innerHTML = empleados.map(emp => `
@@ -1318,6 +1351,7 @@
                 status.innerHTML = '✅ Clave correcta.';
                 status.style.color = '#27ae60';
                 document.getElementById('employeeFormContainer').style.display = 'block';
+                renderEmpleadoHistorial();
                 updateEmployeeStats();
             } else {
                 status.innerHTML = '❌ Clave incorrecta.';
@@ -1507,6 +1541,7 @@
                 saveRecords(records);
                 renderTable();
                 updateAllStats();
+                renderEmpleadoHistorial();
             }
         }
 
@@ -1520,6 +1555,7 @@
                 renderTable();
                 updateAllStats();
                 updateQuincenaSelector();
+                renderEmpleadoHistorial();
                 alert('✅ Datos borrados.');
             }
         }
@@ -1529,6 +1565,7 @@
             const records = getRecords();
             const quincenaFilter = document.getElementById('quincenaSelect').value;
             const employeeFilter = document.getElementById('filterEmployee').value;
+            const fechaFilter = document.getElementById('bossFiltroFecha').value;
 
             let filtered = records;
             if (quincenaFilter !== 'todas') {
@@ -1536,6 +1573,9 @@
             }
             if (employeeFilter !== 'todos') {
                 filtered = filtered.filter(r => r.empleado === employeeFilter);
+            }
+            if (fechaFilter) {
+                filtered = filtered.filter(r => r.fecha === fechaFilter);
             }
             return filtered;
         }
@@ -1572,10 +1612,57 @@
             }).join('');
         }
 
+        // ============ HISTORIAL DEL EMPLEADO ============
+        function renderEmpleadoHistorial() {
+            if (!isEmployeeVerified || !currentEmployee) return;
+            
+            const records = getRecords();
+            const fechaFiltro = document.getElementById('empleadoFiltroFecha').value;
+            
+            let filtered = records.filter(r => r.empleado === currentEmployee);
+            if (fechaFiltro) {
+                filtered = filtered.filter(r => r.fecha === fechaFiltro);
+            }
+            
+            // Ordenar por fecha descendente (más reciente primero)
+            filtered.sort((a, b) => b.fecha.localeCompare(a.fecha) || b.horaEntrada.localeCompare(a.horaEntrada));
+            
+            const tbody = document.getElementById('empleadoHistorialBody');
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros para esta fecha</td></tr>`;
+                document.getElementById('empHistorialTotal').textContent = '0';
+                document.getElementById('empHistorialCobros').textContent = '$0';
+                document.getElementById('empHistorialPropinas').textContent = '$0';
+                return;
+            }
+            
+            tbody.innerHTML = filtered.map(r => `
+                <tr>
+                    <td>${r.fecha}</td>
+                    <td>${r.horaEntrada}</td>
+                    <td>${r.horaSalida}</td>
+                    <td>${r.auto}</td>
+                    <td>${r.servicio}</td>
+                    <td>$${parseFloat(r.cobro).toFixed(2)}</td>
+                    <td>$${parseFloat(r.propina).toFixed(2)}</td>
+                    <td>${getQuincenaLabel(r.quincena)}</td>
+                </tr>
+            `).join('');
+            
+            // Actualizar estadísticas del historial
+            document.getElementById('empHistorialTotal').textContent = filtered.length;
+            const totalCobro = filtered.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
+            document.getElementById('empHistorialCobros').textContent = `$${totalCobro.toFixed(2)}`;
+            const totalPropina = filtered.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
+            document.getElementById('empHistorialPropinas').textContent = `$${totalPropina.toFixed(2)}`;
+        }
+
         // ============ ESTADÍSTICAS ============
         function updateAllStats() {
             updateEmployeeStats();
             updateBossStats();
+            if (isEmployeeVerified) renderEmpleadoHistorial();
         }
 
         function updateEmployeeStats() {
@@ -1702,6 +1789,7 @@
                 renderTable();
                 updateAllStats();
                 updateQuincenaSelector();
+                renderEmpleadoHistorial();
             }
         });
 
@@ -1764,11 +1852,28 @@
             renderTable();
             updateAllStats();
             updateQuincenaSelector();
+            renderEmpleadoHistorial();
             alert('✅ Registro actualizado.');
         });
 
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
+        });
+
+        // ============ EVENTOS DE FILTRO ============
+        document.getElementById('quincenaSelect').addEventListener('change', function() {
+            renderTable();
+            updateBossStats();
+        });
+
+        document.getElementById('filterEmployee').addEventListener('change', function() {
+            renderTable();
+            updateBossStats();
+        });
+
+        document.getElementById('bossFiltroFecha').addEventListener('change', function() {
+            renderTable();
+            updateBossStats();
         });
 
         // ============ PESTAÑAS ============
@@ -1779,6 +1884,15 @@
                 this.classList.add('active');
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 document.getElementById(tab).classList.add('active');
+                
+                if (tab === 'boss' && isBossVerified) {
+                    renderTable();
+                    updateBossStats();
+                }
+                if (tab === 'employee' && isEmployeeVerified) {
+                    renderEmpleadoHistorial();
+                    updateEmployeeStats();
+                }
             });
         });
 
@@ -1805,10 +1919,10 @@
         renderTable();
         updateAllStats();
 
-        console.log('🚀 Sistema de Administración cargado.');
-        console.log('👔 Jefe: admin123 (Puede gestionar empleados y claves)');
-        console.log('⚙️ Admin: admin123 (Puede personalizar colores, logo, autos y servicios)');
-        console.log('👥 Empleados: emp1, emp2, emp3, ...');
+        console.log('🚀 Sistema de Registro cargado correctamente.');
+        console.log('👔 Jefe: admin123 (Gestiona empleados, claves y ve todos los registros)');
+        console.log('⚙️ Admin: admin123 (Personaliza colores, logo, autos y servicios)');
+        console.log('👥 Empleados: emp1, emp2, emp3, ... (Ven su historial y registros)');
     </script>
 </body>
 </html>
