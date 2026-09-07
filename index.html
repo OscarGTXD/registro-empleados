@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Registro</title>
+    <title>Registro Temporal de Jornada</title>
     <style>
         * {
             margin: 0;
@@ -16,11 +16,10 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
-            transition: background 0.5s;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -29,133 +28,49 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transition: background 0.5s, color 0.5s;
         }
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .header-logo {
+        .header {
             text-align: center;
-            flex: 1;
+            margin-bottom: 30px;
         }
 
-        .header-logo img {
-            max-height: 80px;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        .header-logo .logo-placeholder {
-            font-size: 48px;
-        }
-
-        .idioma-selector {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
-
-        .idioma-selector button {
-            padding: 6px 15px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 13px;
-        }
-
-        .idioma-selector button:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .idioma-selector button.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+        .header .icon {
+            font-size: 60px;
         }
 
         h1 {
-            text-align: center;
             color: #2c3e50;
-            margin-bottom: 10px;
             font-size: 2.2em;
-            transition: color 0.5s;
+            margin-top: 10px;
         }
 
         .subtitle {
-            text-align: center;
             color: #7f8c8d;
-            margin-bottom: 30px;
             font-size: 1em;
-            transition: color 0.5s;
         }
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
         }
 
-        .tab-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            background: #ecf0f1;
+        .section h2 {
             color: #2c3e50;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn:hover {
-            background: #d5dbdb;
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-bottom: 20px;
         }
 
         .form-group {
@@ -168,31 +83,30 @@
             color: #34495e;
             margin-bottom: 5px;
             font-size: 13px;
-            transition: color 0.5s;
         }
 
         .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group select {
             padding: 10px;
             border: 2px solid #e0e6ed;
             border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s, background 0.3s, color 0.3s;
+            transition: border-color 0.3s;
         }
 
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+        .form-group input[type="text"] {
+            text-transform: uppercase;
+        }
+
+        .btn {
             padding: 12px 30px;
+            border: none;
             border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
@@ -200,92 +114,60 @@
             transition: all 0.3s;
         }
 
-        .btn-primary:hover {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
         .btn-success {
             background: #27ae60;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 5px;
         }
 
         .btn-success:hover {
             background: #229954;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
         }
 
         .btn-warning {
             background: #f39c12;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 5px;
         }
 
         .btn-warning:hover {
             background: #e67e22;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
-        }
-
-        .btn-info {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 5px;
-        }
-
-        .btn-info:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
         }
 
         .btn-danger {
             background: #e74c3c;
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
         }
 
         .btn-danger:hover {
             background: #c0392b;
-            transform: scale(1.05);
+        }
+
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #2980b9;
         }
 
         .btn-sm {
-            padding: 4px 12px;
-            font-size: 11px;
+            padding: 6px 14px;
+            font-size: 12px;
         }
 
         .table-wrapper {
             overflow-x: auto;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         table {
@@ -311,19 +193,11 @@
             background: #f8f9fa;
         }
 
-        .actions {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .stats-card {
@@ -332,7 +206,6 @@
             padding: 15px;
             border-radius: 12px;
             text-align: center;
-            transition: background 0.5s;
         }
 
         .stats-card .number {
@@ -353,345 +226,112 @@
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
-        .stats-card.blue {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
         .stats-card.purple {
             background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
         }
 
-        .employee-selector {
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: background 0.5s;
-        }
-
-        .employee-selector select {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 2px solid #e0e6ed;
-            font-size: 16px;
-            min-width: 200px;
-        }
-
-        .password-section {
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            transition: background 0.5s, border-color 0.5s;
-        }
-
-        .password-section input {
-            padding: 10px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-right: 10px;
-            width: 200px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .quincena-selector {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: background 0.5s;
-        }
-
-        .quincena-selector select,
-        .quincena-selector input {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 2px solid #e0e6ed;
-            font-size: 15px;
-            min-width: 150px;
-        }
-
-        .admin-section {
-            margin: 20px 0;
-            padding: 20px;
-            background: #e8f0fe;
-            border-radius: 10px;
-            border-left: 4px solid #3498db;
-            transition: background 0.5s, border-color 0.5s;
-        }
-
-        .admin-section h3 {
-            margin-bottom: 15px;
-            color: #2c3e50;
-            transition: color 0.5s;
-        }
-
-        .color-picker-group {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .color-picker-group label {
-            font-weight: 600;
-            min-width: 100px;
-        }
-
-        .color-picker-group input[type="color"] {
-            width: 50px;
-            height: 40px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 2px;
-        }
-
-        .logo-upload {
+        .actions-bar {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            align-items: center;
-            margin: 10px 0;
+            justify-content: center;
+            margin: 20px 0;
         }
 
-        .logo-upload input[type="file"] {
-            padding: 8px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-        }
-
-        .mensaje-exito {
-            background: #d4edda;
-            color: #155724;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            border-left: 4px solid #28a745;
-        }
-
-        .mensaje-error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            border-left: 4px solid #dc3545;
-        }
-
-        .password-list {
-            margin: 15px 0;
-        }
-
-        .password-item {
+        .registro-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 10px 15px;
             background: white;
             border-radius: 8px;
             margin-bottom: 8px;
             border: 1px solid #e0e6ed;
         }
 
-        .password-item .employee-name {
+        .registro-item .info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .registro-item .info span {
+            font-size: 13px;
+        }
+
+        .registro-item .info .fecha {
             font-weight: 600;
             color: #2c3e50;
         }
 
-        .password-item .employee-password {
-            color: #7f8c8d;
-            font-family: monospace;
-        }
-
-        .tag-container {
+        .registro-item .acciones {
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin: 5px 0;
-        }
-
-        .tag {
-            background: #e9ecef;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
             gap: 5px;
         }
 
-        .tag .remove-tag {
-            cursor: pointer;
-            color: #dc3545;
-            font-weight: bold;
-            margin-left: 5px;
+        .hidden {
+            display: none !important;
         }
 
-        .tag .remove-tag:hover {
-            color: #c0392b;
-        }
-
-        .historial-empleado {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: background 0.5s;
-        }
-
-        .historial-empleado h3 {
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .filtro-fecha {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .filtro-fecha input {
-            padding: 8px 12px;
-            border: 2px solid #e0e6ed;
+        .mensaje {
+            padding: 12px 20px;
             border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .boss-name-section {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
             margin: 10px 0;
+            font-weight: 500;
         }
 
-        .boss-name-section input {
-            padding: 10px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            font-size: 14px;
-            min-width: 150px;
+        .mensaje-exito {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
         }
 
-        .empleado-item {
+        .mensaje-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .mensaje-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .footer-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 5px;
-            border: 1px solid #e0e6ed;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e6ed;
         }
 
-        .empleado-item .emp-name {
-            font-weight: 600;
-        }
-
-        .empleado-item .emp-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .btn-edit-record {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-edit-record:hover {
-            background: #2980b9;
-            transform: scale(1.05);
-        }
-
-        .btn-delete-record {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-delete-record:hover {
-            background: #c0392b;
-            transform: scale(1.05);
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .registro-item {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+            .registro-item .info {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .registro-item .acciones {
+                justify-content: flex-end;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
         }
 
         @media print {
-            .tab-btn,
-            .actions,
-            .employee-selector,
-            .quincena-selector,
-            .password-section,
-            .admin-section,
-            .btn-primary,
-            .btn-edit,
-            .btn-danger,
-            .modal,
-            .filtro-fecha,
-            .idioma-selector,
-            .boss-name-section {
+            .btn, .actions-bar, .footer-actions {
                 display: none !important;
-            }
-            .tab-content {
-                display: block !important;
             }
             .main-card {
                 box-shadow: none !important;
@@ -702,1197 +342,403 @@
                 padding: 10px !important;
             }
         }
-
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .tabs {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .tab-btn {
-                text-align: center;
-            }
-            h1 {
-                font-size: 1.6em;
-            }
-            .password-section input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .header-top {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="main-card" id="mainCard">
-            <div class="header-top">
-                <div class="header-logo" id="headerLogo">
-                    <div class="logo-placeholder" id="logoPlaceholder">🔧</div>
-                    <img id="logoImage" style="display:none; max-height:80px; max-width:100%; object-fit:contain;" alt="Logo">
-                </div>
-                <div class="idioma-selector">
-                    <button class="active" onclick="cambiarIdioma('es')" id="btnEs">🇪🇸 Español</button>
-                    <button onclick="cambiarIdioma('en')" id="btnEn">🇬🇧 English</button>
-                </div>
+        <div class="main-card">
+            <div class="header">
+                <div class="icon">📋</div>
+                <h1>Registro de Jornada</h1>
+                <p class="subtitle">Sistema temporal • Exporta tus datos al finalizar</p>
             </div>
 
-            <h1 id="mainTitle">📋 Sistema de Registro</h1>
-            <p class="subtitle" id="mainSubtitle">Sistema completo con administración • Personaliza colores, logo y servicios</p>
-
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="employee" id="tabEmployee">👤 Empleado</button>
-                <button class="tab-btn" data-tab="boss" id="tabBoss">👔 Jefe</button>
-                <button class="tab-btn" data-tab="admin" id="tabAdmin">⚙️ Administración</button>
-            </div>
-
-            <!-- ==================== PESTAÑA EMPLEADO ==================== -->
-            <div id="employee" class="tab-content active">
-                <div class="employee-selector">
-                    <label style="font-weight:600; margin-right:15px;" id="lblSelectEmployee">👤 Selecciona tu nombre:</label>
-                    <select id="employeeSelect"></select>
-                </div>
-
-                <div class="password-section">
-                    <label style="font-weight:600; margin-right:15px;" id="lblEnterPassword">🔑 Ingresa tu clave:</label>
-                    <input type="password" id="employeePassword" placeholder="Ingresa tu clave">
-                    <button class="btn-primary" onclick="verifyPassword()" style="padding: 10px 20px;" id="btnVerify">✅ Verificar</button>
-                    <div id="passwordStatus" style="margin-top: 10px; font-weight: 600;"></div>
-                </div>
-
-                <div id="employeeFormContainer" style="display: none;">
-                    <form id="registerForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label id="lblDate">📅 Fecha</label>
-                                <input type="date" id="fecha" required>
-                            </div>
-                            <div class="form-group">
-                                <label id="lblEntryTime">🕐 Hora Entrada</label>
-                                <input type="time" id="horaEntrada" required>
-                            </div>
-                            <div class="form-group">
-                                <label id="lblExitTime">🕐 Hora Salida</label>
-                                <input type="time" id="horaSalida" required>
-                            </div>
-                            <div class="form-group">
-                                <label id="lblAuto">🚗 Auto Atendido</label>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                    <select id="autoSelect" style="flex: 2; min-width: 120px;">
-                                        <option value="">Selecciona o escribe...</option>
-                                    </select>
-                                    <input type="text" id="autoOtro" placeholder="Escribe el auto..." style="flex: 2; min-width: 120px; padding: 10px; border: 2px solid #e0e6ed; border-radius: 8px;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="lblService">🔧 Servicio</label>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                    <select id="servicioSelect" style="flex: 2; min-width: 120px;">
-                                        <option value="">Selecciona o escribe...</option>
-                                    </select>
-                                    <input type="text" id="servicioOtro" placeholder="Escribe el servicio..." style="flex: 2; min-width: 120px; padding: 10px; border: 2px solid #e0e6ed; border-radius: 8px;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="lblCharge">💰 Cobro ($)</label>
-                                <input type="number" id="cobro" placeholder="0.00" step="0.01" required>
-                            </div>
-                            <div class="form-group">
-                                <label id="lblTip">💵 Propina ($)</label>
-                                <input type="number" id="propina" placeholder="0.00" step="0.01" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-primary" id="btnSaveRecord">📝 Guardar Registro</button>
-                    </form>
-
-                    <!-- HISTORIAL DEL EMPLEADO -->
-                    <div class="historial-empleado">
-                        <h3 id="lblYourHistory">📊 Tu Historial</h3>
-                        <div class="filtro-fecha">
-                            <label id="lblFilterDate">📅 Filtrar por fecha:</label>
-                            <input type="date" id="empleadoFiltroFecha" onchange="renderEmpleadoHistorial()">
-                            <button class="btn-info btn-sm" onclick="empleadoFiltroFecha.value=''; renderEmpleadoHistorial();" id="btnShowAll">Mostrar todo</button>
-                        </div>
-                        <div class="table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th id="thDate">Fecha</th>
-                                        <th id="thEntry">Entrada</th>
-                                        <th id="thExit">Salida</th>
-                                        <th id="thHours">Horas</th>
-                                        <th id="thAuto">Auto</th>
-                                        <th id="thService">Servicio</th>
-                                        <th id="thCharge">Cobro</th>
-                                        <th id="thTip">Propina</th>
-                                        <th id="thQuincena">Quincena</th>
-                                        <th id="thActionsEmp">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="empleadoHistorialBody">
-                                    <tr>
-                                        <td colspan="10" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="stats-grid" id="empleadoHistorialStats">
-                            <div class="stats-card blue">
-                                <div class="number" id="empHistorialTotal">0</div>
-                                <div class="label" id="lblTotalRecords">Total Registros</div>
-                            </div>
-                            <div class="stats-card purple">
-                                <div class="number" id="empHistorialHoras">0h</div>
-                                <div class="label" id="lblTotalHours">Total Horas</div>
-                            </div>
-                            <div class="stats-card green">
-                                <div class="number" id="empHistorialCobros">$0</div>
-                                <div class="label" id="lblTotalCharges">Total Cobros</div>
-                            </div>
-                            <div class="stats-card orange">
-                                <div class="number" id="empHistorialPropinas">$0</div>
-                                <div class="label" id="lblTotalTips">Total Propinas</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Totales del empleado actual (quincena) -->
-                    <div id="employeeTotals" style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; transition: background 0.5s;">
-                        <h3 style="margin-bottom: 15px;" id="lblQuincenaTotals">📊 Tus Totales de Esta Quincena</h3>
-                        <div class="stats-grid" id="employeeStatsGrid">
-                            <div class="stats-card blue">
-                                <div class="number" id="empTotalRegistros">0</div>
-                                <div class="label" id="lblRecords">Registros</div>
-                            </div>
-                            <div class="stats-card purple">
-                                <div class="number" id="empTotalHoras">0h</div>
-                                <div class="label" id="lblHours">Horas</div>
-                            </div>
-                            <div class="stats-card green">
-                                <div class="number" id="empTotalCobros">$0</div>
-                                <div class="label" id="lblCharges">Total Cobros</div>
-                            </div>
-                            <div class="stats-card orange">
-                                <div class="number" id="empTotalPropinas">$0</div>
-                                <div class="label" id="lblTips">Total Propinas</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ==================== PESTAÑA JEFE ==================== -->
-            <div id="boss" class="tab-content">
-                <div class="password-section" style="border-left-color: #28a745;">
-                    <label style="font-weight:600; margin-right:15px;" id="lblBossLogin">👔 Ingresa como Jefe:</label>
-                    <input type="password" id="bossPasswordInput" placeholder="Clave del jefe">
-                    <button class="btn-success" onclick="verifyBossAccess()" style="padding: 10px 20px;" id="btnBossAccess">✅ Acceder</button>
-                    <div id="bossStatus" style="margin-top: 10px; font-weight: 600;"></div>
-                </div>
-
-                <div id="bossContent" style="display: none;">
-                    <!-- Cambiar nombre del jefe -->
-                    <div class="admin-section" style="border-left-color: #28a745;">
-                        <h3 id="lblChangeBossName">✏️ Cambiar nombre del jefe</h3>
-                        <div class="boss-name-section">
-                            <input type="text" id="bossNameInput" placeholder="Nuevo nombre del jefe">
-                            <button class="btn-warning" onclick="changeBossName()" id="btnSaveBossName">💾 Guardar Nombre</button>
-                            <span id="bossNameDisplay" style="font-weight:600; color:#2c3e50;"></span>
-                        </div>
-                    </div>
-
-                    <!-- Gestión de empleados y claves para el JEFE -->
-                    <div class="admin-section" style="border-left-color: #28a745;">
-                        <h3 id="lblManageEmployees">👔 Gestión de Empleados y Claves</h3>
-                        <div style="background: #d4edda; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                            <strong id="lblCurrentBoss">👔 Jefe actual:</strong> <span id="bossNameDisplay2">BOSS</span>
-                            <button class="btn-warning" onclick="changeBossPassword()" style="padding: 5px 15px; font-size: 12px; margin-left: 10px;" id="lblChangeBossPass">Cambiar clave del jefe</button>
-                        </div>
-
-                        <!-- Lista de empleados -->
-                        <h4 id="lblEmployeeList">📋 Lista de Empleados</h4>
-                        <div id="empleadosList" style="margin: 10px 0;"></div>
-
-                        <!-- Agregar empleado -->
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px;">
-                            <input type="text" id="nuevoEmpleadoInput" placeholder="Nombre del nuevo empleado" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <input type="text" id="nuevoEmpleadoClave" placeholder="Clave inicial" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 120px;">
-                            <button class="btn-success" onclick="agregarEmpleado()" id="btnAddEmployee">➕ Agregar Empleado</button>
-                        </div>
-                        <div id="empleadoMessage" style="margin-top: 10px;"></div>
-
-                        <hr style="margin: 20px 0;">
-
-                        <!-- Cambiar claves -->
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                            <select id="bossPasswordEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
-                            <input type="text" id="bossNewPasswordInput" placeholder="Nueva clave" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-primary" onclick="bossSetEmployeePassword()" id="btnSavePassword">💾 Guardar Clave</button>
-                        </div>
-                        <div id="bossPasswordMessage" style="margin-top: 10px;"></div>
-                    </div>
-
-                    <div class="admin-section" style="border-left-color: #ffc107;">
-                        <h3 id="lblRenameEmployee">✏️ Cambiar nombre de empleados</h3>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                            <select id="bossRenameEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
-                            <input type="text" id="bossNewEmployeeNameInput" placeholder="Nuevo nombre" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-warning" onclick="bossRenameEmployee()" id="btnRenameEmployee">✏️ Cambiar Nombre</button>
-                        </div>
-                        <div id="bossRenameMessage" style="margin-top: 10px;"></div>
-                    </div>
-
-                    <div class="quincena-selector">
-                        <div>
-                            <label style="font-weight:600; margin-right:10px;" id="lblSelectQuincena">📆 Selecciona Quincena:</label>
-                            <select id="quincenaSelect">
-                                <option value="todas">Todas las quincenas</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="font-weight:600; margin-right:10px;" id="lblFilterEmployee">👤 Filtrar por empleado:</label>
-                            <select id="filterEmployee">
-                                <option value="todos">Todos</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="font-weight:600; margin-right:10px;" id="lblFilterDate2">📅 Fecha:</label>
-                            <input type="date" id="bossFiltroFecha" onchange="renderTable()" style="padding:8px; border-radius:8px; border:2px solid #e0e6ed;">
-                        </div>
-                    </div>
-
-                    <div class="stats-grid" id="bossStatsGrid">
-                        <div class="stats-card blue">
-                            <div class="number" id="bossTotalRegistros">0</div>
-                            <div class="label" id="lblTotalRecords2">Total Registros</div>
-                        </div>
-                        <div class="stats-card purple">
-                            <div class="number" id="bossTotalHoras">0h</div>
-                            <div class="label" id="lblTotalHours2">Total Horas</div>
-                        </div>
-                        <div class="stats-card green">
-                            <div class="number" id="bossTotalCobros">$0</div>
-                            <div class="label" id="lblTotalCharges2">Total Cobros</div>
-                        </div>
-                        <div class="stats-card orange">
-                            <div class="number" id="bossTotalPropinas">$0</div>
-                            <div class="label" id="lblTotalTips2">Total Propinas</div>
-                        </div>
-                    </div>
-
-                    <div class="actions">
-                        <button class="btn-success" onclick="exportToExcel()" id="btnExportExcel">📊 Exportar a Excel</button>
-                        <button class="btn-warning" onclick="window.print()" id="btnPrint">🖨️ Imprimir</button>
-                        <button class="btn-danger" onclick="clearAllData()" style="padding:12px 25px; font-size:14px;" id="btnDeleteAll">🗑️ Borrar Todos</button>
-                    </div>
-
-                    <div class="table-wrapper">
-                        <table id="recordsTable">
-                            <thead>
-                                <tr>
-                                    <th id="thEmployee">Empleado</th>
-                                    <th id="thDate2">Fecha</th>
-                                    <th id="thEntry2">Entrada</th>
-                                    <th id="thExit2">Salida</th>
-                                    <th id="thHours2">Horas</th>
-                                    <th id="thAuto2">Auto</th>
-                                    <th id="thService2">Servicio</th>
-                                    <th id="thCharge2">Cobro</th>
-                                    <th id="thTip2">Propina</th>
-                                    <th id="thQuincena2">Quincena</th>
-                                    <th id="thActionsBoss">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <tr>
-                                    <td colspan="11" style="text-align:center; color:#95a5a6; padding:30px;">No hay registros aún</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ==================== PESTAÑA ADMINISTRACIÓN ==================== -->
-            <div id="admin" class="tab-content">
-                <div class="password-section" style="border-left-color: #3498db;">
-                    <label style="font-weight:600; margin-right:15px;" id="lblAdminAccess">⚙️ Acceso Administrador:</label>
-                    <input type="password" id="adminPasswordInput" placeholder="Clave de administrador">
-                    <button class="btn-info" onclick="verifyAdminAccess()" style="padding: 10px 20px;" id="btnAdminAccess">🔓 Acceder</button>
-                    <div id="adminStatus" style="margin-top: 10px; font-weight: 600;"></div>
-                </div>
-
-                <div id="adminContent" style="display: none;">
-                    <div class="admin-section">
-                        <h3 id="lblCustomColors">🎨 Personalizar Colores</h3>
-                        <div class="color-picker-group">
-                            <label id="lblBgColor">Fondo del sitio:</label>
-                            <input type="color" id="bgColor" value="#667eea">
-                            <button class="btn-info btn-sm" onclick="applyColor('bgColor', 'body', 'background')" id="btnApplyColor">Aplicar</button>
-                        </div>
-                        <div class="color-picker-group">
-                            <label id="lblCardColor">Fondo tarjeta:</label>
-                            <input type="color" id="cardColor" value="#ffffff">
-                            <button class="btn-info btn-sm" onclick="applyColor('cardColor', '#mainCard', 'background')">Aplicar</button>
-                        </div>
-                        <div class="color-picker-group">
-                            <label id="lblTitleColor">Color título:</label>
-                            <input type="color" id="titleColor" value="#2c3e50">
-                            <button class="btn-info btn-sm" onclick="applyColor('titleColor', '#mainTitle', 'color')">Aplicar</button>
-                        </div>
-                        <div class="color-picker-group">
-                            <label id="lblSubtitleColor">Color subtítulo:</label>
-                            <input type="color" id="subtitleColor" value="#7f8c8d">
-                            <button class="btn-info btn-sm" onclick="applyColor('subtitleColor', '#mainSubtitle', 'color')">Aplicar</button>
-                        </div>
-                        <button class="btn-danger btn-sm" onclick="resetColors()" style="margin-top:10px;" id="btnResetColors">🔄 Restaurar colores</button>
-                    </div>
-
-                    <div class="admin-section">
-                        <h3 id="lblLogo">🖼️ Logo / Icono</h3>
-                        <div class="logo-upload">
-                            <input type="file" id="logoUpload" accept="image/*" onchange="uploadLogo(event)">
-                            <button class="btn-danger btn-sm" onclick="removeLogo()" id="btnRemoveLogo">🗑️ Quitar logo</button>
-                            <button class="btn-warning btn-sm" onclick="resetLogo()" id="btnResetLogo">🔄 Restaurar icono</button>
-                        </div>
-                        <div id="logoMessage" style="margin-top: 10px;"></div>
-                    </div>
-
-                    <div class="admin-section">
-                        <h3 id="lblManageAutos">🚗 Gestionar Autos</h3>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px;">
-                            <input type="text" id="newAutoInput" placeholder="Nuevo auto" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-success" onclick="addAuto()" id="btnAddAuto">➕ Agregar Auto</button>
-                        </div>
-                        <div id="autoList" class="tag-container"></div>
-                        <div id="autoMessage" style="margin-top: 10px;"></div>
-                    </div>
-
-                    <div class="admin-section">
-                        <h3 id="lblManageServices">🔧 Gestionar Servicios</h3>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px;">
-                            <input type="text" id="newServicioInput" placeholder="Nuevo servicio" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-success" onclick="addServicio()" id="btnAddService">➕ Agregar Servicio</button>
-                        </div>
-                        <div id="servicioList" class="tag-container"></div>
-                        <div id="servicioMessage" style="margin-top: 10px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== MODAL DE EDICIÓN ==================== -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <h2 id="lblEditRecord">✏️ Editar Registro</h2>
-            <form id="editForm">
+            <!-- ==================== CONFIGURACIÓN INICIAL ==================== -->
+            <div id="configSection" class="section">
+                <h2>⚙️ Configurar Quincena</h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label id="lblDateEdit">📅 Fecha</label>
-                        <input type="date" id="editFecha" required>
+                        <label>👤 Nombre del Empleado</label>
+                        <input type="text" id="empleadoNombre" placeholder="Ej: Juan Pérez" required>
                     </div>
                     <div class="form-group">
-                        <label id="lblEntryTimeEdit">🕐 Hora Entrada</label>
-                        <input type="time" id="editHoraEntrada" required>
+                        <label>📅 Fecha Inicio (DD/MM/YYYY)</label>
+                        <input type="text" id="fechaInicio" placeholder="Ej: 01/07/2026" required>
                     </div>
                     <div class="form-group">
-                        <label id="lblExitTimeEdit">🕐 Hora Salida</label>
-                        <input type="time" id="editHoraSalida" required>
+                        <label>📅 Fecha Fin (DD/MM/YYYY)</label>
+                        <input type="text" id="fechaFin" placeholder="Ej: 15/07/2026" required>
                     </div>
-                    <div class="form-group">
-                        <label id="lblAutoEdit">🚗 Auto</label>
-                        <input type="text" id="editAuto" required>
-                    </div>
-                    <div class="form-group">
-                        <label id="lblServiceEdit">🔧 Servicio</label>
-                        <input type="text" id="editServicio" required>
-                    </div>
-                    <div class="form-group">
-                        <label id="lblChargeEdit">💰 Cobro ($)</label>
-                        <input type="number" id="editCobro" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label id="lblTipEdit">💵 Propina ($)</label>
-                        <input type="number" id="editPropina" step="0.01" required>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button class="btn btn-success" onclick="iniciarQuincena()">✅ Iniciar Quincena</button>
                     </div>
                 </div>
-                <input type="hidden" id="editIndex">
-                <div class="modal-actions">
-                    <button type="button" class="btn-danger" onclick="closeEditModal()" id="btnCancelEdit">Cancelar</button>
-                    <button type="submit" class="btn-primary" id="btnSaveEdit">💾 Guardar Cambios</button>
+            </div>
+
+            <!-- ==================== REGISTRO DIARIO ==================== -->
+            <div id="registroSection" class="section hidden">
+                <h2>📝 Registrar Día</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>📅 Fecha (DD/MM/YYYY)</label>
+                        <input type="text" id="fechaRegistro" placeholder="Ej: 01/07/2026" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🕐 Hora Entrada</label>
+                        <input type="time" id="horaEntrada" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🕐 Hora Salida</label>
+                        <input type="time" id="horaSalida" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🚗 Auto Atendido</label>
+                        <input type="text" id="auto" placeholder="Ej: Toyota Corolla">
+                    </div>
+                    <div class="form-group">
+                        <label>🔧 Servicio</label>
+                        <input type="text" id="servicio" placeholder="Ej: Cambio de aceite">
+                    </div>
+                    <div class="form-group">
+                        <label>💰 Cobro ($)</label>
+                        <input type="number" id="cobro" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>💵 Propina ($)</label>
+                        <input type="number" id="propina" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button class="btn btn-primary" onclick="agregarRegistro()">➕ Agregar Registro</button>
+                    </div>
                 </div>
-            </form>
+
+                <div id="mensajeRegistro" style="margin-top: 10px;"></div>
+            </div>
+
+            <!-- ==================== LISTA DE REGISTROS ==================== -->
+            <div id="listaSection" class="section hidden">
+                <h2>📊 Registros de la Quincena</h2>
+                
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stats-card blue">
+                        <div class="number" id="totalRegistros">0</div>
+                        <div class="label">Total Registros</div>
+                    </div>
+                    <div class="stats-card purple">
+                        <div class="number" id="totalHoras">0h</div>
+                        <div class="label">Total Horas</div>
+                    </div>
+                    <div class="stats-card green">
+                        <div class="number" id="totalCobros">$0</div>
+                        <div class="label">Total Cobros</div>
+                    </div>
+                    <div class="stats-card orange">
+                        <div class="number" id="totalPropinas">$0</div>
+                        <div class="label">Total Propinas</div>
+                    </div>
+                </div>
+
+                <div id="registrosList"></div>
+
+                <div class="footer-actions">
+                    <button class="btn btn-success" onclick="exportarExcel()">📊 Exportar a Excel</button>
+                    <button class="btn btn-info" onclick="exportarPDF()">📄 Exportar a PDF</button>
+                    <button class="btn btn-warning" onclick="imprimir()">🖨️ Imprimir</button>
+                    <button class="btn btn-danger" onclick="limpiarTodo()">🗑️ Limpiar Todo</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // ============ IDIOMAS ============
-        let idiomaActual = localStorage.getItem('idioma') || 'es';
+        // ============ VARIABLES GLOBALES ============
+        let registros = [];
+        let empleadoActual = '';
+        let fechaInicio = '';
+        let fechaFin = '';
 
-        const textos = {
-            es: {
-                titulo: '📋 Sistema de Registro',
-                subtitulo: 'Sistema completo con administración • Personaliza colores, logo y servicios',
-                tabEmployee: '👤 Empleado',
-                tabBoss: '👔 Jefe',
-                tabAdmin: '⚙️ Administración',
-                selectEmployee: '👤 Selecciona tu nombre:',
-                enterPassword: '🔑 Ingresa tu clave:',
-                verify: '✅ Verificar',
-                date: '📅 Fecha',
-                entryTime: '🕐 Hora Entrada',
-                exitTime: '🕐 Hora Salida',
-                auto: '🚗 Auto Atendido',
-                service: '🔧 Servicio',
-                charge: '💰 Cobro ($)',
-                tip: '💵 Propina ($)',
-                saveRecord: '📝 Guardar Registro',
-                yourHistory: '📊 Tu Historial',
-                filterDate: '📅 Filtrar por fecha:',
-                showAll: 'Mostrar todo',
-                totalRecords: 'Total Registros',
-                totalHours: 'Total Horas',
-                totalCharges: 'Total Cobros',
-                totalTips: 'Total Propinas',
-                quincenaTotals: '📊 Tus Totales de Esta Quincena',
-                records: 'Registros',
-                hours: 'Horas',
-                charges: 'Total Cobros',
-                tips: 'Total Propinas',
-                bossLogin: '👔 Ingresa como Jefe:',
-                bossAccess: '✅ Acceder',
-                changeBossName: '✏️ Cambiar nombre del jefe',
-                saveBossName: '💾 Guardar Nombre',
-                manageEmployees: '👔 Gestión de Empleados y Claves',
-                currentBoss: '👔 Jefe actual:',
-                changeBossPass: 'Cambiar clave del jefe',
-                employeeList: '📋 Lista de Empleados',
-                addEmployee: '➕ Agregar Empleado',
-                savePassword: '💾 Guardar Clave',
-                renameEmployee: '✏️ Cambiar nombre de empleados',
-                renameBtn: '✏️ Cambiar Nombre',
-                selectQuincena: '📆 Selecciona Quincena:',
-                filterEmployee: '👤 Filtrar por empleado:',
-                filterDate2: '📅 Fecha:',
-                totalRecords2: 'Total Registros',
-                totalHours2: 'Total Horas',
-                totalCharges2: 'Total Cobros',
-                totalTips2: 'Total Propinas',
-                exportExcel: '📊 Exportar a Excel',
-                print: '🖨️ Imprimir',
-                deleteAll: '🗑️ Borrar Todos',
-                employee: 'Empleado',
-                date2: 'Fecha',
-                entry2: 'Entrada',
-                exit2: 'Salida',
-                hours2: 'Horas',
-                auto2: 'Auto',
-                service2: 'Servicio',
-                charge2: 'Cobro',
-                tip2: 'Propina',
-                quincena2: 'Quincena',
-                actions: 'Acciones',
-                adminAccess: '⚙️ Acceso Administrador:',
-                adminBtn: '🔓 Acceder',
-                customColors: '🎨 Personalizar Colores',
-                bgColor: 'Fondo del sitio:',
-                cardColor: 'Fondo tarjeta:',
-                titleColor: 'Color título:',
-                subtitleColor: 'Color subtítulo:',
-                resetColors: '🔄 Restaurar colores',
-                logo: '🖼️ Logo / Icono',
-                removeLogo: '🗑️ Quitar logo',
-                resetLogo: '🔄 Restaurar icono',
-                manageAutos: '🚗 Gestionar Autos',
-                addAuto: '➕ Agregar Auto',
-                manageServices: '🔧 Gestionar Servicios',
-                addService: '➕ Agregar Servicio',
-                editRecord: '✏️ Editar Registro',
-                cancelEdit: 'Cancelar',
-                saveEdit: '💾 Guardar Cambios',
-                dateEdit: '📅 Fecha',
-                entryTimeEdit: '🕐 Hora Entrada',
-                exitTimeEdit: '🕐 Hora Salida',
-                autoEdit: '🚗 Auto',
-                serviceEdit: '🔧 Servicio',
-                chargeEdit: '💰 Cobro ($)',
-                tipEdit: '💵 Propina ($)',
-                actionsEmp: 'Acciones',
-                actionsBoss: 'Acciones'
-            },
-            en: {
-                titulo: '📋 Registration System',
-                subtitulo: 'Complete administration system • Customize colors, logo and services',
-                tabEmployee: '👤 Employee',
-                tabBoss: '👔 Boss',
-                tabAdmin: '⚙️ Admin',
-                selectEmployee: '👤 Select your name:',
-                enterPassword: '🔑 Enter your password:',
-                verify: '✅ Verify',
-                date: '📅 Date',
-                entryTime: '🕐 Entry Time',
-                exitTime: '🕐 Exit Time',
-                auto: '🚗 Vehicle',
-                service: '🔧 Service',
-                charge: '💰 Charge ($)',
-                tip: '💵 Tip ($)',
-                saveRecord: '📝 Save Record',
-                yourHistory: '📊 Your History',
-                filterDate: '📅 Filter by date:',
-                showAll: 'Show all',
-                totalRecords: 'Total Records',
-                totalHours: 'Total Hours',
-                totalCharges: 'Total Charges',
-                totalTips: 'Total Tips',
-                quincenaTotals: '📊 Your Current Fortnight Totals',
-                records: 'Records',
-                hours: 'Hours',
-                charges: 'Total Charges',
-                tips: 'Total Tips',
-                bossLogin: '👔 Login as Boss:',
-                bossAccess: '✅ Access',
-                changeBossName: '✏️ Change boss name',
-                saveBossName: '💾 Save Name',
-                manageEmployees: '👔 Employee and Password Management',
-                currentBoss: '👔 Current boss:',
-                changeBossPass: 'Change boss password',
-                employeeList: '📋 Employee List',
-                addEmployee: '➕ Add Employee',
-                savePassword: '💾 Save Password',
-                renameEmployee: '✏️ Rename employees',
-                renameBtn: '✏️ Rename',
-                selectQuincena: '📆 Select Fortnight:',
-                filterEmployee: '👤 Filter by employee:',
-                filterDate2: '📅 Date:',
-                totalRecords2: 'Total Records',
-                totalHours2: 'Total Hours',
-                totalCharges2: 'Total Charges',
-                totalTips2: 'Total Tips',
-                exportExcel: '📊 Export to Excel',
-                print: '🖨️ Print',
-                deleteAll: '🗑️ Delete All',
-                employee: 'Employee',
-                date2: 'Date',
-                entry2: 'Entry',
-                exit2: 'Exit',
-                hours2: 'Hours',
-                auto2: 'Vehicle',
-                service2: 'Service',
-                charge2: 'Charge',
-                tip2: 'Tip',
-                quincena2: 'Fortnight',
-                actions: 'Actions',
-                adminAccess: '⚙️ Admin Access:',
-                adminBtn: '🔓 Access',
-                customColors: '🎨 Customize Colors',
-                bgColor: 'Site background:',
-                cardColor: 'Card background:',
-                titleColor: 'Title color:',
-                subtitleColor: 'Subtitle color:',
-                resetColors: '🔄 Reset colors',
-                logo: '🖼️ Logo / Icon',
-                removeLogo: '🗑️ Remove logo',
-                resetLogo: '🔄 Reset icon',
-                manageAutos: '🚗 Manage Vehicles',
-                addAuto: '➕ Add Vehicle',
-                manageServices: '🔧 Manage Services',
-                addService: '➕ Add Service',
-                editRecord: '✏️ Edit Record',
-                cancelEdit: 'Cancel',
-                saveEdit: '💾 Save Changes',
-                dateEdit: '📅 Date',
-                entryTimeEdit: '🕐 Entry Time',
-                exitTimeEdit: '🕐 Exit Time',
-                autoEdit: '🚗 Vehicle',
-                serviceEdit: '🔧 Service',
-                chargeEdit: '💰 Charge ($)',
-                tipEdit: '💵 Tip ($)',
-                actionsEmp: 'Actions',
-                actionsBoss: 'Actions'
+        // ============ FUNCIONES PRINCIPALES ============
+        function iniciarQuincena() {
+            const nombre = document.getElementById('empleadoNombre').value.trim();
+            const inicio = document.getElementById('fechaInicio').value.trim();
+            const fin = document.getElementById('fechaFin').value.trim();
+
+            if (!nombre) {
+                mostrarMensaje('configSection', '⚠️ Por favor, ingresa tu nombre.', 'error');
+                return;
             }
-        };
 
-        function cambiarIdioma(idioma) {
-            idiomaActual = idioma;
-            localStorage.setItem('idioma', idioma);
-            
-            document.getElementById('btnEs').classList.toggle('active', idioma === 'es');
-            document.getElementById('btnEn').classList.toggle('active', idioma === 'en');
-            
-            const t = textos[idioma];
-            document.getElementById('mainTitle').textContent = t.titulo;
-            document.getElementById('mainSubtitle').textContent = t.subtitulo;
-            document.getElementById('tabEmployee').textContent = t.tabEmployee;
-            document.getElementById('tabBoss').textContent = t.tabBoss;
-            document.getElementById('tabAdmin').textContent = t.tabAdmin;
-            
-            aplicarTextos(t);
+            if (!validarFecha(inicio)) {
+                mostrarMensaje('configSection', '⚠️ Fecha de inicio inválida. Usa DD/MM/YYYY', 'error');
+                return;
+            }
+
+            if (!validarFecha(fin)) {
+                mostrarMensaje('configSection', '⚠️ Fecha de fin inválida. Usa DD/MM/YYYY', 'error');
+                return;
+            }
+
+            if (!compararFechas(inicio, fin)) {
+                mostrarMensaje('configSection', '⚠️ La fecha de inicio debe ser menor o igual a la fecha de fin.', 'error');
+                return;
+            }
+
+            empleadoActual = nombre;
+            fechaInicio = inicio;
+            fechaFin = fin;
+            registros = [];
+
+            document.getElementById('configSection').classList.add('hidden');
+            document.getElementById('registroSection').classList.remove('hidden');
+            document.getElementById('listaSection').classList.remove('hidden');
+
+            // Sugerir fecha actual como fecha de registro
+            const hoy = new Date();
+            document.getElementById('fechaRegistro').value = formatearFechaDMY(hoy);
+
+            mostrarMensaje('configSection', `✅ Quincena iniciada para ${nombre} del ${inicio} al ${fin}`, 'exito');
+            actualizarLista();
         }
 
-        function aplicarTextos(t) {
-            document.getElementById('lblSelectEmployee').textContent = t.selectEmployee;
-            document.getElementById('lblEnterPassword').textContent = t.enterPassword;
-            document.getElementById('btnVerify').textContent = t.verify;
-            document.getElementById('lblDate').textContent = t.date;
-            document.getElementById('lblEntryTime').textContent = t.entryTime;
-            document.getElementById('lblExitTime').textContent = t.exitTime;
-            document.getElementById('lblAuto').textContent = t.auto;
-            document.getElementById('lblService').textContent = t.service;
-            document.getElementById('lblCharge').textContent = t.charge;
-            document.getElementById('lblTip').textContent = t.tip;
-            document.getElementById('btnSaveRecord').textContent = t.saveRecord;
-            document.getElementById('lblYourHistory').textContent = t.yourHistory;
-            document.getElementById('lblFilterDate').textContent = t.filterDate;
-            document.getElementById('btnShowAll').textContent = t.showAll;
-            document.getElementById('lblTotalRecords').textContent = t.totalRecords;
-            document.getElementById('lblTotalHours').textContent = t.totalHours;
-            document.getElementById('lblTotalCharges').textContent = t.totalCharges;
-            document.getElementById('lblTotalTips').textContent = t.totalTips;
-            document.getElementById('lblQuincenaTotals').textContent = t.quincenaTotals;
-            document.getElementById('lblRecords').textContent = t.records;
-            document.getElementById('lblHours').textContent = t.hours;
-            document.getElementById('lblCharges').textContent = t.charges;
-            document.getElementById('lblTips').textContent = t.tips;
-            document.getElementById('lblBossLogin').textContent = t.bossLogin;
-            document.getElementById('btnBossAccess').textContent = t.bossAccess;
-            document.getElementById('lblChangeBossName').textContent = t.changeBossName;
-            document.getElementById('btnSaveBossName').textContent = t.saveBossName;
-            document.getElementById('lblManageEmployees').textContent = t.manageEmployees;
-            document.getElementById('lblCurrentBoss').textContent = t.currentBoss;
-            document.getElementById('lblChangeBossPass').textContent = t.changeBossPass;
-            document.getElementById('lblEmployeeList').textContent = t.employeeList;
-            document.getElementById('btnAddEmployee').textContent = t.addEmployee;
-            document.getElementById('btnSavePassword').textContent = t.savePassword;
-            document.getElementById('lblRenameEmployee').textContent = t.renameEmployee;
-            document.getElementById('btnRenameEmployee').textContent = t.renameBtn;
-            document.getElementById('lblSelectQuincena').textContent = t.selectQuincena;
-            document.getElementById('lblFilterEmployee').textContent = t.filterEmployee;
-            document.getElementById('lblFilterDate2').textContent = t.filterDate2;
-            document.getElementById('lblTotalRecords2').textContent = t.totalRecords2;
-            document.getElementById('lblTotalHours2').textContent = t.totalHours2;
-            document.getElementById('lblTotalCharges2').textContent = t.totalCharges2;
-            document.getElementById('lblTotalTips2').textContent = t.totalTips2;
-            document.getElementById('btnExportExcel').textContent = t.exportExcel;
-            document.getElementById('btnPrint').textContent = t.print;
-            document.getElementById('btnDeleteAll').textContent = t.deleteAll;
-            document.getElementById('lblAdminAccess').textContent = t.adminAccess;
-            document.getElementById('btnAdminAccess').textContent = t.adminBtn;
-            document.getElementById('lblCustomColors').textContent = t.customColors;
-            document.getElementById('lblBgColor').textContent = t.bgColor;
-            document.getElementById('lblCardColor').textContent = t.cardColor;
-            document.getElementById('lblTitleColor').textContent = t.titleColor;
-            document.getElementById('lblSubtitleColor').textContent = t.subtitleColor;
-            document.getElementById('btnResetColors').textContent = t.resetColors;
-            document.getElementById('lblLogo').textContent = t.logo;
-            document.getElementById('btnRemoveLogo').textContent = t.removeLogo;
-            document.getElementById('btnResetLogo').textContent = t.resetLogo;
-            document.getElementById('lblManageAutos').textContent = t.manageAutos;
-            document.getElementById('btnAddAuto').textContent = t.addAuto;
-            document.getElementById('lblManageServices').textContent = t.manageServices;
-            document.getElementById('btnAddService').textContent = t.addService;
-            document.getElementById('lblEditRecord').textContent = t.editRecord;
-            document.getElementById('btnCancelEdit').textContent = t.cancelEdit;
-            document.getElementById('btnSaveEdit').textContent = t.saveEdit;
-            document.getElementById('lblDateEdit').textContent = t.dateEdit;
-            document.getElementById('lblEntryTimeEdit').textContent = t.entryTimeEdit;
-            document.getElementById('lblExitTimeEdit').textContent = t.exitTimeEdit;
-            document.getElementById('lblAutoEdit').textContent = t.autoEdit;
-            document.getElementById('lblServiceEdit').textContent = t.serviceEdit;
-            document.getElementById('lblChargeEdit').textContent = t.chargeEdit;
-            document.getElementById('lblTipEdit').textContent = t.tipEdit;
-            document.getElementById('thDate').textContent = t.date;
-            document.getElementById('thEntry').textContent = t.entry;
-            document.getElementById('thExit').textContent = t.exit;
-            document.getElementById('thHours').textContent = t.hours;
-            document.getElementById('thAuto').textContent = t.auto;
-            document.getElementById('thService').textContent = t.service;
-            document.getElementById('thCharge').textContent = t.charge;
-            document.getElementById('thTip').textContent = t.tip;
-            document.getElementById('thQuincena').textContent = t.quincena;
-            document.getElementById('thActionsEmp').textContent = t.actionsEmp;
-            document.getElementById('thEmployee').textContent = t.employee;
-            document.getElementById('thDate2').textContent = t.date;
-            document.getElementById('thEntry2').textContent = t.entry;
-            document.getElementById('thExit2').textContent = t.exit;
-            document.getElementById('thHours2').textContent = t.hours;
-            document.getElementById('thAuto2').textContent = t.auto;
-            document.getElementById('thService2').textContent = t.service;
-            document.getElementById('thCharge2').textContent = t.charge;
-            document.getElementById('thTip2').textContent = t.tip;
-            document.getElementById('thQuincena2').textContent = t.quincena;
-            document.getElementById('thActionsBoss').textContent = t.actionsBoss;
+        function agregarRegistro() {
+            const fecha = document.getElementById('fechaRegistro').value.trim();
+            const horaEntrada = document.getElementById('horaEntrada').value;
+            const horaSalida = document.getElementById('horaSalida').value;
+            const auto = document.getElementById('auto').value.trim();
+            const servicio = document.getElementById('servicio').value.trim();
+            const cobro = parseFloat(document.getElementById('cobro').value) || 0;
+            const propina = parseFloat(document.getElementById('propina').value) || 0;
+
+            if (!fecha) {
+                mostrarMensaje('registroSection', '⚠️ Ingresa una fecha.', 'error');
+                return;
+            }
+
+            if (!validarFecha(fecha)) {
+                mostrarMensaje('registroSection', '⚠️ Fecha inválida. Usa DD/MM/YYYY', 'error');
+                return;
+            }
+
+            if (!compararFechas(fechaInicio, fecha) || !compararFechas(fecha, fechaFin)) {
+                mostrarMensaje('registroSection', `⚠️ La fecha debe estar entre ${fechaInicio} y ${fechaFin}`, 'error');
+                return;
+            }
+
+            if (!horaEntrada || !horaSalida) {
+                mostrarMensaje('registroSection', '⚠️ Ingresa la hora de entrada y salida.', 'error');
+                return;
+            }
+
+            // Calcular horas trabajadas
+            const horas = calcularHoras(horaEntrada, horaSalida);
+
+            const registro = {
+                fecha: fecha,
+                horaEntrada: horaEntrada,
+                horaSalida: horaSalida,
+                horas: horas,
+                auto: auto || 'No especificado',
+                servicio: servicio || 'No especificado',
+                cobro: cobro,
+                propina: propina
+            };
+
+            registros.push(registro);
+            actualizarLista();
+
+            // Limpiar campos
+            document.getElementById('horaEntrada').value = '';
+            document.getElementById('horaSalida').value = '';
+            document.getElementById('auto').value = '';
+            document.getElementById('servicio').value = '';
+            document.getElementById('cobro').value = '';
+            document.getElementById('propina').value = '';
+
+            // Avanzar fecha
+            const fechaActual = parseFechaDMY(fecha);
+            fechaActual.setDate(fechaActual.getDate() + 1);
+            document.getElementById('fechaRegistro').value = formatearFechaDMY(fechaActual);
+
+            mostrarMensaje('registroSection', '✅ Registro guardado correctamente.', 'exito');
         }
 
-        // ============ CONFIGURACIÓN ============
-        const STORAGE_KEY = 'registros_quincenales';
-        const PASSWORDS_KEY = 'empleados_claves';
-        const BOSS_NAME_KEY = 'boss_nombre';
-        const COLORS_KEY = 'colores_personalizados';
-        const LOGO_KEY = 'logo_personalizado';
-        const AUTOS_KEY = 'lista_autos';
-        const SERVICIOS_KEY = 'lista_servicios';
-        const MAX_EMPLOYEES = 20;
+        function eliminarRegistro(index) {
+            if (confirm('¿Eliminar este registro?')) {
+                registros.splice(index, 1);
+                actualizarLista();
+                mostrarMensaje('listaSection', '🗑️ Registro eliminado.', 'info');
+            }
+        }
 
-        // ============ FORMATO DE FECHA ============
-        function formatearFecha(fecha) {
-            if (!fecha) return '';
-            const partes = fecha.split('-');
-            if (partes.length !== 3) return fecha;
-            const año = partes[0];
-            const mes = parseInt(partes[1]);
-            const dia = parseInt(partes[2]);
+        function limpiarTodo() {
+            if (confirm('⚠️ ¿Borrar TODOS los registros? Esta acción no se puede deshacer.')) {
+                registros = [];
+                actualizarLista();
+                mostrarMensaje('listaSection', '🗑️ Todos los registros han sido eliminados.', 'info');
+            }
+        }
+
+        // ============ ACTUALIZAR LISTA ============
+        function actualizarLista() {
+            const container = document.getElementById('registrosList');
+            
+            if (registros.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún. Agrega tu primer día de trabajo.</p>';
+                actualizarEstadisticas();
+                return;
+            }
+
+            // Ordenar por fecha
+            registros.sort((a, b) => {
+                const fa = parseFechaDMY(a.fecha);
+                const fb = parseFechaDMY(b.fecha);
+                return fa - fb;
+            });
+
+            let html = '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th>#</th><th>Fecha</th><th>Entrada</th><th>Salida</th><th>Horas</th><th>Auto</th><th>Servicio</th><th>Cobro</th><th>Propina</th><th>Acciones</th>';
+            html += '</tr></thead><tbody>';
+
+            registros.forEach((r, i) => {
+                html += `<tr>
+                    <td>${i + 1}</td>
+                    <td><strong>${r.fecha}</strong></td>
+                    <td>${r.horaEntrada}</td>
+                    <td>${r.horaSalida}</td>
+                    <td>${formatearHoras(r.horas)}</td>
+                    <td>${r.auto}</td>
+                    <td>${r.servicio}</td>
+                    <td>$${r.cobro.toFixed(2)}</td>
+                    <td>$${r.propina.toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(${i})">🗑️</button>
+                    </td>
+                </tr>`;
+            });
+
+            html += '</tbody></table></div>';
+            container.innerHTML = html;
+            actualizarEstadisticas();
+        }
+
+        // ============ ESTADÍSTICAS ============
+        function actualizarEstadisticas() {
+            document.getElementById('totalRegistros').textContent = registros.length;
+            
+            const totalHoras = registros.reduce((sum, r) => sum + r.horas, 0);
+            document.getElementById('totalHoras').textContent = formatearHoras(totalHoras);
+            
+            const totalCobro = registros.reduce((sum, r) => sum + r.cobro, 0);
+            document.getElementById('totalCobros').textContent = `$${totalCobro.toFixed(2)}`;
+            
+            const totalPropina = registros.reduce((sum, r) => sum + r.propina, 0);
+            document.getElementById('totalPropinas').textContent = `$${totalPropina.toFixed(2)}`;
+        }
+
+        // ============ EXPORTAR A EXCEL ============
+        function exportarExcel() {
+            if (registros.length === 0) {
+                alert('⚠️ No hay registros para exportar.');
+                return;
+            }
+
+            const headers = ['#', 'Fecha', 'Entrada', 'Salida', 'Horas', 'Auto', 'Servicio', 'Cobro', 'Propina'];
+            let csv = headers.join(',') + '\n';
+
+            registros.forEach((r, i) => {
+                const row = [
+                    i + 1,
+                    r.fecha,
+                    r.horaEntrada,
+                    r.horaSalida,
+                    r.horas.toFixed(2).replace('.', ','),
+                    `"${r.auto}"`,
+                    `"${r.servicio}"`,
+                    r.cobro.toFixed(2).replace('.', ','),
+                    r.propina.toFixed(2).replace('.', ',')
+                ];
+                csv += row.join(',') + '\n';
+            });
+
+            // Agregar totales al final
+            const totalHoras = registros.reduce((sum, r) => sum + r.horas, 0);
+            const totalCobro = registros.reduce((sum, r) => sum + r.cobro, 0);
+            const totalPropina = registros.reduce((sum, r) => sum + r.propina, 0);
+            
+            csv += '\nTOTALES,,,,' + totalHoras.toFixed(2).replace('.', ',') + ',,' + totalCobro.toFixed(2).replace('.', ',') + ',' + totalPropina.toFixed(2).replace('.', ',');
+
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = `registro_${empleadoActual}_${fechaInicio}_${fechaFin}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // ============ EXPORTAR A PDF (Imprimir) ============
+        function exportarPDF() {
+            if (registros.length === 0) {
+                alert('⚠️ No hay registros para exportar.');
+                return;
+            }
+            window.print();
+        }
+
+        function imprimir() {
+            window.print();
+        }
+
+        // ============ FUNCIONES DE FECHA ============
+        function validarFecha(fecha) {
+            const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+            if (!regex.test(fecha)) return false;
+            
+            const [, dia, mes, año] = fecha.match(regex);
+            const d = parseInt(dia);
+            const m = parseInt(mes);
+            const a = parseInt(año);
+            
+            if (m < 1 || m > 12) return false;
+            if (d < 1 || d > 31) return false;
+            
+            // Validar días por mes
+            const diasMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            // Año bisiesto
+            if (m === 2) {
+                const esBisiesto = (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
+                if (d > (esBisiesto ? 29 : 28)) return false;
+            } else if (d > diasMes[m - 1]) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        function parseFechaDMY(fecha) {
+            const [dia, mes, año] = fecha.split('/').map(Number);
+            return new Date(año, mes - 1, dia);
+        }
+
+        function formatearFechaDMY(fecha) {
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const año = fecha.getFullYear();
             return `${dia}/${mes}/${año}`;
         }
 
-        // ============ LISTAS DE AUTOS Y SERVICIOS ============
-        function getAutos() {
-            const data = localStorage.getItem(AUTOS_KEY);
-            if (data) {
-                try {
-                    const parsed = JSON.parse(data);
-                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-                } catch(e) {}
-            }
-            const defaultAutos = ['Toyota Corolla', 'Toyota Hilux', 'Nissan Sentra', 'Chevrolet Onix', 'Ford Ranger', 'Volkswagen Golf'];
-            localStorage.setItem(AUTOS_KEY, JSON.stringify(defaultAutos));
-            return defaultAutos;
-        }
-
-        function getServicios() {
-            const data = localStorage.getItem(SERVICIOS_KEY);
-            if (data) {
-                try {
-                    const parsed = JSON.parse(data);
-                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-                } catch(e) {}
-            }
-            const defaultServicios = ['Cambio de aceite', 'Alineación', 'Balanceo', 'Frenos', 'Suspensión', 'Diagnóstico'];
-            localStorage.setItem(SERVICIOS_KEY, JSON.stringify(defaultServicios));
-            return defaultServicios;
-        }
-
-        function saveAutos(autos) {
-            localStorage.setItem(AUTOS_KEY, JSON.stringify(autos));
-        }
-
-        function saveServicios(servicios) {
-            localStorage.setItem(SERVICIOS_KEY, JSON.stringify(servicios));
-        }
-
-        // ============ SISTEMA DE CLAVES ============
-        function getPasswords() {
-            const data = localStorage.getItem(PASSWORDS_KEY);
-            if (data) {
-                try {
-                    const parsed = JSON.parse(data);
-                    if (parsed && parsed.jefe && parsed.admin && parsed.empleados) {
-                        return parsed;
-                    }
-                } catch(e) {}
-            }
-            const defaultPasswords = {
-                jefe: 'admin123',
-                admin: 'admin123',
-                empleados: {}
-            };
-            for (let i = 1; i <= 8; i++) {
-                defaultPasswords.empleados[`Empleado ${i}`] = `emp${i}`;
-            }
-            savePasswords(defaultPasswords);
-            return defaultPasswords;
-        }
-
-        function savePasswords(passwords) {
-            localStorage.setItem(PASSWORDS_KEY, JSON.stringify(passwords));
-        }
-
-        function getBossName() {
-            return localStorage.getItem(BOSS_NAME_KEY) || 'BOSS';
-        }
-
-        function saveBossName(name) {
-            localStorage.setItem(BOSS_NAME_KEY, name);
-        }
-
-        function verifyEmployeePassword(empleado, clave) {
-            const passwords = getPasswords();
-            return passwords.empleados[empleado] === clave;
-        }
-
-        function verifyBossPassword(clave) {
-            const passwords = getPasswords();
-            return passwords.jefe === clave;
-        }
-
-        function verifyAdminPassword(clave) {
-            const passwords = getPasswords();
-            return passwords.admin === clave;
-        }
-
-        function setEmployeePassword(empleado, nuevaClave) {
-            const passwords = getPasswords();
-            passwords.empleados[empleado] = nuevaClave;
-            savePasswords(passwords);
-            renderPasswordLists();
-            updateSelectors();
-            renderEmpleadosList();
-        }
-
-        function setBossPassword(nuevaClave) {
-            const passwords = getPasswords();
-            passwords.jefe = nuevaClave;
-            savePasswords(passwords);
-            showMessage('bossPasswordMessage', '✅ Clave del jefe actualizada.', 'exito');
-        }
-
-        // ============ GESTIÓN DE EMPLEADOS ============
-        function getEmpleados() {
-            const passwords = getPasswords();
-            return Object.keys(passwords.empleados).sort();
-        }
-
-        function agregarEmpleado() {
-            const nombre = document.getElementById('nuevoEmpleadoInput').value.trim();
-            const clave = document.getElementById('nuevoEmpleadoClave').value.trim() || '1234';
-            const msgDiv = document.getElementById('empleadoMessage');
-
-            if (!nombre) {
-                showMessage('empleadoMessage', '⚠️ Escribe un nombre para el empleado.', 'error');
-                return;
-            }
-
-            if (nombre === 'BOSS' || nombre.toUpperCase() === 'BOSS') {
-                showMessage('empleadoMessage', '⚠️ No puedes usar ese nombre.', 'error');
-                return;
-            }
-
-            const passwords = getPasswords();
-            if (passwords.empleados[nombre]) {
-                showMessage('empleadoMessage', '⚠️ Ese empleado ya existe.', 'error');
-                return;
-            }
-
-            if (Object.keys(passwords.empleados).length >= MAX_EMPLOYEES) {
-                showMessage('empleadoMessage', `⚠️ Límite de ${MAX_EMPLOYEES} empleados alcanzado.`, 'error');
-                return;
-            }
-
-            passwords.empleados[nombre] = clave;
-            savePasswords(passwords);
-            
-            document.getElementById('nuevoEmpleadoInput').value = '';
-            document.getElementById('nuevoEmpleadoClave').value = '';
-            
-            updateSelectors();
-            renderPasswordLists();
-            renderEmpleadosList();
-            renderTable();
-            updateAllStats();
-            
-            showMessage('empleadoMessage', `✅ Empleado "${nombre}" agregado con clave "${clave}".`, 'exito');
-        }
-
-        function eliminarEmpleado(nombre) {
-            if (!confirm(`¿Eliminar al empleado "${nombre}"? Se borrarán todos sus registros.`)) return;
-
-            const passwords = getPasswords();
-            delete passwords.empleados[nombre];
-            savePasswords(passwords);
-
-            const records = getRecords();
-            const nuevosRecords = records.filter(r => r.empleado !== nombre);
-            saveRecords(nuevosRecords);
-
-            updateSelectors();
-            renderPasswordLists();
-            renderEmpleadosList();
-            renderTable();
-            updateAllStats();
-            updateQuincenaSelector();
-
-            showMessage('empleadoMessage', `🗑️ Empleado "${nombre}" eliminado.`, 'exito');
-        }
-
-        function renderEmpleadosList() {
-            const empleados = getEmpleados();
-            const container = document.getElementById('empleadosList');
-            
-            if (empleados.length === 0) {
-                container.innerHTML = '<p style="color:#95a5a6;">No hay empleados registrados.</p>';
-                return;
-            }
-
-            container.innerHTML = empleados.map(emp => `
-                <div class="empleado-item">
-                    <span class="emp-name">👤 ${emp}</span>
-                    <div class="emp-actions">
-                        <button class="btn-danger btn-sm" onclick="eliminarEmpleado('${emp}')">🗑️</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ============ COLORES ============
-        function getColors() {
-            const data = localStorage.getItem(COLORS_KEY);
-            if (data) {
-                try { return JSON.parse(data); } catch(e) {}
-            }
-            return { bgColor: '#667eea', cardColor: '#ffffff', titleColor: '#2c3e50', subtitleColor: '#7f8c8d' };
-        }
-
-        function saveColors(colors) {
-            localStorage.setItem(COLORS_KEY, JSON.stringify(colors));
-        }
-
-        function applyColors() {
-            const colors = getColors();
-            document.body.style.background = colors.bgColor;
-            document.getElementById('mainCard').style.background = colors.cardColor;
-            document.getElementById('mainTitle').style.color = colors.titleColor;
-            document.getElementById('mainSubtitle').style.color = colors.subtitleColor;
-        }
-
-        function applyColor(inputId, targetSelector, property) {
-            const color = document.getElementById(inputId).value;
-            const colors = getColors();
-            
-            if (targetSelector === 'body') {
-                document.body.style.background = color;
-                colors.bgColor = color;
-            } else if (targetSelector === '#mainCard') {
-                document.getElementById('mainCard').style.background = color;
-                colors.cardColor = color;
-            } else if (targetSelector === '#mainTitle') {
-                document.getElementById('mainTitle').style.color = color;
-                colors.titleColor = color;
-            } else if (targetSelector === '#mainSubtitle') {
-                document.getElementById('mainSubtitle').style.color = color;
-                colors.subtitleColor = color;
-            }
-            
-            saveColors(colors);
-            showMessage('adminStatus', '✅ Color aplicado correctamente.', 'exito');
-        }
-
-        function resetColors() {
-            const defaultColors = { bgColor: '#667eea', cardColor: '#ffffff', titleColor: '#2c3e50', subtitleColor: '#7f8c8d' };
-            saveColors(defaultColors);
-            applyColors();
-            document.getElementById('bgColor').value = defaultColors.bgColor;
-            document.getElementById('cardColor').value = defaultColors.cardColor;
-            document.getElementById('titleColor').value = defaultColors.titleColor;
-            document.getElementById('subtitleColor').value = defaultColors.subtitleColor;
-            showMessage('adminStatus', '🔄 Colores restaurados.', 'exito');
-        }
-
-        // ============ LOGO ============
-        function getLogo() {
-            return localStorage.getItem(LOGO_KEY) || null;
-        }
-
-        function saveLogo(dataUrl) {
-            localStorage.setItem(LOGO_KEY, dataUrl);
-        }
-
-        function removeLogo() {
-            localStorage.removeItem(LOGO_KEY);
-            applyLogo();
-            showMessage('logoMessage', '🗑️ Logo eliminado.', 'exito');
-        }
-
-        function resetLogo() {
-            localStorage.removeItem(LOGO_KEY);
-            applyLogo();
-            showMessage('logoMessage', '🔄 Icono restaurado.', 'exito');
-        }
-
-        function uploadLogo(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                saveLogo(e.target.result);
-                applyLogo();
-                showMessage('logoMessage', '✅ Logo actualizado.', 'exito');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function applyLogo() {
-            const logoData = getLogo();
-            const img = document.getElementById('logoImage');
-            const placeholder = document.getElementById('logoPlaceholder');
-            if (logoData) {
-                img.src = logoData;
-                img.style.display = 'block';
-                placeholder.style.display = 'none';
-            } else {
-                img.style.display = 'none';
-                placeholder.style.display = 'block';
-                placeholder.textContent = '🔧';
-            }
-        }
-
-        // ============ AUTOS Y SERVICIOS ============
-        function renderAutos() {
-            const autos = getAutos();
-            const container = document.getElementById('autoList');
-            container.innerHTML = autos.map(auto => `
-                <span class="tag">
-                    ${auto}
-                    <span class="remove-tag" onclick="removeAuto('${auto}')">×</span>
-                </span>
-            `).join('');
-            updateAutoSelects();
-        }
-
-        function addAuto() {
-            const input = document.getElementById('newAutoInput');
-            const auto = input.value.trim();
-            if (!auto) {
-                showMessage('autoMessage', '⚠️ Escribe un auto.', 'error');
-                return;
-            }
-            const autos = getAutos();
-            if (autos.includes(auto)) {
-                showMessage('autoMessage', '⚠️ Este auto ya existe.', 'error');
-                return;
-            }
-            autos.push(auto);
-            saveAutos(autos);
-            renderAutos();
-            input.value = '';
-            showMessage('autoMessage', '✅ Auto agregado.', 'exito');
-        }
-
-        function removeAuto(auto) {
-            let autos = getAutos();
-            autos = autos.filter(a => a !== auto);
-            saveAutos(autos);
-            renderAutos();
-            showMessage('autoMessage', '🗑️ Auto eliminado.', 'exito');
-        }
-
-        function renderServicios() {
-            const servicios = getServicios();
-            const container = document.getElementById('servicioList');
-            container.innerHTML = servicios.map(serv => `
-                <span class="tag">
-                    ${serv}
-                    <span class="remove-tag" onclick="removeServicio('${serv}')">×</span>
-                </span>
-            `).join('');
-            updateServicioSelects();
-        }
-
-        function addServicio() {
-            const input = document.getElementById('newServicioInput');
-            const servicio = input.value.trim();
-            if (!servicio) {
-                showMessage('servicioMessage', '⚠️ Escribe un servicio.', 'error');
-                return;
-            }
-            const servicios = getServicios();
-            if (servicios.includes(servicio)) {
-                showMessage('servicioMessage', '⚠️ Este servicio ya existe.', 'error');
-                return;
-            }
-            servicios.push(servicio);
-            saveServicios(servicios);
-            renderServicios();
-            input.value = '';
-            showMessage('servicioMessage', '✅ Servicio agregado.', 'exito');
-        }
-
-        function removeServicio(servicio) {
-            let servicios = getServicios();
-            servicios = servicios.filter(s => s !== servicio);
-            saveServicios(servicios);
-            renderServicios();
-            showMessage('servicioMessage', '🗑️ Servicio eliminado.', 'exito');
-        }
-
-        function updateAutoSelects() {
-            const autos = getAutos();
-            const select = document.getElementById('autoSelect');
-            if (!select) return;
-            const currentVal = select.value;
-            select.innerHTML = '<option value="">Selecciona o escribe...</option>';
-            autos.forEach(a => {
-                const opt = document.createElement('option');
-                opt.value = a;
-                opt.textContent = a;
-                select.appendChild(opt);
-            });
-            if (autos.includes(currentVal)) select.value = currentVal;
-        }
-
-        function updateServicioSelects() {
-            const servicios = getServicios();
-            const select = document.getElementById('servicioSelect');
-            if (!select) return;
-            const currentVal = select.value;
-            select.innerHTML = '<option value="">Selecciona o escribe...</option>';
-            servicios.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = s;
-                select.appendChild(opt);
-            });
-            if (servicios.includes(currentVal)) select.value = currentVal;
-        }
-
-        // ============ ACTUALIZAR SELECTORES ============
-        function updateSelectors() {
-            const passwords = getPasswords();
-            const empleados = Object.keys(passwords.empleados).sort();
-            
-            ['employeeSelect', 'filterEmployee', 'bossPasswordEmployeeSelect', 'bossRenameEmployeeSelect'].forEach(id => {
-                const select = document.getElementById(id);
-                if (!select) return;
-                const current = select.value;
-                select.innerHTML = '';
-                empleados.forEach(emp => {
-                    const opt = document.createElement('option');
-                    opt.value = emp;
-                    opt.textContent = emp;
-                    select.appendChild(opt);
-                });
-                if (empleados.includes(current)) select.value = current;
-            });
-            
-            updateAutoSelects();
-            updateServicioSelects();
-        }
-
-        // ============ RENDERIZAR LISTAS DE CLAVES ============
-        function renderPasswordLists() {
-            const passwords = getPasswords();
-            const empleados = Object.keys(passwords.empleados).sort();
-            
-            const bossContainer = document.getElementById('bossPasswordList');
-            if (bossContainer) {
-                bossContainer.innerHTML = empleados.map(emp => `
-                    <div class="password-item">
-                        <span class="employee-name">👤 ${emp}</span>
-                        <span class="employee-password">🔑 ${passwords.empleados[emp]}</span>
-                    </div>
-                `).join('');
-            }
+        function compararFechas(fecha1, fecha2) {
+            const f1 = parseFechaDMY(fecha1);
+            const f2 = parseFechaDMY(fecha2);
+            return f1 <= f2;
         }
 
         // ============ CÁLCULO DE HORAS ============
-        function calcularHoras(horaEntrada, horaSalida) {
-            if (!horaEntrada || !horaSalida) return 0;
-            const [h1, m1] = horaEntrada.split(':').map(Number);
-            const [h2, m2] = horaSalida.split(':').map(Number);
+        function calcularHoras(entrada, salida) {
+            const [h1, m1] = entrada.split(':').map(Number);
+            const [h2, m2] = salida.split(':').map(Number);
             let horas = h2 - h1;
             let minutos = m2 - m1;
             if (minutos < 0) {
@@ -1911,682 +757,44 @@
             return `${h}h ${m}min`;
         }
 
-        // ============ MOSTRAR MENSAJES ============
-        function showMessage(elementId, message, type) {
-            const el = document.getElementById(elementId);
-            if (!el) return;
-            el.className = type === 'exito' ? 'mensaje-exito' : 'mensaje-error';
-            el.textContent = message;
-            setTimeout(() => { el.textContent = ''; el.className = ''; }, 4000);
+        // ============ MENSAJES ============
+        function mostrarMensaje(sectionId, mensaje, tipo) {
+            const section = document.getElementById(sectionId);
+            const existing = section.querySelector('.mensaje');
+            if (existing) existing.remove();
+
+            const div = document.createElement('div');
+            div.className = `mensaje mensaje-${tipo}`;
+            div.textContent = mensaje;
+            section.appendChild(div);
+
+            setTimeout(() => {
+                if (div.parentNode) div.remove();
+            }, 5000);
         }
-
-        // ============ VERIFICACIONES ============
-        let currentEmployee = null;
-        let isEmployeeVerified = false;
-        let isBossVerified = false;
-        let isAdminVerified = false;
-
-        function verifyPassword() {
-            const empleado = document.getElementById('employeeSelect').value;
-            const clave = document.getElementById('employeePassword').value;
-            const status = document.getElementById('passwordStatus');
-
-            if (!clave) {
-                status.innerHTML = '⚠️ Ingresa tu clave.';
-                status.style.color = '#e74c3c';
-                return;
-            }
-
-            if (verifyEmployeePassword(empleado, clave)) {
-                currentEmployee = empleado;
-                isEmployeeVerified = true;
-                status.innerHTML = '✅ Clave correcta.';
-                status.style.color = '#27ae60';
-                document.getElementById('employeeFormContainer').style.display = 'block';
-                renderEmpleadoHistorial();
-                updateEmployeeStats();
-            } else {
-                status.innerHTML = '❌ Clave incorrecta.';
-                status.style.color = '#e74c3c';
-                document.getElementById('employeeFormContainer').style.display = 'none';
-                isEmployeeVerified = false;
-            }
-        }
-
-        function verifyBossAccess() {
-            const clave = document.getElementById('bossPasswordInput').value;
-            const status = document.getElementById('bossStatus');
-
-            if (!clave) {
-                status.innerHTML = '⚠️ Ingresa la clave.';
-                status.style.color = '#e74c3c';
-                return;
-            }
-
-            if (verifyBossPassword(clave)) {
-                isBossVerified = true;
-                status.innerHTML = '✅ Acceso concedido.';
-                status.style.color = '#27ae60';
-                document.getElementById('bossContent').style.display = 'block';
-                const bossName = getBossName();
-                document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${bossName}`;
-                document.getElementById('bossNameDisplay2').textContent = bossName;
-                renderPasswordLists();
-                renderEmpleadosList();
-                updateSelectors();
-                updateQuincenaSelector();
-                renderTable();
-                updateBossStats();
-            } else {
-                status.innerHTML = '❌ Clave incorrecta.';
-                status.style.color = '#e74c3c';
-                document.getElementById('bossContent').style.display = 'none';
-                isBossVerified = false;
-            }
-        }
-
-        function verifyAdminAccess() {
-            const clave = document.getElementById('adminPasswordInput').value;
-            const status = document.getElementById('adminStatus');
-
-            if (!clave) {
-                status.innerHTML = '⚠️ Ingresa la clave.';
-                status.style.color = '#e74c3c';
-                return;
-            }
-
-            if (verifyAdminPassword(clave)) {
-                isAdminVerified = true;
-                status.innerHTML = '✅ Acceso de administrador concedido.';
-                status.style.color = '#27ae60';
-                document.getElementById('adminContent').style.display = 'block';
-                renderAutos();
-                renderServicios();
-            } else {
-                status.innerHTML = '❌ Clave incorrecta.';
-                status.style.color = '#e74c3c';
-                document.getElementById('adminContent').style.display = 'none';
-                isAdminVerified = false;
-            }
-        }
-
-        // ============ FUNCIONES DEL JEFE ============
-        function bossSetEmployeePassword() {
-            const empleado = document.getElementById('bossPasswordEmployeeSelect').value;
-            const nuevaClave = document.getElementById('bossNewPasswordInput').value.trim();
-            
-            if (!nuevaClave) {
-                showMessage('bossPasswordMessage', '⚠️ Escribe una clave.', 'error');
-                return;
-            }
-            if (nuevaClave.length < 3) {
-                showMessage('bossPasswordMessage', '⚠️ Mínimo 3 caracteres.', 'error');
-                return;
-            }
-
-            setEmployeePassword(empleado, nuevaClave);
-            document.getElementById('bossNewPasswordInput').value = '';
-            showMessage('bossPasswordMessage', `✅ Clave de "${empleado}" actualizada.`, 'exito');
-        }
-
-        function bossRenameEmployee() {
-            const oldName = document.getElementById('bossRenameEmployeeSelect').value;
-            const newName = document.getElementById('bossNewEmployeeNameInput').value.trim();
-
-            if (!newName) {
-                showMessage('bossRenameMessage', '⚠️ Escribe un nombre.', 'error');
-                return;
-            }
-            if (newName === 'BOSS' || newName.toUpperCase() === 'BOSS') {
-                showMessage('bossRenameMessage', '⚠️ No puedes usar ese nombre.', 'error');
-                return;
-            }
-
-            const passwords = getPasswords();
-            if (passwords.empleados[newName]) {
-                showMessage('bossRenameMessage', '⚠️ Ese nombre ya existe.', 'error');
-                return;
-            }
-
-            const clave = passwords.empleados[oldName];
-            delete passwords.empleados[oldName];
-            passwords.empleados[newName] = clave;
-            savePasswords(passwords);
-
-            const records = getRecords();
-            records.forEach(r => {
-                if (r.empleado === oldName) r.empleado = newName;
-            });
-            saveRecords(records);
-
-            updateSelectors();
-            renderPasswordLists();
-            renderEmpleadosList();
-            renderTable();
-            updateAllStats();
-            document.getElementById('bossNewEmployeeNameInput').value = '';
-            showMessage('bossRenameMessage', `✅ Renombrado a "${newName}"`, 'exito');
-        }
-
-        function changeBossName() {
-            const newName = document.getElementById('bossNameInput').value.trim();
-            if (!newName) {
-                showMessage('empleadoMessage', '⚠️ Escribe un nombre.', 'error');
-                return;
-            }
-            saveBossName(newName);
-            const bossName = getBossName();
-            document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${bossName}`;
-            document.getElementById('bossNameDisplay2').textContent = bossName;
-            document.getElementById('bossNameInput').value = '';
-            showMessage('empleadoMessage', `✅ Nombre del jefe actualizado a: ${newName}`, 'exito');
-        }
-
-        function changeBossPassword() {
-            const nueva = prompt('🔑 Nueva clave para el jefe:');
-            if (nueva && nueva.trim().length >= 3) {
-                setBossPassword(nueva.trim());
-            } else if (nueva !== null) {
-                alert('⚠️ Mínimo 3 caracteres.');
-            }
-        }
-
-        // ============ FUNCIONES PRINCIPALES ============
-        function getRecords() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : [];
-        }
-
-        function saveRecords(records) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-        }
-
-        function getQuincena(fecha) {
-            const date = new Date(fecha + 'T00:00:00');
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const year = date.getFullYear();
-            const quincena = day <= 15 ? 1 : 2;
-            return `${year}-${String(month).padStart(2, '0')}-Q${quincena}`;
-        }
-
-        function getQuincenaLabel(quincenaKey) {
-            const parts = quincenaKey.split('-Q');
-            const year = parts[0];
-            const quincenaNum = parts[1];
-            const [yearNum, month] = year.split('-');
-            const mesNombre = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'][parseInt(month) - 1];
-            const rango = quincenaNum === '1' ? '1-15' : '16-30';
-            return `${mesNombre} ${rango} ${yearNum}`;
-        }
-
-        function addRecord(record) {
-            const records = getRecords();
-            const empleados = new Set(records.map(r => r.empleado));
-            const passwords = getPasswords();
-            const totalEmpleados = Object.keys(passwords.empleados).length;
-            
-            if (empleados.size >= totalEmpleados && !empleados.has(record.empleado)) {
-                alert(`⚠️ Ya hay ${totalEmpleados} empleados registrados.`);
-                return false;
-            }
-            record.quincena = getQuincena(record.fecha);
-            record.horas = calcularHoras(record.horaEntrada, record.horaSalida);
-            records.push(record);
-            saveRecords(records);
-            return true;
-        }
-
-        function updateRecord(index, updatedRecord) {
-            const records = getRecords();
-            updatedRecord.quincena = getQuincena(updatedRecord.fecha);
-            updatedRecord.horas = calcularHoras(updatedRecord.horaEntrada, updatedRecord.horaSalida);
-            records[index] = updatedRecord;
-            saveRecords(records);
-        }
-
-        function deleteRecord(index) {
-            const records = getRecords();
-            const record = records[index];
-            
-            // Verificar permisos
-            if (!isBossVerified && !isEmployeeVerified) {
-                alert('⚠️ Inicia sesión para eliminar registros.');
-                return;
-            }
-            
-            // Empleado solo puede eliminar sus propios registros
-            if (isEmployeeVerified && !isBossVerified) {
-                if (record.empleado !== currentEmployee) {
-                    alert('⚠️ Solo puedes eliminar tus propios registros.');
-                    return;
-                }
-            }
-            
-            if (confirm('¿Eliminar este registro?')) {
-                records.splice(index, 1);
-                saveRecords(records);
-                renderTable();
-                updateAllStats();
-                renderEmpleadoHistorial();
-            }
-        }
-
-        function clearAllData() {
-            if (!isBossVerified) {
-                alert('⚠️ Inicia sesión como jefe.');
-                return;
-            }
-            if (confirm('⚠️ ¿Borrar TODOS los registros?')) {
-                saveRecords([]);
-                renderTable();
-                updateAllStats();
-                updateQuincenaSelector();
-                renderEmpleadoHistorial();
-                alert('✅ Datos borrados.');
-            }
-        }
-
-        // ============ FILTRAR Y RENDERIZAR ============
-        function getFilteredRecords() {
-            const records = getRecords();
-            const quincenaFilter = document.getElementById('quincenaSelect').value;
-            const employeeFilter = document.getElementById('filterEmployee').value;
-            const fechaFilter = document.getElementById('bossFiltroFecha').value;
-
-            let filtered = records;
-            if (quincenaFilter !== 'todas') {
-                filtered = filtered.filter(r => r.quincena === quincenaFilter);
-            }
-            if (employeeFilter !== 'todos') {
-                filtered = filtered.filter(r => r.empleado === employeeFilter);
-            }
-            if (fechaFilter) {
-                filtered = filtered.filter(r => r.fecha === fechaFilter);
-            }
-            return filtered;
-        }
-
-        function renderTable() {
-            const records = getFilteredRecords();
-            const tbody = document.getElementById('tableBody');
-
-            if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:#95a5a6; padding:30px;">No hay registros</td></tr>`;
-                return;
-            }
-
-            const allRecords = getRecords();
-            tbody.innerHTML = records.map((r) => {
-                const realIndex = allRecords.indexOf(r);
-                return `
-                    <tr>
-                        <td><strong>${r.empleado}</strong></td>
-                        <td>${formatearFecha(r.fecha)}</td>
-                        <td>${r.horaEntrada}</td>
-                        <td>${r.horaSalida}</td>
-                        <td>${formatearHoras(r.horas || 0)}</td>
-                        <td>${r.auto}</td>
-                        <td>${r.servicio}</td>
-                        <td>$${parseFloat(r.cobro).toFixed(2)}</td>
-                        <td>$${parseFloat(r.propina).toFixed(2)}</td>
-                        <td>${getQuincenaLabel(r.quincena)}</td>
-                        <td>
-                            <button class="btn-edit-record" onclick="openEditModal(${realIndex})">✏️ Editar</button>
-                            <button class="btn-delete-record" onclick="deleteRecord(${realIndex})">🗑️</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // ============ HISTORIAL DEL EMPLEADO ============
-        function renderEmpleadoHistorial() {
-            if (!isEmployeeVerified || !currentEmployee) return;
-            
-            const records = getRecords();
-            const fechaFiltro = document.getElementById('empleadoFiltroFecha').value;
-            
-            let filtered = records.filter(r => r.empleado === currentEmployee);
-            if (fechaFiltro) {
-                filtered = filtered.filter(r => r.fecha === fechaFiltro);
-            }
-            
-            filtered.sort((a, b) => b.fecha.localeCompare(a.fecha) || b.horaEntrada.localeCompare(a.horaEntrada));
-            
-            const tbody = document.getElementById('empleadoHistorialBody');
-            
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros para esta fecha</td></tr>`;
-                document.getElementById('empHistorialTotal').textContent = '0';
-                document.getElementById('empHistorialHoras').textContent = '0h';
-                document.getElementById('empHistorialCobros').textContent = '$0';
-                document.getElementById('empHistorialPropinas').textContent = '$0';
-                return;
-            }
-            
-            const allRecords = getRecords();
-            tbody.innerHTML = filtered.map((r) => {
-                const realIndex = allRecords.indexOf(r);
-                return `
-                    <tr>
-                        <td>${formatearFecha(r.fecha)}</td>
-                        <td>${r.horaEntrada}</td>
-                        <td>${r.horaSalida}</td>
-                        <td>${formatearHoras(r.horas || 0)}</td>
-                        <td>${r.auto}</td>
-                        <td>${r.servicio}</td>
-                        <td>$${parseFloat(r.cobro).toFixed(2)}</td>
-                        <td>$${parseFloat(r.propina).toFixed(2)}</td>
-                        <td>${getQuincenaLabel(r.quincena)}</td>
-                        <td>
-                            <button class="btn-edit-record" onclick="openEditModal(${realIndex})">✏️ Editar</button>
-                            <button class="btn-delete-record" onclick="deleteRecord(${realIndex})">🗑️</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            // Actualizar estadísticas del historial
-            document.getElementById('empHistorialTotal').textContent = filtered.length;
-            const totalHoras = filtered.reduce((sum, r) => sum + (r.horas || 0), 0);
-            document.getElementById('empHistorialHoras').textContent = formatearHoras(totalHoras);
-            const totalCobro = filtered.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
-            document.getElementById('empHistorialCobros').textContent = `$${totalCobro.toFixed(2)}`;
-            const totalPropina = filtered.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
-            document.getElementById('empHistorialPropinas').textContent = `$${totalPropina.toFixed(2)}`;
-        }
-
-        // ============ ESTADÍSTICAS ============
-        function updateAllStats() {
-            updateEmployeeStats();
-            updateBossStats();
-            if (isEmployeeVerified) renderEmpleadoHistorial();
-        }
-
-        function updateEmployeeStats() {
-            if (!isEmployeeVerified) return;
-            const records = getRecords();
-            const fechaActual = new Date();
-            const quincenaActual = getQuincena(fechaActual.toISOString().slice(0, 10));
-            const empRecords = records.filter(r => r.empleado === currentEmployee && r.quincena === quincenaActual);
-
-            document.getElementById('empTotalRegistros').textContent = empRecords.length;
-            const totalHoras = empRecords.reduce((sum, r) => sum + (r.horas || 0), 0);
-            document.getElementById('empTotalHoras').textContent = formatearHoras(totalHoras);
-            const totalCobro = empRecords.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
-            document.getElementById('empTotalCobros').textContent = `$${totalCobro.toFixed(2)}`;
-            const totalPropina = empRecords.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
-            document.getElementById('empTotalPropinas').textContent = `$${totalPropina.toFixed(2)}`;
-        }
-
-        function updateBossStats() {
-            if (!isBossVerified) return;
-            const records = getFilteredRecords();
-            document.getElementById('bossTotalRegistros').textContent = records.length;
-            const totalHoras = records.reduce((sum, r) => sum + (r.horas || 0), 0);
-            document.getElementById('bossTotalHoras').textContent = formatearHoras(totalHoras);
-            const totalCobro = records.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
-            document.getElementById('bossTotalCobros').textContent = `$${totalCobro.toFixed(2)}`;
-            const totalPropina = records.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
-            document.getElementById('bossTotalPropinas').textContent = `$${totalPropina.toFixed(2)}`;
-        }
-
-        // ============ QUINCENA ============
-        function updateQuincenaSelector() {
-            const records = getRecords();
-            const quincenas = new Set(records.map(r => r.quincena));
-            const select = document.getElementById('quincenaSelect');
-            const current = select.value;
-
-            select.innerHTML = '<option value="todas">Todas las quincenas</option>';
-            Array.from(quincenas).sort().forEach(q => {
-                const opt = document.createElement('option');
-                opt.value = q;
-                opt.textContent = getQuincenaLabel(q);
-                select.appendChild(opt);
-            });
-            if (Array.from(quincenas).includes(current)) select.value = current;
-        }
-
-        // ============ EXPORTAR ============
-        function exportToExcel() {
-            if (!isBossVerified) {
-                alert('⚠️ Inicia sesión como jefe.');
-                return;
-            }
-            const records = getFilteredRecords();
-            if (records.length === 0) {
-                alert('⚠️ No hay datos.');
-                return;
-            }
-
-            const headers = ['Empleado', 'Fecha', 'Hora Entrada', 'Hora Salida', 'Horas', 'Auto', 'Servicio', 'Cobro', 'Propina', 'Quincena'];
-            let csv = headers.join(',') + '\n';
-            records.forEach(r => {
-                const row = [
-                    r.empleado, formatearFecha(r.fecha), r.horaEntrada, r.horaSalida,
-                    (r.horas || 0).toFixed(2).replace('.', ','),
-                    `"${r.auto}"`, `"${r.servicio}"`, r.cobro, r.propina,
-                    `"${getQuincenaLabel(r.quincena)}"`
-                ];
-                csv += row.join(',') + '\n';
-            });
-
-            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.href = url;
-            link.download = `registros_${new Date().toISOString().slice(0,10)}.csv`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        // ============ FORMULARIO ============
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            if (!isEmployeeVerified) {
-                alert('⚠️ Verifica tu clave primero.');
-                return;
-            }
-
-            const fecha = document.getElementById('fecha').value;
-            const horaEntrada = document.getElementById('horaEntrada').value;
-            const horaSalida = document.getElementById('horaSalida').value;
-            
-            let auto = document.getElementById('autoSelect').value;
-            const autoOtro = document.getElementById('autoOtro').value.trim();
-            if (autoOtro) auto = autoOtro;
-            
-            let servicio = document.getElementById('servicioSelect').value;
-            const servicioOtro = document.getElementById('servicioOtro').value.trim();
-            if (servicioOtro) servicio = servicioOtro;
-
-            const cobro = parseFloat(document.getElementById('cobro').value) || 0;
-            const propina = parseFloat(document.getElementById('propina').value) || 0;
-
-            if (!fecha || !horaEntrada || !horaSalida || !auto || !servicio) {
-                alert('⚠️ Completa todos los campos.');
-                return;
-            }
-
-            const record = {
-                empleado: currentEmployee,
-                fecha,
-                horaEntrada,
-                horaSalida,
-                auto,
-                servicio,
-                cobro: cobro.toFixed(2),
-                propina: propina.toFixed(2)
-            };
-
-            if (addRecord(record)) {
-                alert('✅ Registro guardado.');
-                this.reset();
-                document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
-                document.getElementById('autoOtro').value = '';
-                document.getElementById('servicioOtro').value = '';
-                renderTable();
-                updateAllStats();
-                updateQuincenaSelector();
-                renderEmpleadoHistorial();
-            }
-        });
-
-        // ============ MODAL DE EDICIÓN ============
-        function openEditModal(index) {
-            const records = getRecords();
-            const record = records[index];
-            
-            if (!record) return;
-
-            // Verificar permisos
-            if (!isBossVerified && !isEmployeeVerified) {
-                alert('⚠️ Inicia sesión para editar registros.');
-                return;
-            }
-
-            // Empleado solo puede editar sus propios registros
-            if (isEmployeeVerified && !isBossVerified) {
-                if (record.empleado !== currentEmployee) {
-                    alert('⚠️ Solo puedes editar tus propios registros.');
-                    return;
-                }
-            }
-
-            document.getElementById('editIndex').value = index;
-            document.getElementById('editFecha').value = record.fecha;
-            document.getElementById('editHoraEntrada').value = record.horaEntrada;
-            document.getElementById('editHoraSalida').value = record.horaSalida;
-            document.getElementById('editAuto').value = record.auto;
-            document.getElementById('editServicio').value = record.servicio;
-            document.getElementById('editCobro').value = record.cobro;
-            document.getElementById('editPropina').value = record.propina;
-
-            document.getElementById('editModal').classList.add('active');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('active');
-        }
-
-        document.getElementById('editForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const index = parseInt(document.getElementById('editIndex').value);
-            const fecha = document.getElementById('editFecha').value;
-            const horaEntrada = document.getElementById('editHoraEntrada').value;
-            const horaSalida = document.getElementById('editHoraSalida').value;
-            const auto = document.getElementById('editAuto').value.trim();
-            const servicio = document.getElementById('editServicio').value.trim();
-            const cobro = parseFloat(document.getElementById('editCobro').value) || 0;
-            const propina = parseFloat(document.getElementById('editPropina').value) || 0;
-
-            if (!fecha || !horaEntrada || !horaSalida || !auto || !servicio) {
-                alert('⚠️ Completa todos los campos.');
-                return;
-            }
-
-            const records = getRecords();
-            const updatedRecord = {
-                empleado: records[index].empleado,
-                fecha,
-                horaEntrada,
-                horaSalida,
-                auto,
-                servicio,
-                cobro: cobro.toFixed(2),
-                propina: propina.toFixed(2)
-            };
-
-            updateRecord(index, updatedRecord);
-            closeEditModal();
-            renderTable();
-            updateAllStats();
-            updateQuincenaSelector();
-            renderEmpleadoHistorial();
-            alert('✅ Registro actualizado.');
-        });
-
-        document.getElementById('editModal').addEventListener('click', function(e) {
-            if (e.target === this) closeEditModal();
-        });
-
-        // ============ EVENTOS DE FILTRO ============
-        document.getElementById('quincenaSelect').addEventListener('change', function() {
-            renderTable();
-            updateBossStats();
-        });
-
-        document.getElementById('filterEmployee').addEventListener('change', function() {
-            renderTable();
-            updateBossStats();
-        });
-
-        document.getElementById('bossFiltroFecha').addEventListener('change', function() {
-            renderTable();
-            updateBossStats();
-        });
-
-        // ============ PESTAÑAS ============
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tab = this.dataset.tab;
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                document.getElementById(tab).classList.add('active');
-                
-                if (tab === 'boss' && isBossVerified) {
-                    renderTable();
-                    updateBossStats();
-                }
-                if (tab === 'employee' && isEmployeeVerified) {
-                    renderEmpleadoHistorial();
-                    updateEmployeeStats();
-                }
-            });
-        });
-
-        // ============ ENTER ============
-        document.getElementById('employeePassword').addEventListener('keypress', e => {
-            if (e.key === 'Enter') verifyPassword();
-        });
-        document.getElementById('bossPasswordInput').addEventListener('keypress', e => {
-            if (e.key === 'Enter') verifyBossAccess();
-        });
-        document.getElementById('adminPasswordInput').addEventListener('keypress', e => {
-            if (e.key === 'Enter') verifyAdminAccess();
-        });
 
         // ============ INICIALIZAR ============
-        document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
-        applyColors();
-        applyLogo();
-        updateSelectors();
-        renderPasswordLists();
-        renderEmpleadosList();
-        renderAutos();
-        renderServicios();
-        updateQuincenaSelector();
-        renderTable();
-        updateAllStats();
+        // Poner fecha actual por defecto
+        const hoy = new Date();
+        document.getElementById('fechaRegistro').value = formatearFechaDMY(hoy);
         
-        // Cargar idioma guardado
-        const idiomaGuardado = localStorage.getItem('idioma') || 'es';
-        cambiarIdioma(idiomaGuardado);
+        // Fecha inicio por defecto: primer día del mes
+        const primerDia = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+        document.getElementById('fechaInicio').value = formatearFechaDMY(primerDia);
+        
+        // Fecha fin por defecto: día 15 del mes o último día
+        const dia = hoy.getDate();
+        let ultimoDia = 15;
+        if (dia > 15) {
+            const proximoMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+            ultimoDia = proximoMes.getDate();
+        }
+        const fechaFinDefault = new Date(hoy.getFullYear(), hoy.getMonth(), ultimoDia);
+        document.getElementById('fechaFin').value = formatearFechaDMY(fechaFinDefault);
 
-        console.log('🚀 Sistema de Registro cargado correctamente.');
-        console.log('👔 Jefe: admin123');
-        console.log('⚙️ Admin: admin123');
-        console.log('👥 Empleados: emp1, emp2, emp3, ...');
-        console.log('✅ Empleados y Jefe pueden editar registros anteriores.');
-        console.log('📊 Cálculo automático de horas trabajadas.');
-        console.log('📅 Formato de fecha: DD/MM/YYYY (ej: 9/7/2026)');
-        console.log('🌍 Cambia de idioma con los botones en la esquina superior derecha.');
+        console.log('📋 Sistema de Registro Temporal cargado.');
+        console.log('💡 Fecha actual: ' + formatearFechaDMY(hoy));
+        console.log('📅 Quincena sugerida: ' + document.getElementById('fechaInicio').value + ' al ' + document.getElementById('fechaFin').value);
     </script>
 </body>
 </html>
