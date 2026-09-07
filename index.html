@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Capitol Shine - Registro de Detailing</title>
     <style>
         * {
@@ -10,12 +10,13 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background: #0a0a0a;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             background-image: 
                 radial-gradient(ellipse at 10% 20%, rgba(255, 200, 0, 0.05) 0%, transparent 50%),
                 radial-gradient(ellipse at 90% 80%, rgba(255, 200, 0, 0.03) 0%, transparent 50%);
@@ -24,12 +25,13 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
+            padding: 0 5px;
         }
 
         .main-card {
             background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-            border-radius: 24px;
-            padding: 35px;
+            border-radius: 20px;
+            padding: 20px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 200, 0, 0.1);
             border: 1px solid rgba(255, 200, 0, 0.08);
         }
@@ -37,22 +39,30 @@
         /* ===== HEADER ===== */
         .header {
             text-align: center;
-            margin-bottom: 35px;
-            padding-bottom: 25px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
             border-bottom: 2px solid rgba(255, 200, 0, 0.15);
         }
 
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
         .header .logo-icon {
-            font-size: 55px;
+            font-size: 40px;
             display: block;
-            margin-bottom: 5px;
         }
 
         .header h1 {
             color: #ffd700;
-            font-size: 2.8em;
+            font-size: 2em;
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
             font-family: 'Arial Black', sans-serif;
@@ -60,45 +70,73 @@
 
         .header .subtitle {
             color: #888;
-            font-size: 1em;
-            letter-spacing: 2px;
-            margin-top: 5px;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            margin-top: 3px;
         }
 
         .header .subtitle span {
             color: #ffd700;
         }
 
+        .idioma-selector {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .idioma-selector button {
+            padding: 6px 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 12px;
+            color: #888;
+            touch-action: manipulation;
+        }
+
+        .idioma-selector button:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .idioma-selector button.active {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border-color: #ffd700;
+        }
+
         /* ===== SECCIONES ===== */
         .section {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 18px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.3s;
         }
 
-        .section:hover {
-            border-color: rgba(255, 215, 0, 0.15);
-        }
-
         .section h2 {
             color: #ffd700;
-            font-size: 1.2em;
-            margin-bottom: 18px;
+            font-size: 1.1em;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 700;
             letter-spacing: 1px;
+            flex-wrap: wrap;
         }
 
         .section h2 .badge {
             background: rgba(255, 215, 0, 0.15);
             color: #ffd700;
-            font-size: 11px;
-            padding: 2px 12px;
+            font-size: 10px;
+            padding: 2px 10px;
             border-radius: 20px;
             font-weight: 600;
         }
@@ -106,8 +144,8 @@
         /* ===== FORMULARIOS ===== */
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
         }
 
         .form-group {
@@ -118,21 +156,25 @@
         .form-group label {
             font-weight: 600;
             color: #aaa;
-            margin-bottom: 5px;
-            font-size: 12px;
+            margin-bottom: 4px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .form-group input,
         .form-group select {
-            padding: 12px 16px;
+            padding: 10px 14px;
             background: rgba(255, 255, 255, 0.06);
             border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             color: #fff;
             transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            min-height: 44px;
         }
 
         .form-group input:focus,
@@ -149,29 +191,42 @@
 
         .form-group input[type="date"] {
             color-scheme: dark;
+            min-height: 44px;
         }
 
         .form-group input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(0.8);
             cursor: pointer;
+            padding: 4px;
         }
 
         /* ===== BOTONES ===== */
         .btn {
-            padding: 12px 30px;
+            padding: 12px 24px;
             border: none;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            touch-action: manipulation;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
         }
 
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
         }
 
         .btn-gold {
@@ -225,45 +280,53 @@
         }
 
         .btn-sm {
-            padding: 6px 14px;
+            padding: 6px 12px;
             font-size: 11px;
+            min-height: 32px;
+            width: auto;
         }
 
         .btn-xs {
             padding: 4px 10px;
             font-size: 10px;
+            min-height: 28px;
+            width: auto;
         }
 
         /* ===== TABLA ===== */
         .table-wrapper {
             overflow-x: auto;
-            margin: 15px 0;
-            border-radius: 12px;
+            margin: 12px 0;
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 12px;
+            min-width: 600px;
         }
 
         th {
             background: rgba(255, 215, 0, 0.08);
             color: #ffd700;
-            padding: 12px 10px;
+            padding: 10px 8px;
             text-align: left;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 1px;
+            font-size: 10px;
+            letter-spacing: 0.5px;
             border-bottom: 2px solid rgba(255, 215, 0, 0.1);
+            white-space: nowrap;
         }
 
         td {
-            padding: 10px 10px;
+            padding: 8px 8px;
             color: #ccc;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 12px;
         }
 
         tr:hover td {
@@ -273,37 +336,32 @@
         /* ===== ESTADÍSTICAS ===== */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 12px 0;
         }
 
         .stats-card {
             background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 10px;
+            padding: 14px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s;
         }
 
-        .stats-card:hover {
-            border-color: rgba(255, 215, 0, 0.15);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
         .stats-card .number {
-            font-size: 30px;
+            font-size: 24px;
             font-weight: 900;
             color: #ffd700;
         }
 
         .stats-card .label {
-            font-size: 11px;
+            font-size: 10px;
             color: #888;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
+            letter-spacing: 0.5px;
+            margin-top: 3px;
         }
 
         .stats-card.green .number { color: #4caf50; }
@@ -314,20 +372,23 @@
         /* ===== REGISTROS POR DÍA ===== */
         .dia-group {
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            margin-bottom: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
         }
 
         .dia-header {
             background: rgba(255, 215, 0, 0.05);
-            padding: 12px 18px;
+            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
             cursor: pointer;
             transition: all 0.3s;
+            touch-action: manipulation;
         }
 
         .dia-header:hover {
@@ -337,12 +398,12 @@
         .dia-header .fecha {
             color: #ffd700;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .dia-header .total-dia {
             color: #888;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .dia-header .total-dia span {
@@ -351,19 +412,21 @@
         }
 
         .dia-body {
-            padding: 10px 18px;
+            padding: 8px 14px;
         }
 
         .registro-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 12px;
+            padding: 8px 10px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 8px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             border: 1px solid rgba(255, 255, 255, 0.03);
             transition: all 0.3s;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .registro-item:hover {
@@ -373,29 +436,33 @@
 
         .registro-item .info {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
             align-items: center;
+            flex: 1;
         }
 
         .registro-item .info .auto {
             color: #fff;
             font-weight: 600;
+            font-size: 13px;
         }
 
         .registro-item .info .detalle {
             color: #888;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .registro-item .info .monto {
             color: #ffd700;
             font-weight: 600;
+            font-size: 13px;
         }
 
         .registro-item .acciones {
             display: flex;
             gap: 5px;
+            flex-shrink: 0;
         }
 
         .badge-auto {
@@ -403,17 +470,17 @@
             color: #ffd700;
             padding: 2px 10px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
         }
 
         /* ===== MENSAJES ===== */
         .mensaje {
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 10px;
-            margin: 10px 0;
+            margin: 8px 0;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .mensaje-exito {
@@ -437,12 +504,18 @@
         /* ===== FOOTER ===== */
         .footer-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 25px;
-            padding-top: 25px;
+            margin-top: 20px;
+            padding-top: 20px;
             border-top: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-actions .btn {
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
         }
 
         .hidden {
@@ -451,8 +524,8 @@
 
         /* ===== SCROLL ===== */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
 
         ::-webkit-scrollbar-track {
@@ -470,58 +543,243 @@
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .header h1 {
-                font-size: 2em;
-            }
+        @media (max-width: 1024px) {
             .main-card {
-                padding: 20px;
+                padding: 16px;
             }
-            .section {
-                padding: 18px;
-            }
-            .registro-item {
-                flex-direction: column;
+            .form-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
                 gap: 10px;
-                align-items: stretch;
-            }
-            .registro-item .info {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .registro-item .acciones {
-                justify-content: flex-end;
-            }
-            .dia-header {
-                flex-direction: column;
-                gap: 5px;
-                text-align: center;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
 
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+            }
+            
+            .main-card {
+                padding: 14px;
+                border-radius: 16px;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+                letter-spacing: 2px;
+            }
+
+            .header .logo-icon {
+                font-size: 32px;
+            }
+
+            .header .subtitle {
+                font-size: 0.75em;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .section {
+                padding: 14px;
+                margin-bottom: 14px;
+            }
+
+            .section h2 {
+                font-size: 1em;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .form-group input,
+            .form-group select {
+                font-size: 16px;
+                padding: 12px 14px;
+                min-height: 48px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 14px 20px;
+                min-height: 48px;
+                width: 100%;
+            }
+
+            .btn-sm {
+                font-size: 11px;
+                padding: 6px 12px;
+                min-height: 34px;
+                width: auto;
+            }
+
+            .btn-xs {
+                font-size: 10px;
+                padding: 4px 10px;
+                min-height: 30px;
+                width: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .stats-card {
+                padding: 10px;
+            }
+
+            .stats-card .number {
+                font-size: 20px;
+            }
+
+            .stats-card .label {
+                font-size: 9px;
+            }
+
+            .dia-header {
+                flex-direction: column;
+                gap: 4px;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .dia-header .fecha {
+                font-size: 13px;
+            }
+
+            .dia-header .total-dia {
+                font-size: 11px;
+            }
+
+            .registro-item {
+                flex-direction: column;
+                gap: 6px;
+                align-items: stretch;
+                padding: 8px 10px;
+            }
+
+            .registro-item .info {
+                flex-direction: column;
+                gap: 4px;
+                align-items: flex-start;
+            }
+
+            .registro-item .info .auto {
+                font-size: 14px;
+            }
+
+            .registro-item .info .detalle {
+                font-size: 12px;
+            }
+
+            .registro-item .info .monto {
+                font-size: 13px;
+            }
+
+            .registro-item .acciones {
+                justify-content: flex-end;
+                margin-top: 4px;
+            }
+
+            .footer-actions {
+                gap: 8px;
+            }
+
+            .footer-actions .btn {
+                min-width: 100%;
+                max-width: 100%;
+                flex: 1 1 100%;
+            }
+
+            table {
+                font-size: 11px;
+                min-width: 500px;
+            }
+
+            th {
+                font-size: 9px;
+                padding: 8px 6px;
+            }
+
+            td {
+                font-size: 11px;
+                padding: 6px 6px;
+            }
+
+            .mensaje {
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 1.4em;
+            }
+            .section {
+                padding: 10px;
+            }
+            .form-group input,
+            .form-group select {
+                font-size: 16px;
+                padding: 10px 12px;
+                min-height: 44px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 12px 16px;
+                min-height: 44px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            .stats-card {
+                padding: 8px;
+            }
+            .stats-card .number {
+                font-size: 18px;
+            }
+            .dia-body {
+                padding: 6px 8px;
+            }
+            .registro-item {
+                padding: 6px 8px;
+            }
+        }
+
+        /* ===== IMPRESIÓN ===== */
         @media print {
-            .btn, .footer-actions {
+            .btn, .footer-actions, .idioma-selector {
                 display: none !important;
             }
             .main-card {
                 background: white !important;
                 padding: 10px !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
             }
             body {
                 background: white !important;
                 padding: 10px !important;
             }
             .header h1 { color: #000 !important; }
-            .section { border-color: #ccc !important; }
+            .section { border-color: #ccc !important; background: #f9f9f9 !important; }
             th { background: #333 !important; color: white !important; }
             td { color: #333 !important; }
             .stats-card .number { color: #000 !important; }
+            .stats-card { border: 1px solid #ccc !important; background: #f5f5f5 !important; }
+            .dia-header { background: #eee !important; }
+            .dia-header .fecha { color: #000 !important; }
+            .registro-item { border-color: #ddd !important; }
         }
     </style>
 </head>
@@ -531,67 +789,70 @@
 
             <!-- ===== HEADER ===== -->
             <div class="header">
-                <span class="logo-icon">✨</span>
-                <h1>CAPITOL SHINE</h1>
-                <p class="subtitle">Detailing &amp; Auto Spa · <span>Registro de Trabajo</span></p>
-            </div>
-
-            <!-- ===== CONFIGURACIÓN ===== -->
-            <div id="configSection" class="section">
-                <h2>⚙️ Iniciar Jornada</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>👤 Nombre del Empleado</label>
-                        <input type="text" id="empleadoNombre" placeholder="Ej: Juan Pérez" required>
+                <div class="header-top">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="logo-icon">✨</span>
+                        <div style="text-align:left;">
+                            <h1 style="font-size:1.6em;">CAPITOL SHINE</h1>
+                            <p class="subtitle" style="font-size:0.7em;">Detailing &amp; Auto Spa · <span id="headerSubtitle">Registro de Trabajo</span></p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>📅 Fecha de Inicio (MM/DD/YYYY)</label>
-                        <input type="date" id="fechaInicio" required>
-                    </div>
-                    <div class="form-group">
-                        <label>📅 Fecha de Fin (MM/DD/YYYY)</label>
-                        <input type="date" id="fechaFin" required>
-                    </div>
-                    <div class="form-group" style="justify-content: flex-end;">
-                        <button class="btn btn-gold" onclick="iniciarJornada()">🚀 Iniciar Jornada</button>
+                    <div class="idioma-selector">
+                        <button class="active" onclick="cambiarIdioma('es')" id="btnEs">🇪🇸 ES</button>
+                        <button onclick="cambiarIdioma('en')" id="btnEn">🇬🇧 EN</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ===== REGISTRO DE AUTO ===== -->
-            <div id="registroSection" class="section hidden">
-                <h2>🚗 Registrar Auto <span class="badge">Nuevo registro</span></h2>
+            <!-- ===== CONFIGURACIÓN ===== -->
+            <div id="configSection" class="section">
+                <h2 id="lblConfigTitle">⚙️ Iniciar Jornada</h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>📅 Fecha (MM/DD/YYYY)</label>
+                        <label id="lblEmployeeName">👤 Nombre del Empleado</label>
+                        <input type="text" id="empleadoNombre" placeholder="Ej: Juan Pérez" required>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button class="btn btn-gold" onclick="iniciarJornada()" id="btnStart">🚀 Iniciar Jornada</button>
+                    </div>
+                </div>
+                <div id="mensajeConfig" style="margin-top:10px;"></div>
+            </div>
+
+            <!-- ===== REGISTRO DE AUTO ===== -->
+            <div id="registroSection" class="section hidden">
+                <h2 id="lblRegisterTitle">🚗 Registrar Auto <span class="badge" id="lblNewRecord">Nuevo registro</span></h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="lblDate">📅 Fecha</label>
                         <input type="date" id="fechaRegistro" required>
                     </div>
                     <div class="form-group">
-                        <label>🕐 Hora Entrada</label>
+                        <label id="lblEntryTime">🕐 Hora Entrada</label>
                         <input type="time" id="horaEntrada" required>
                     </div>
                     <div class="form-group">
-                        <label>🕐 Hora Salida</label>
+                        <label id="lblExitTime">🕐 Hora Salida</label>
                         <input type="time" id="horaSalida" required>
                     </div>
                     <div class="form-group">
-                        <label>🚗 Auto</label>
+                        <label id="lblVehicle">🚗 Auto</label>
                         <input type="text" id="auto" placeholder="Ej: Toyota Corolla 2020">
                     </div>
                     <div class="form-group">
-                        <label>🔧 Servicio</label>
+                        <label id="lblService">🔧 Servicio</label>
                         <input type="text" id="servicio" placeholder="Ej: Detailing completo">
                     </div>
                     <div class="form-group">
-                        <label>💰 Cobro ($)</label>
+                        <label id="lblCharge">💰 Cobro ($)</label>
                         <input type="number" id="cobro" placeholder="0.00" step="0.01">
                     </div>
                     <div class="form-group">
-                        <label>💵 Propina ($)</label>
+                        <label id="lblTip">💵 Propina ($)</label>
                         <input type="number" id="propina" placeholder="0.00" step="0.01">
                     </div>
                     <div class="form-group" style="justify-content: flex-end;">
-                        <button class="btn btn-success" onclick="agregarAuto()">➕ Agregar Auto</button>
+                        <button class="btn btn-success" onclick="agregarAuto()" id="btnAddVehicle">➕ Agregar Auto</button>
                     </div>
                 </div>
                 <div id="mensajeRegistro" style="margin-top: 10px;"></div>
@@ -599,53 +860,155 @@
 
             <!-- ===== LISTA DE REGISTROS ===== -->
             <div id="listaSection" class="section hidden">
-                <h2>📊 Registros de la Jornada <span class="badge" id="totalAutosBadge">0 autos</span></h2>
+                <h2 id="lblListTitle">📊 Registros de la Jornada <span class="badge" id="totalAutosBadge">0 autos</span></h2>
                 
                 <div class="stats-grid" id="statsGrid">
                     <div class="stats-card blue">
                         <div class="number" id="totalAutos">0</div>
-                        <div class="label">Total Autos</div>
+                        <div class="label" id="lblTotalVehicles">Total Autos</div>
                     </div>
                     <div class="stats-card purple">
                         <div class="number" id="totalHoras">0h</div>
-                        <div class="label">Total Horas</div>
+                        <div class="label" id="lblTotalHours">Total Horas</div>
                     </div>
                     <div class="stats-card green">
                         <div class="number" id="totalCobros">$0</div>
-                        <div class="label">Total Cobros</div>
+                        <div class="label" id="lblTotalCharges">Total Cobros</div>
                     </div>
                     <div class="stats-card orange">
                         <div class="number" id="totalPropinas">$0</div>
-                        <div class="label">Total Propinas</div>
+                        <div class="label" id="lblTotalTips">Total Propinas</div>
                     </div>
                 </div>
 
                 <div id="registrosList"></div>
 
                 <div class="footer-actions">
-                    <button class="btn btn-gold" onclick="exportarExcel()">📊 Exportar a Excel</button>
-                    <button class="btn btn-info" onclick="window.print()">📄 Imprimir</button>
-                    <button class="btn btn-warning" onclick="limpiarTodo()">🗑️ Limpiar Todo</button>
+                    <button class="btn btn-gold" onclick="exportarExcel()" id="btnExportExcel">📊 Exportar a Excel</button>
+                    <button class="btn btn-info" onclick="window.print()" id="btnPrint">📄 Imprimir</button>
+                    <button class="btn btn-warning" onclick="limpiarTodo()" id="btnClearAll">🗑️ Limpiar Todo</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // ============ IDIOMAS ============
+        const textos = {
+            es: {
+                subtitle: 'Registro de Trabajo',
+                configTitle: '⚙️ Iniciar Jornada',
+                employeeName: '👤 Nombre del Empleado',
+                start: '🚀 Iniciar Jornada',
+                registerTitle: '🚗 Registrar Auto',
+                newRecord: 'Nuevo registro',
+                date: '📅 Fecha',
+                entryTime: '🕐 Hora Entrada',
+                exitTime: '🕐 Hora Salida',
+                vehicle: '🚗 Auto',
+                service: '🔧 Servicio',
+                charge: '💰 Cobro ($)',
+                tip: '💵 Propina ($)',
+                addVehicle: '➕ Agregar Auto',
+                listTitle: '📊 Registros de la Jornada',
+                totalVehicles: 'Total Autos',
+                totalHours: 'Total Horas',
+                totalCharges: 'Total Cobros',
+                totalTips: 'Total Propinas',
+                exportExcel: '📊 Exportar a Excel',
+                print: '📄 Imprimir',
+                clearAll: '🗑️ Limpiar Todo',
+                startSuccess: '✅ Jornada iniciada para ',
+                startError: '⚠️ Ingresa tu nombre.',
+                recordSuccess: '✅ Auto "',
+                recordError: '⚠️ Ingresa hora de entrada y salida.',
+                deleteConfirm: '¿Eliminar este registro?',
+                clearConfirm: '⚠️ ¿Borrar TODOS los registros?',
+                noRecords: 'No hay autos registrados aún.\n¡Comienza a registrar tu trabajo!',
+                exportEmpty: '⚠️ No hay registros para exportar.',
+                deleteMsg: '🗑️ Registro eliminado.',
+                clearMsg: '🗑️ Todos los registros han sido eliminados.',
+                auto: 'auto',
+                autos: 'autos',
+                vehicles: 'vehículos'
+            },
+            en: {
+                subtitle: 'Work Log',
+                configTitle: '⚙️ Start Shift',
+                employeeName: '👤 Employee Name',
+                start: '🚀 Start Shift',
+                registerTitle: '🚗 Register Vehicle',
+                newRecord: 'New record',
+                date: '📅 Date',
+                entryTime: '🕐 Entry Time',
+                exitTime: '🕐 Exit Time',
+                vehicle: '🚗 Vehicle',
+                service: '🔧 Service',
+                charge: '💰 Charge ($)',
+                tip: '💵 Tip ($)',
+                addVehicle: '➕ Add Vehicle',
+                listTitle: '📊 Shift Records',
+                totalVehicles: 'Total Vehicles',
+                totalHours: 'Total Hours',
+                totalCharges: 'Total Charges',
+                totalTips: 'Total Tips',
+                exportExcel: '📊 Export to Excel',
+                print: '📄 Print',
+                clearAll: '🗑️ Clear All',
+                startSuccess: '✅ Shift started for ',
+                startError: '⚠️ Enter your name.',
+                recordSuccess: '✅ Vehicle "',
+                recordError: '⚠️ Enter entry and exit time.',
+                deleteConfirm: 'Delete this record?',
+                clearConfirm: '⚠️ Delete ALL records?',
+                noRecords: 'No vehicles registered yet.\nStart logging your work!',
+                exportEmpty: '⚠️ No records to export.',
+                deleteMsg: '🗑️ Record deleted.',
+                clearMsg: '🗑️ All records have been deleted.',
+                auto: 'vehicle',
+                autos: 'vehicles',
+                vehicles: 'vehicles'
+            }
+        };
+
+        let idiomaActual = 'es';
+
+        function cambiarIdioma(idioma) {
+            idiomaActual = idioma;
+            document.getElementById('btnEs').classList.toggle('active', idioma === 'es');
+            document.getElementById('btnEn').classList.toggle('active', idioma === 'en');
+            
+            const t = textos[idioma];
+            document.getElementById('headerSubtitle').textContent = t.subtitle;
+            document.getElementById('lblConfigTitle').textContent = t.configTitle;
+            document.getElementById('lblEmployeeName').textContent = t.employeeName;
+            document.getElementById('btnStart').textContent = t.start;
+            document.getElementById('lblRegisterTitle').innerHTML = t.registerTitle + ' <span class="badge" id="lblNewRecord">' + t.newRecord + '</span>';
+            document.getElementById('lblDate').textContent = t.date;
+            document.getElementById('lblEntryTime').textContent = t.entryTime;
+            document.getElementById('lblExitTime').textContent = t.exitTime;
+            document.getElementById('lblVehicle').textContent = t.vehicle;
+            document.getElementById('lblService').textContent = t.service;
+            document.getElementById('lblCharge').textContent = t.charge;
+            document.getElementById('lblTip').textContent = t.tip;
+            document.getElementById('btnAddVehicle').textContent = t.addVehicle;
+            document.getElementById('lblListTitle').innerHTML = t.listTitle + ' <span class="badge" id="totalAutosBadge">0 ' + t.autos + '</span>';
+            document.getElementById('lblTotalVehicles').textContent = t.totalVehicles;
+            document.getElementById('lblTotalHours').textContent = t.totalHours;
+            document.getElementById('lblTotalCharges').textContent = t.totalCharges;
+            document.getElementById('lblTotalTips').textContent = t.totalTips;
+            document.getElementById('btnExportExcel').textContent = t.exportExcel;
+            document.getElementById('btnPrint').textContent = t.print;
+            document.getElementById('btnClearAll').textContent = t.clearAll;
+        }
+
         // ============ VARIABLES GLOBALES ============
         let registros = [];
         let empleadoActual = '';
-        let fechaInicio = '';
-        let fechaFin = '';
 
         // ============ INICIALIZAR FECHAS ============
         function inicializarFechas() {
             const hoy = new Date();
-            const primerDia = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-            const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
-
-            document.getElementById('fechaInicio').value = formatDateInput(primerDia);
-            document.getElementById('fechaFin').value = formatDateInput(ultimoDia);
             document.getElementById('fechaRegistro').value = formatDateInput(hoy);
         }
 
@@ -666,16 +1029,6 @@
             return `${month}/${day}/${year}`;
         }
 
-        function formatDateInputFromDisplay(dateStr) {
-            if (!dateStr) return '';
-            const parts = dateStr.split('/');
-            if (parts.length !== 3) return dateStr;
-            const month = parts[0].padStart(2, '0');
-            const day = parts[1].padStart(2, '0');
-            const year = parts[2];
-            return `${year}-${month}-${day}`;
-        }
-
         function parseDateInput(dateStr) {
             const parts = dateStr.split('-');
             return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
@@ -684,41 +1037,23 @@
         // ============ INICIAR JORNADA ============
         function iniciarJornada() {
             const nombre = document.getElementById('empleadoNombre').value.trim();
-            const inicio = document.getElementById('fechaInicio').value;
-            const fin = document.getElementById('fechaFin').value;
 
             if (!nombre) {
-                mostrarMensaje('configSection', '⚠️ Ingresa tu nombre.', 'error');
-                return;
-            }
-
-            if (!inicio || !fin) {
-                mostrarMensaje('configSection', '⚠️ Selecciona las fechas.', 'error');
-                return;
-            }
-
-            const fechaInicioObj = parseDateInput(inicio);
-            const fechaFinObj = parseDateInput(fin);
-
-            if (fechaInicioObj > fechaFinObj) {
-                mostrarMensaje('configSection', '⚠️ La fecha de inicio debe ser menor o igual a la fecha de fin.', 'error');
+                mostrarMensaje('configSection', textos[idiomaActual].startError, 'error');
                 return;
             }
 
             empleadoActual = nombre;
-            fechaInicio = inicio;
-            fechaFin = fin;
             registros = [];
 
             document.getElementById('configSection').classList.add('hidden');
             document.getElementById('registroSection').classList.remove('hidden');
             document.getElementById('listaSection').classList.remove('hidden');
 
-            // Actualizar fecha de registro por defecto
             const hoy = new Date();
             document.getElementById('fechaRegistro').value = formatDateInput(hoy);
 
-            mostrarMensaje('configSection', `✅ Jornada iniciada para ${nombre}`, 'exito');
+            mostrarMensaje('configSection', textos[idiomaActual].startSuccess + nombre, 'exito');
             actualizarLista();
         }
 
@@ -738,21 +1073,10 @@
             }
 
             if (!horaEntrada || !horaSalida) {
-                mostrarMensaje('registroSection', '⚠️ Ingresa hora de entrada y salida.', 'error');
+                mostrarMensaje('registroSection', textos[idiomaActual].recordError, 'error');
                 return;
             }
 
-            // Validar que la fecha esté dentro del rango
-            const fechaObj = parseDateInput(fecha);
-            const inicioObj = parseDateInput(fechaInicio);
-            const finObj = parseDateInput(fechaFin);
-
-            if (fechaObj < inicioObj || fechaObj > finObj) {
-                mostrarMensaje('registroSection', `⚠️ La fecha debe estar entre ${formatDateDisplay(fechaInicio)} y ${formatDateDisplay(fechaFin)}`, 'error');
-                return;
-            }
-
-            // Calcular horas
             const horas = calcularHoras(horaEntrada, horaSalida);
 
             const registro = {
@@ -769,7 +1093,6 @@
             registros.push(registro);
             actualizarLista();
 
-            // Limpiar campos (excepto fecha)
             document.getElementById('horaEntrada').value = '';
             document.getElementById('horaSalida').value = '';
             document.getElementById('auto').value = '';
@@ -777,36 +1100,36 @@
             document.getElementById('cobro').value = '';
             document.getElementById('propina').value = '';
 
-            // Mantener la misma fecha para seguir agregando autos del mismo día
             document.getElementById('fechaRegistro').value = fecha;
 
-            mostrarMensaje('registroSection', `✅ Auto "${auto}" registrado correctamente.`, 'exito');
+            mostrarMensaje('registroSection', textos[idiomaActual].recordSuccess + auto + '" registrado correctamente.', 'exito');
         }
 
         // ============ ELIMINAR AUTO ============
         function eliminarAuto(index) {
-            if (confirm('¿Eliminar este registro?')) {
+            if (confirm(textos[idiomaActual].deleteConfirm)) {
                 registros.splice(index, 1);
                 actualizarLista();
-                mostrarMensaje('listaSection', '🗑️ Registro eliminado.', 'info');
+                mostrarMensaje('listaSection', textos[idiomaActual].deleteMsg, 'info');
             }
         }
 
         // ============ LIMPIAR TODO ============
         function limpiarTodo() {
-            if (confirm('⚠️ ¿Borrar TODOS los registros?')) {
+            if (confirm(textos[idiomaActual].clearConfirm)) {
                 registros = [];
                 actualizarLista();
-                mostrarMensaje('listaSection', '🗑️ Todos los registros han sido eliminados.', 'info');
+                mostrarMensaje('listaSection', textos[idiomaActual].clearMsg, 'info');
             }
         }
 
         // ============ ACTUALIZAR LISTA ============
         function actualizarLista() {
             const container = document.getElementById('registrosList');
+            const t = textos[idiomaActual];
 
             if (registros.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#555; padding:30px;">No hay autos registrados aún.<br>¡Comienza a registrar tu trabajo!</p>';
+                container.innerHTML = `<p style="text-align:center; color:#555; padding:30px;">${t.noRecords.replace(/\n/g, '<br>')}</p>`;
                 actualizarEstadisticas();
                 return;
             }
@@ -821,7 +1144,6 @@
                 grupos[fechaKey].push({ ...r, index: i });
             });
 
-            // Ordenar fechas
             const fechasOrdenadas = Object.keys(grupos).sort();
 
             let html = '';
@@ -831,12 +1153,14 @@
                 const totalCobroDia = items.reduce((sum, r) => sum + r.cobro, 0);
                 const totalPropinaDia = items.reduce((sum, r) => sum + r.propina, 0);
 
+                const plural = totalDia > 1 ? t.autos : t.auto;
+
                 html += `
                     <div class="dia-group">
                         <div class="dia-header">
                             <span class="fecha">📅 ${formatDateDisplay(fechaKey)}</span>
                             <span class="total-dia">
-                                ${totalDia} auto${totalDia > 1 ? 's' : ''} · 
+                                ${totalDia} ${plural} · 
                                 Cobro: <span>$${totalCobroDia.toFixed(2)}</span> · 
                                 Propina: <span>$${totalPropinaDia.toFixed(2)}</span>
                             </span>
@@ -871,8 +1195,7 @@
             container.innerHTML = html;
             actualizarEstadisticas();
 
-            // Actualizar badge
-            document.getElementById('totalAutosBadge').textContent = `${registros.length} auto${registros.length > 1 ? 's' : ''}`;
+            document.getElementById('totalAutosBadge').textContent = `${registros.length} ${registros.length > 1 ? t.autos : t.auto}`;
         }
 
         // ============ ESTADÍSTICAS ============
@@ -891,8 +1214,10 @@
 
         // ============ EXPORTAR A EXCEL ============
         function exportarExcel() {
+            const t = textos[idiomaActual];
+
             if (registros.length === 0) {
-                alert('⚠️ No hay registros para exportar.');
+                alert(t.exportEmpty);
                 return;
             }
 
@@ -914,23 +1239,20 @@
                 csv += row.join(',') + '\n';
             });
 
-            // Totales
             const totalHoras = registros.reduce((sum, r) => sum + r.horas, 0);
             const totalCobro = registros.reduce((sum, r) => sum + r.cobro, 0);
             const totalPropina = registros.reduce((sum, r) => sum + r.propina, 0);
 
             csv += '\nTOTALES,,,,,' + totalHoras.toFixed(2).replace('.', ',') + ',,' + totalCobro.toFixed(2).replace('.', ',') + ',' + totalPropina.toFixed(2).replace('.', ',');
 
-            // Info del empleado
             csv += `\n\nEmpleado: ${empleadoActual}`;
-            csv += `\nPeríodo: ${formatDateDisplay(fechaInicio)} - ${formatDateDisplay(fechaFin)}`;
             csv += `\nCapitol Shine - Detailing & Auto Spa`;
 
             const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.href = url;
-            link.download = `CapitolShine_${empleadoActual}_${formatDateDisplay(fechaInicio)}_${formatDateDisplay(fechaFin)}.csv`;
+            link.download = `CapitolShine_${empleadoActual}_${new Date().toISOString().slice(0,10)}.csv`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -962,13 +1284,14 @@
         // ============ MENSAJES ============
         function mostrarMensaje(sectionId, mensaje, tipo) {
             const section = document.getElementById(sectionId);
-            const existing = section.querySelector('.mensaje');
+            const container = section.querySelector('.mensaje, #mensajeConfig, #mensajeRegistro') || section;
+            const existing = container.querySelector('.mensaje');
             if (existing) existing.remove();
 
             const div = document.createElement('div');
             div.className = `mensaje mensaje-${tipo}`;
             div.textContent = mensaje;
-            section.appendChild(div);
+            container.appendChild(div);
 
             setTimeout(() => {
                 if (div.parentNode) div.remove();
@@ -979,8 +1302,9 @@
         inicializarFechas();
 
         console.log('✨ Capitol Shine - Sistema de Registro cargado');
-        console.log('🚗 Formato de fecha: MM/DD/YYYY (Estilo EE.UU.)');
-        console.log('📅 Fecha actual: ' + formatDateDisplay(document.getElementById('fechaRegistro').value));
+        console.log('📱 Optimizado para PC y Celular');
+        console.log('🌍 Idiomas: Español/Inglés');
+        console.log('🚗 Múltiples autos por día');
     </script>
 </body>
 </html>
