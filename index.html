@@ -32,7 +32,6 @@
             transition: background 0.5s, color 0.5s;
         }
 
-        /* Logo en cabecera */
         .header-logo {
             text-align: center;
             margin-bottom: 10px;
@@ -150,11 +149,6 @@
         .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 60px;
         }
 
         .btn-primary {
@@ -553,6 +547,21 @@
             color: #c0392b;
         }
 
+        .boss-management {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .boss-management input {
+            padding: 10px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
         @media print {
             .tab-btn,
             .actions,
@@ -607,7 +616,6 @@
 <body>
     <div class="container">
         <div class="main-card" id="mainCard">
-            <!-- LOGO -->
             <div class="header-logo" id="headerLogo">
                 <div class="logo-placeholder" id="logoPlaceholder">🔧</div>
                 <img id="logoImage" style="display:none; max-height:80px; max-width:100%; object-fit:contain;" alt="Logo">
@@ -626,9 +634,7 @@
             <div id="employee" class="tab-content active">
                 <div class="employee-selector">
                     <label style="font-weight:600; margin-right:15px;">👤 Selecciona tu nombre:</label>
-                    <select id="employeeSelect">
-                        <!-- Se llena con JavaScript -->
-                    </select>
+                    <select id="employeeSelect"></select>
                 </div>
 
                 <div class="password-section">
@@ -713,6 +719,32 @@
                 </div>
 
                 <div id="bossContent" style="display: none;">
+                    <!-- Gestión de empleados y claves para el JEFE -->
+                    <div class="admin-section" style="border-left-color: #28a745;">
+                        <h3>👔 Gestión de Empleados y Claves (Jefe)</h3>
+                        <div style="background: #d4edda; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                            <strong>👔 Jefe actual:</strong> <span id="bossNameDisplay">BOSS</span>
+                            <button class="btn-warning" onclick="changeBossPassword()" style="padding: 5px 15px; font-size: 12px; margin-left: 10px;">Cambiar clave del jefe</button>
+                        </div>
+                        <div class="password-list" id="bossPasswordList"></div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px;">
+                            <select id="bossPasswordEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
+                            <input type="text" id="bossNewPasswordInput" placeholder="Nueva clave" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
+                            <button class="btn-primary" onclick="bossSetEmployeePassword()">💾 Guardar Clave</button>
+                        </div>
+                        <div id="bossPasswordMessage" style="margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="admin-section" style="border-left-color: #ffc107;">
+                        <h3>✏️ Cambiar nombre de empleados</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                            <select id="bossRenameEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
+                            <input type="text" id="bossNewEmployeeNameInput" placeholder="Nuevo nombre" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
+                            <button class="btn-warning" onclick="bossRenameEmployee()">✏️ Cambiar Nombre</button>
+                        </div>
+                        <div id="bossRenameMessage" style="margin-top: 10px;"></div>
+                    </div>
+
                     <div class="quincena-selector">
                         <div>
                             <label style="font-weight:600; margin-right:10px;">📆 Selecciona Quincena:</label>
@@ -785,33 +817,6 @@
                 </div>
 
                 <div id="adminContent" style="display: none;">
-                    <!-- Gestión de Claves -->
-                    <div class="admin-section">
-                        <h3>🔑 Gestión de Claves</h3>
-                        <div style="background: #d4edda; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                            <strong>👔 Jefe actual:</strong> <span id="bossNameDisplay">BOSS</span>
-                            <button class="btn-warning" onclick="changeBossPassword()" style="padding: 5px 15px; font-size: 12px; margin-left: 10px;">Cambiar clave del jefe</button>
-                        </div>
-                        <div class="password-list" id="passwordList"></div>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px;">
-                            <select id="passwordEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
-                            <input type="text" id="newPasswordInput" placeholder="Nueva clave" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-primary" onclick="setEmployeePassword()">💾 Guardar Clave</button>
-                        </div>
-                        <div id="passwordMessage" style="margin-top: 10px;"></div>
-                    </div>
-
-                    <!-- Cambiar nombres -->
-                    <div class="admin-section">
-                        <h3>✏️ Cambiar nombres</h3>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                            <select id="renameEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
-                            <input type="text" id="newEmployeeNameInput" placeholder="Nuevo nombre" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-warning" onclick="renameEmployee()">✏️ Cambiar Nombre</button>
-                        </div>
-                        <div id="renameMessage" style="margin-top: 10px;"></div>
-                    </div>
-
                     <!-- Personalización de colores -->
                     <div class="admin-section">
                         <h3>🎨 Personalizar Colores</h3>
@@ -844,7 +849,7 @@
                         <div class="logo-upload">
                             <input type="file" id="logoUpload" accept="image/*" onchange="uploadLogo(event)">
                             <button class="btn-danger btn-sm" onclick="removeLogo()">🗑️ Quitar logo</button>
-                            <button class="btn-warning btn-sm" onclick="resetLogo()">🔄 Restaurar icono por defecto</button>
+                            <button class="btn-warning btn-sm" onclick="resetLogo()">🔄 Restaurar icono</button>
                         </div>
                         <div id="logoMessage" style="margin-top: 10px;"></div>
                     </div>
@@ -939,13 +944,7 @@
                     if (Array.isArray(parsed) && parsed.length > 0) return parsed;
                 } catch(e) {}
             }
-            const defaultAutos = [
-                'Toyota Corolla', 'Toyota Hilux', 'Toyota Yaris',
-                'Nissan Sentra', 'Nissan Frontier', 'Nissan Versa',
-                'Chevrolet Onix', 'Chevrolet Silverado', 'Chevrolet Tracker',
-                'Ford Ranger', 'Ford F-150', 'Ford Mustang',
-                'Volkswagen Golf', 'Volkswagen Jetta', 'Volkswagen Amarok'
-            ];
+            const defaultAutos = ['Toyota Corolla', 'Toyota Hilux', 'Nissan Sentra', 'Chevrolet Onix', 'Ford Ranger', 'Volkswagen Golf'];
             localStorage.setItem(AUTOS_KEY, JSON.stringify(defaultAutos));
             return defaultAutos;
         }
@@ -958,12 +957,7 @@
                     if (Array.isArray(parsed) && parsed.length > 0) return parsed;
                 } catch(e) {}
             }
-            const defaultServicios = [
-                'Cambio de aceite', 'Alineación', 'Balanceo',
-                'Frenos', 'Suspensión', 'Diagnóstico',
-                'Limpieza de inyectores', 'Cambio de bujías',
-                'Revisión general', 'Cambio de correa'
-            ];
+            const defaultServicios = ['Cambio de aceite', 'Alineación', 'Balanceo', 'Frenos', 'Suspensión', 'Diagnóstico'];
             localStorage.setItem(SERVICIOS_KEY, JSON.stringify(defaultServicios));
             return defaultServicios;
         }
@@ -982,7 +976,7 @@
             if (data) {
                 try {
                     const parsed = JSON.parse(data);
-                    if (parsed && parsed.jefe && parsed.empleados) {
+                    if (parsed && parsed.jefe && parsed.admin && parsed.empleados) {
                         return parsed;
                     }
                 } catch(e) {}
@@ -1030,9 +1024,8 @@
             const passwords = getPasswords();
             passwords.empleados[empleado] = nuevaClave;
             savePasswords(passwords);
-            renderPasswordList();
+            renderPasswordLists();
             updateSelectors();
-            showMessage('passwordMessage', '✅ Clave actualizada correctamente.', 'exito');
         }
 
         function setBossPassword(nuevaClave) {
@@ -1042,18 +1035,13 @@
             alert('✅ Clave del jefe actualizada.');
         }
 
-        // ============ COLORES PERSONALIZADOS ============
+        // ============ COLORES ============
         function getColors() {
             const data = localStorage.getItem(COLORS_KEY);
             if (data) {
                 try { return JSON.parse(data); } catch(e) {}
             }
-            return {
-                bgColor: '#667eea',
-                cardColor: '#ffffff',
-                titleColor: '#2c3e50',
-                subtitleColor: '#7f8c8d'
-            };
+            return { bgColor: '#667eea', cardColor: '#ffffff', titleColor: '#2c3e50', subtitleColor: '#7f8c8d' };
         }
 
         function saveColors(colors) {
@@ -1091,12 +1079,7 @@
         }
 
         function resetColors() {
-            const defaultColors = {
-                bgColor: '#667eea',
-                cardColor: '#ffffff',
-                titleColor: '#2c3e50',
-                subtitleColor: '#7f8c8d'
-            };
+            const defaultColors = { bgColor: '#667eea', cardColor: '#ffffff', titleColor: '#2c3e50', subtitleColor: '#7f8c8d' };
             saveColors(defaultColors);
             applyColors();
             document.getElementById('bgColor').value = defaultColors.bgColor;
@@ -1130,7 +1113,6 @@
         function uploadLogo(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
             const reader = new FileReader();
             reader.onload = function(e) {
                 saveLogo(e.target.result);
@@ -1144,7 +1126,6 @@
             const logoData = getLogo();
             const img = document.getElementById('logoImage');
             const placeholder = document.getElementById('logoPlaceholder');
-            
             if (logoData) {
                 img.src = logoData;
                 img.style.display = 'block';
@@ -1156,7 +1137,7 @@
             }
         }
 
-        // ============ GESTIÓN DE AUTOS ============
+        // ============ AUTOS Y SERVICIOS ============
         function renderAutos() {
             const autos = getAutos();
             const container = document.getElementById('autoList');
@@ -1196,25 +1177,6 @@
             showMessage('autoMessage', '🗑️ Auto eliminado.', 'exito');
         }
 
-        function updateAutoSelects() {
-            const autos = getAutos();
-            const selects = ['autoSelect'];
-            selects.forEach(id => {
-                const select = document.getElementById(id);
-                if (!select) return;
-                const currentVal = select.value;
-                select.innerHTML = '<option value="">Selecciona o escribe...</option>';
-                autos.forEach(a => {
-                    const opt = document.createElement('option');
-                    opt.value = a;
-                    opt.textContent = a;
-                    select.appendChild(opt);
-                });
-                if (autos.includes(currentVal)) select.value = currentVal;
-            });
-        }
-
-        // ============ GESTIÓN DE SERVICIOS ============
         function renderServicios() {
             const servicios = getServicios();
             const container = document.getElementById('servicioList');
@@ -1254,22 +1216,34 @@
             showMessage('servicioMessage', '🗑️ Servicio eliminado.', 'exito');
         }
 
+        function updateAutoSelects() {
+            const autos = getAutos();
+            const select = document.getElementById('autoSelect');
+            if (!select) return;
+            const currentVal = select.value;
+            select.innerHTML = '<option value="">Selecciona o escribe...</option>';
+            autos.forEach(a => {
+                const opt = document.createElement('option');
+                opt.value = a;
+                opt.textContent = a;
+                select.appendChild(opt);
+            });
+            if (autos.includes(currentVal)) select.value = currentVal;
+        }
+
         function updateServicioSelects() {
             const servicios = getServicios();
-            const selects = ['servicioSelect'];
-            selects.forEach(id => {
-                const select = document.getElementById(id);
-                if (!select) return;
-                const currentVal = select.value;
-                select.innerHTML = '<option value="">Selecciona o escribe...</option>';
-                servicios.forEach(s => {
-                    const opt = document.createElement('option');
-                    opt.value = s;
-                    opt.textContent = s;
-                    select.appendChild(opt);
-                });
-                if (servicios.includes(currentVal)) select.value = currentVal;
+            const select = document.getElementById('servicioSelect');
+            if (!select) return;
+            const currentVal = select.value;
+            select.innerHTML = '<option value="">Selecciona o escribe...</option>';
+            servicios.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                select.appendChild(opt);
             });
+            if (servicios.includes(currentVal)) select.value = currentVal;
         }
 
         // ============ ACTUALIZAR SELECTORES ============
@@ -1277,7 +1251,7 @@
             const passwords = getPasswords();
             const empleados = Object.keys(passwords.empleados).sort();
             
-            ['employeeSelect', 'filterEmployee', 'passwordEmployeeSelect', 'renameEmployeeSelect'].forEach(id => {
+            ['employeeSelect', 'filterEmployee', 'bossPasswordEmployeeSelect', 'bossRenameEmployeeSelect'].forEach(id => {
                 const select = document.getElementById(id);
                 if (!select) return;
                 const current = select.value;
@@ -1293,6 +1267,23 @@
             
             updateAutoSelects();
             updateServicioSelects();
+        }
+
+        // ============ RENDERIZAR LISTAS DE CLAVES ============
+        function renderPasswordLists() {
+            const passwords = getPasswords();
+            const empleados = Object.keys(passwords.empleados).sort();
+            
+            // Para el JEFE
+            const bossContainer = document.getElementById('bossPasswordList');
+            if (bossContainer) {
+                bossContainer.innerHTML = empleados.map(emp => `
+                    <div class="password-item">
+                        <span class="employee-name">👤 ${emp}</span>
+                        <span class="employee-password">🔑 ${passwords.empleados[emp]}</span>
+                    </div>
+                `).join('');
+            }
         }
 
         // ============ MOSTRAR MENSAJES ============
@@ -1351,6 +1342,9 @@
                 status.innerHTML = '✅ Acceso concedido.';
                 status.style.color = '#27ae60';
                 document.getElementById('bossContent').style.display = 'block';
+                document.getElementById('bossNameDisplay').textContent = getBossName();
+                renderPasswordLists();
+                updateSelectors();
                 updateQuincenaSelector();
                 renderTable();
                 updateBossStats();
@@ -1377,11 +1371,8 @@
                 status.innerHTML = '✅ Acceso de administrador concedido.';
                 status.style.color = '#27ae60';
                 document.getElementById('adminContent').style.display = 'block';
-                document.getElementById('bossNameDisplay').textContent = getBossName();
-                renderPasswordList();
                 renderAutos();
                 renderServicios();
-                updateSelectors();
             } else {
                 status.innerHTML = '❌ Clave incorrecta.';
                 status.style.color = '#e74c3c';
@@ -1390,18 +1381,70 @@
             }
         }
 
-        // ============ RENDERIZAR LISTA DE CLAVES ============
-        function renderPasswordList() {
-            const passwords = getPasswords();
-            const container = document.getElementById('passwordList');
-            const empleados = Object.keys(passwords.empleados).sort();
+        // ============ FUNCIONES DEL JEFE ============
+        function bossSetEmployeePassword() {
+            const empleado = document.getElementById('bossPasswordEmployeeSelect').value;
+            const nuevaClave = document.getElementById('bossNewPasswordInput').value.trim();
             
-            container.innerHTML = empleados.map(emp => `
-                <div class="password-item">
-                    <span class="employee-name">👤 ${emp}</span>
-                    <span class="employee-password">🔑 ${passwords.empleados[emp]}</span>
-                </div>
-            `).join('');
+            if (!nuevaClave) {
+                showMessage('bossPasswordMessage', '⚠️ Escribe una clave.', 'error');
+                return;
+            }
+            if (nuevaClave.length < 3) {
+                showMessage('bossPasswordMessage', '⚠️ Mínimo 3 caracteres.', 'error');
+                return;
+            }
+
+            setEmployeePassword(empleado, nuevaClave);
+            document.getElementById('bossNewPasswordInput').value = '';
+            showMessage('bossPasswordMessage', `✅ Clave de "${empleado}" actualizada.`, 'exito');
+        }
+
+        function bossRenameEmployee() {
+            const oldName = document.getElementById('bossRenameEmployeeSelect').value;
+            const newName = document.getElementById('bossNewEmployeeNameInput').value.trim();
+
+            if (!newName) {
+                showMessage('bossRenameMessage', '⚠️ Escribe un nombre.', 'error');
+                return;
+            }
+            if (newName === 'BOSS' || newName.toUpperCase() === 'BOSS') {
+                showMessage('bossRenameMessage', '⚠️ No puedes usar ese nombre.', 'error');
+                return;
+            }
+
+            const passwords = getPasswords();
+            if (passwords.empleados[newName]) {
+                showMessage('bossRenameMessage', '⚠️ Ese nombre ya existe.', 'error');
+                return;
+            }
+
+            const clave = passwords.empleados[oldName];
+            delete passwords.empleados[oldName];
+            passwords.empleados[newName] = clave;
+            savePasswords(passwords);
+
+            const records = getRecords();
+            records.forEach(r => {
+                if (r.empleado === oldName) r.empleado = newName;
+            });
+            saveRecords(records);
+
+            updateSelectors();
+            renderPasswordLists();
+            renderTable();
+            updateAllStats();
+            document.getElementById('bossNewEmployeeNameInput').value = '';
+            showMessage('bossRenameMessage', `✅ Renombrado a "${newName}"`, 'exito');
+        }
+
+        function changeBossPassword() {
+            const nueva = prompt('🔑 Nueva clave para el jefe:');
+            if (nueva && nueva.trim().length >= 3) {
+                setBossPassword(nueva.trim());
+            } else if (nueva !== null) {
+                alert('⚠️ Mínimo 3 caracteres.');
+            }
         }
 
         // ============ FUNCIONES PRINCIPALES ============
@@ -1455,7 +1498,7 @@
 
         function deleteRecord(index) {
             if (!isBossVerified) {
-                alert('⚠️ Debes iniciar sesión como jefe.');
+                alert('⚠️ Inicia sesión como jefe.');
                 return;
             }
             if (confirm('¿Eliminar este registro?')) {
@@ -1469,7 +1512,7 @@
 
         function clearAllData() {
             if (!isBossVerified) {
-                alert('⚠️ Debes iniciar sesión como jefe.');
+                alert('⚠️ Inicia sesión como jefe.');
                 return;
             }
             if (confirm('⚠️ ¿Borrar TODOS los registros?')) {
@@ -1481,7 +1524,7 @@
             }
         }
 
-        // ============ RENDERIZAR TABLA ============
+        // ============ FILTRAR Y RENDERIZAR ============
         function getFilteredRecords() {
             const records = getRecords();
             const quincenaFilter = document.getElementById('quincenaSelect').value;
@@ -1529,7 +1572,7 @@
             }).join('');
         }
 
-        // ============ ACTUALIZAR ESTADÍSTICAS ============
+        // ============ ESTADÍSTICAS ============
         function updateAllStats() {
             updateEmployeeStats();
             updateBossStats();
@@ -1559,7 +1602,7 @@
             document.getElementById('bossTotalPropinas').textContent = `$${totalPropina.toFixed(2)}`;
         }
 
-        // ============ SELECTOR DE QUINCENAS ============
+        // ============ QUINCENA ============
         function updateQuincenaSelector() {
             const records = getRecords();
             const quincenas = new Set(records.map(r => r.quincena));
@@ -1576,60 +1619,10 @@
             if (Array.from(quincenas).includes(current)) select.value = current;
         }
 
-        // ============ CAMBIAR CLAVE DEL JEFE ============
-        function changeBossPassword() {
-            const nueva = prompt('🔑 Nueva clave para el jefe:');
-            if (nueva && nueva.trim().length >= 3) {
-                setBossPassword(nueva.trim());
-            } else if (nueva !== null) {
-                alert('⚠️ La clave debe tener al menos 3 caracteres.');
-            }
-        }
-
-        // ============ RENOMBRAR EMPLEADO ============
-        function renameEmployee() {
-            const oldName = document.getElementById('renameEmployeeSelect').value;
-            const newName = document.getElementById('newEmployeeNameInput').value.trim();
-            const msg = document.getElementById('renameMessage');
-
-            if (!newName) {
-                showMessage('renameMessage', '⚠️ Escribe un nombre.', 'error');
-                return;
-            }
-            if (newName === 'BOSS' || newName.toUpperCase() === 'BOSS') {
-                showMessage('renameMessage', '⚠️ No puedes usar ese nombre.', 'error');
-                return;
-            }
-
-            const passwords = getPasswords();
-            if (passwords.empleados[newName]) {
-                showMessage('renameMessage', '⚠️ Ese nombre ya existe.', 'error');
-                return;
-            }
-
-            const clave = passwords.empleados[oldName];
-            delete passwords.empleados[oldName];
-            passwords.empleados[newName] = clave;
-            savePasswords(passwords);
-
-            const records = getRecords();
-            records.forEach(r => {
-                if (r.empleado === oldName) r.empleado = newName;
-            });
-            saveRecords(records);
-
-            updateSelectors();
-            renderPasswordList();
-            renderTable();
-            updateAllStats();
-            document.getElementById('newEmployeeNameInput').value = '';
-            showMessage('renameMessage', `✅ Renombrado a "${newName}"`, 'exito');
-        }
-
-        // ============ EXPORTAR A EXCEL ============
+        // ============ EXPORTAR ============
         function exportToExcel() {
             if (!isBossVerified) {
-                alert('⚠️ Debes iniciar sesión como jefe.');
+                alert('⚠️ Inicia sesión como jefe.');
                 return;
             }
             const records = getFilteredRecords();
@@ -1660,7 +1653,7 @@
             URL.revokeObjectURL(url);
         }
 
-        // ============ MANEJAR FORMULARIO ============
+        // ============ FORMULARIO ============
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1712,7 +1705,7 @@
             }
         });
 
-        // ============ MODAL DE EDICIÓN ============
+        // ============ MODAL ============
         function openEditModal(index) {
             if (!isBossVerified) {
                 alert('⚠️ Inicia sesión como jefe.');
@@ -1774,7 +1767,6 @@
             alert('✅ Registro actualizado.');
         });
 
-        // ============ CERRAR MODAL ============
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
@@ -1806,7 +1798,7 @@
         applyColors();
         applyLogo();
         updateSelectors();
-        renderPasswordList();
+        renderPasswordLists();
         renderAutos();
         renderServicios();
         updateQuincenaSelector();
@@ -1814,9 +1806,9 @@
         updateAllStats();
 
         console.log('🚀 Sistema de Administración cargado.');
-        console.log('👔 Jefe: admin123');
-        console.log('⚙️ Admin: admin123');
-        console.log('👥 Empleados: emp1, emp2, ...');
+        console.log('👔 Jefe: admin123 (Puede gestionar empleados y claves)');
+        console.log('⚙️ Admin: admin123 (Puede personalizar colores, logo, autos y servicios)');
+        console.log('👥 Empleados: emp1, emp2, emp3, ...');
     </script>
 </body>
 </html>
