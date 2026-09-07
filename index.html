@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Temporal de Jornada</title>
+    <title>Capitol Shine - Registro de Detailing</title>
     <style>
         * {
             margin: 0;
@@ -13,60 +13,97 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0a0a0a;
             min-height: 100vh;
             padding: 20px;
+            background-image: 
+                radial-gradient(ellipse at 10% 20%, rgba(255, 200, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(255, 200, 0, 0.03) 0%, transparent 50%);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .main-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 200, 0, 0.1);
+            border: 1px solid rgba(255, 200, 0, 0.08);
         }
 
+        /* ===== HEADER ===== */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid rgba(255, 200, 0, 0.15);
         }
 
-        .header .icon {
-            font-size: 60px;
+        .header .logo-icon {
+            font-size: 55px;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        h1 {
-            color: #2c3e50;
-            font-size: 2.2em;
-            margin-top: 10px;
+        .header h1 {
+            color: #ffd700;
+            font-size: 2.8em;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+            font-family: 'Arial Black', sans-serif;
         }
 
-        .subtitle {
-            color: #7f8c8d;
+        .header .subtitle {
+            color: #888;
             font-size: 1em;
+            letter-spacing: 2px;
+            margin-top: 5px;
         }
 
+        .header .subtitle span {
+            color: #ffd700;
+        }
+
+        /* ===== SECCIONES ===== */
         .section {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #667eea;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s;
+        }
+
+        .section:hover {
+            border-color: rgba(255, 215, 0, 0.15);
         }
 
         .section h2 {
-            color: #2c3e50;
+            color: #ffd700;
             font-size: 1.2em;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
+        .section h2 .badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            font-size: 11px;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* ===== FORMULARIOS ===== */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -80,94 +117,129 @@
 
         .form-group label {
             font-weight: 600;
-            color: #34495e;
+            color: #aaa;
             margin-bottom: 5px;
-            font-size: 13px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-group input,
         .form-group select {
-            padding: 10px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            font-size: 15px;
+            color: #fff;
+            transition: all 0.3s;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
         }
 
-        .form-group input[type="text"] {
-            text-transform: uppercase;
+        .form-group input::placeholder {
+            color: #555;
         }
 
+        .form-group input[type="date"] {
+            color-scheme: dark;
+        }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
+        }
+
+        /* ===== BOTONES ===== */
         .btn {
             padding: 12px 30px;
             border: none;
             border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .btn-gold {
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #0a0a0a;
+        }
+
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #ffe44d, #ffb700);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.25);
         }
 
         .btn-success {
-            background: #27ae60;
+            background: linear-gradient(135deg, #00c853, #00a844);
             color: white;
         }
 
         .btn-success:hover {
-            background: #229954;
-        }
-
-        .btn-warning {
-            background: #f39c12;
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background: #e67e22;
+            background: linear-gradient(135deg, #00e676, #00c853);
+            box-shadow: 0 10px 40px rgba(0, 200, 80, 0.25);
         }
 
         .btn-danger {
-            background: #e74c3c;
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
             color: white;
         }
 
         .btn-danger:hover {
-            background: #c0392b;
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            box-shadow: 0 10px 40px rgba(211, 47, 47, 0.25);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f57c00, #e65100);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #fb8c00, #f57c00);
+            box-shadow: 0 10px 40px rgba(245, 124, 0, 0.25);
         }
 
         .btn-info {
-            background: #3498db;
+            background: linear-gradient(135deg, #0288d1, #01579b);
             color: white;
         }
 
         .btn-info:hover {
-            background: #2980b9;
+            background: linear-gradient(135deg, #039be5, #0288d1);
+            box-shadow: 0 10px 40px rgba(2, 136, 209, 0.25);
         }
 
         .btn-sm {
             padding: 6px 14px;
-            font-size: 12px;
+            font-size: 11px;
         }
 
+        .btn-xs {
+            padding: 4px 10px;
+            font-size: 10px;
+        }
+
+        /* ===== TABLA ===== */
         .table-wrapper {
             overflow-x: auto;
             margin: 15px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         table {
@@ -177,22 +249,28 @@
         }
 
         th {
-            background: #2c3e50;
-            color: white;
-            padding: 10px 8px;
+            background: rgba(255, 215, 0, 0.08);
+            color: #ffd700;
+            padding: 12px 10px;
             text-align: left;
-            white-space: nowrap;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.1);
         }
 
         td {
-            padding: 8px 8px;
-            border-bottom: 1px solid #e0e6ed;
+            padding: 10px 10px;
+            color: #ccc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        tr:hover {
-            background: #f8f9fa;
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
         }
 
+        /* ===== ESTADÍSTICAS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -201,67 +279,118 @@
         }
 
         .stats-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 12px;
+            padding: 18px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .stats-card:hover {
+            border-color: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .stats-card .number {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 30px;
+            font-weight: 900;
+            color: #ffd700;
         }
 
         .stats-card .label {
-            font-size: 12px;
-            opacity: 0.9;
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
         }
 
-        .stats-card.green {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        .stats-card.green .number { color: #4caf50; }
+        .stats-card.orange .number { color: #ff9800; }
+        .stats-card.purple .number { color: #ce93d8; }
+        .stats-card.blue .number { color: #64b5f6; }
+
+        /* ===== REGISTROS POR DÍA ===== */
+        .dia-group {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
         }
 
-        .stats-card.orange {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .stats-card.purple {
-            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
-        }
-
-        .actions-bar {
+        .dia-header {
+            background: rgba(255, 215, 0, 0.05);
+            padding: 12px 18px;
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dia-header:hover {
+            background: rgba(255, 215, 0, 0.08);
+        }
+
+        .dia-header .fecha {
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .dia-header .total-dia {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .dia-header .total-dia span {
+            color: #ffd700;
+            font-weight: 700;
+        }
+
+        .dia-body {
+            padding: 10px 18px;
         }
 
         .registro-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
-            background: white;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 8px;
-            margin-bottom: 8px;
-            border: 1px solid #e0e6ed;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s;
+        }
+
+        .registro-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 215, 0, 0.08);
         }
 
         .registro-item .info {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
-        .registro-item .info span {
+        .registro-item .info .auto {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .registro-item .info .detalle {
+            color: #888;
             font-size: 13px;
         }
 
-        .registro-item .info .fecha {
+        .registro-item .info .monto {
+            color: #ffd700;
             font-weight: 600;
-            color: #2c3e50;
         }
 
         .registro-item .acciones {
@@ -269,48 +398,90 @@
             gap: 5px;
         }
 
+        .badge-auto {
+            background: rgba(255, 215, 0, 0.12);
+            color: #ffd700;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ===== MENSAJES ===== */
+        .mensaje {
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .mensaje-exito {
+            background: rgba(0, 200, 80, 0.1);
+            color: #69f0ae;
+            border-left: 4px solid #00c853;
+        }
+
+        .mensaje-error {
+            background: rgba(211, 47, 47, 0.1);
+            color: #ef9a9a;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .mensaje-info {
+            background: rgba(2, 136, 209, 0.1);
+            color: #81d4fa;
+            border-left: 4px solid #0288d1;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
         .hidden {
             display: none !important;
         }
 
-        .mensaje {
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-weight: 500;
+        /* ===== SCROLL ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
 
-        .mensaje-exito {
-            background: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 10px;
         }
 
-        .mensaje-error {
-            background: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
+        ::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
         }
 
-        .mensaje-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #17a2b8;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f0a500;
         }
 
-        .footer-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e6ed;
-        }
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .main-card {
+                padding: 20px;
+            }
+            .section {
+                padding: 18px;
             }
             .registro-item {
                 flex-direction: column;
@@ -324,64 +495,76 @@
             .registro-item .acciones {
                 justify-content: flex-end;
             }
-            h1 {
-                font-size: 1.6em;
+            .dia-header {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media print {
-            .btn, .actions-bar, .footer-actions {
+            .btn, .footer-actions {
                 display: none !important;
             }
             .main-card {
-                box-shadow: none !important;
+                background: white !important;
                 padding: 10px !important;
             }
             body {
                 background: white !important;
                 padding: 10px !important;
             }
+            .header h1 { color: #000 !important; }
+            .section { border-color: #ccc !important; }
+            th { background: #333 !important; color: white !important; }
+            td { color: #333 !important; }
+            .stats-card .number { color: #000 !important; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="main-card">
+
+            <!-- ===== HEADER ===== -->
             <div class="header">
-                <div class="icon">📋</div>
-                <h1>Registro de Jornada</h1>
-                <p class="subtitle">Sistema temporal • Exporta tus datos al finalizar</p>
+                <span class="logo-icon">✨</span>
+                <h1>CAPITOL SHINE</h1>
+                <p class="subtitle">Detailing &amp; Auto Spa · <span>Registro de Trabajo</span></p>
             </div>
 
-            <!-- ==================== CONFIGURACIÓN INICIAL ==================== -->
+            <!-- ===== CONFIGURACIÓN ===== -->
             <div id="configSection" class="section">
-                <h2>⚙️ Configurar Quincena</h2>
+                <h2>⚙️ Iniciar Jornada</h2>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>👤 Nombre del Empleado</label>
                         <input type="text" id="empleadoNombre" placeholder="Ej: Juan Pérez" required>
                     </div>
                     <div class="form-group">
-                        <label>📅 Fecha Inicio (DD/MM/YYYY)</label>
-                        <input type="text" id="fechaInicio" placeholder="Ej: 01/07/2026" required>
+                        <label>📅 Fecha de Inicio (MM/DD/YYYY)</label>
+                        <input type="date" id="fechaInicio" required>
                     </div>
                     <div class="form-group">
-                        <label>📅 Fecha Fin (DD/MM/YYYY)</label>
-                        <input type="text" id="fechaFin" placeholder="Ej: 15/07/2026" required>
+                        <label>📅 Fecha de Fin (MM/DD/YYYY)</label>
+                        <input type="date" id="fechaFin" required>
                     </div>
                     <div class="form-group" style="justify-content: flex-end;">
-                        <button class="btn btn-success" onclick="iniciarQuincena()">✅ Iniciar Quincena</button>
+                        <button class="btn btn-gold" onclick="iniciarJornada()">🚀 Iniciar Jornada</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ==================== REGISTRO DIARIO ==================== -->
+            <!-- ===== REGISTRO DE AUTO ===== -->
             <div id="registroSection" class="section hidden">
-                <h2>📝 Registrar Día</h2>
+                <h2>🚗 Registrar Auto <span class="badge">Nuevo registro</span></h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>📅 Fecha (DD/MM/YYYY)</label>
-                        <input type="text" id="fechaRegistro" placeholder="Ej: 01/07/2026" required>
+                        <label>📅 Fecha (MM/DD/YYYY)</label>
+                        <input type="date" id="fechaRegistro" required>
                     </div>
                     <div class="form-group">
                         <label>🕐 Hora Entrada</label>
@@ -392,12 +575,12 @@
                         <input type="time" id="horaSalida" required>
                     </div>
                     <div class="form-group">
-                        <label>🚗 Auto Atendido</label>
-                        <input type="text" id="auto" placeholder="Ej: Toyota Corolla">
+                        <label>🚗 Auto</label>
+                        <input type="text" id="auto" placeholder="Ej: Toyota Corolla 2020">
                     </div>
                     <div class="form-group">
                         <label>🔧 Servicio</label>
-                        <input type="text" id="servicio" placeholder="Ej: Cambio de aceite">
+                        <input type="text" id="servicio" placeholder="Ej: Detailing completo">
                     </div>
                     <div class="form-group">
                         <label>💰 Cobro ($)</label>
@@ -408,21 +591,20 @@
                         <input type="number" id="propina" placeholder="0.00" step="0.01">
                     </div>
                     <div class="form-group" style="justify-content: flex-end;">
-                        <button class="btn btn-primary" onclick="agregarRegistro()">➕ Agregar Registro</button>
+                        <button class="btn btn-success" onclick="agregarAuto()">➕ Agregar Auto</button>
                     </div>
                 </div>
-
                 <div id="mensajeRegistro" style="margin-top: 10px;"></div>
             </div>
 
-            <!-- ==================== LISTA DE REGISTROS ==================== -->
+            <!-- ===== LISTA DE REGISTROS ===== -->
             <div id="listaSection" class="section hidden">
-                <h2>📊 Registros de la Quincena</h2>
+                <h2>📊 Registros de la Jornada <span class="badge" id="totalAutosBadge">0 autos</span></h2>
                 
                 <div class="stats-grid" id="statsGrid">
                     <div class="stats-card blue">
-                        <div class="number" id="totalRegistros">0</div>
-                        <div class="label">Total Registros</div>
+                        <div class="number" id="totalAutos">0</div>
+                        <div class="label">Total Autos</div>
                     </div>
                     <div class="stats-card purple">
                         <div class="number" id="totalHoras">0h</div>
@@ -441,10 +623,9 @@
                 <div id="registrosList"></div>
 
                 <div class="footer-actions">
-                    <button class="btn btn-success" onclick="exportarExcel()">📊 Exportar a Excel</button>
-                    <button class="btn btn-info" onclick="exportarPDF()">📄 Exportar a PDF</button>
-                    <button class="btn btn-warning" onclick="imprimir()">🖨️ Imprimir</button>
-                    <button class="btn btn-danger" onclick="limpiarTodo()">🗑️ Limpiar Todo</button>
+                    <button class="btn btn-gold" onclick="exportarExcel()">📊 Exportar a Excel</button>
+                    <button class="btn btn-info" onclick="window.print()">📄 Imprimir</button>
+                    <button class="btn btn-warning" onclick="limpiarTodo()">🗑️ Limpiar Todo</button>
                 </div>
             </div>
         </div>
@@ -457,28 +638,69 @@
         let fechaInicio = '';
         let fechaFin = '';
 
-        // ============ FUNCIONES PRINCIPALES ============
-        function iniciarQuincena() {
+        // ============ INICIALIZAR FECHAS ============
+        function inicializarFechas() {
+            const hoy = new Date();
+            const primerDia = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+            const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+
+            document.getElementById('fechaInicio').value = formatDateInput(primerDia);
+            document.getElementById('fechaFin').value = formatDateInput(ultimoDia);
+            document.getElementById('fechaRegistro').value = formatDateInput(hoy);
+        }
+
+        function formatDateInput(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatDateDisplay(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length !== 3) return dateStr;
+            const month = parts[1];
+            const day = parts[2];
+            const year = parts[0];
+            return `${month}/${day}/${year}`;
+        }
+
+        function formatDateInputFromDisplay(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('/');
+            if (parts.length !== 3) return dateStr;
+            const month = parts[0].padStart(2, '0');
+            const day = parts[1].padStart(2, '0');
+            const year = parts[2];
+            return `${year}-${month}-${day}`;
+        }
+
+        function parseDateInput(dateStr) {
+            const parts = dateStr.split('-');
+            return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        }
+
+        // ============ INICIAR JORNADA ============
+        function iniciarJornada() {
             const nombre = document.getElementById('empleadoNombre').value.trim();
-            const inicio = document.getElementById('fechaInicio').value.trim();
-            const fin = document.getElementById('fechaFin').value.trim();
+            const inicio = document.getElementById('fechaInicio').value;
+            const fin = document.getElementById('fechaFin').value;
 
             if (!nombre) {
-                mostrarMensaje('configSection', '⚠️ Por favor, ingresa tu nombre.', 'error');
+                mostrarMensaje('configSection', '⚠️ Ingresa tu nombre.', 'error');
                 return;
             }
 
-            if (!validarFecha(inicio)) {
-                mostrarMensaje('configSection', '⚠️ Fecha de inicio inválida. Usa DD/MM/YYYY', 'error');
+            if (!inicio || !fin) {
+                mostrarMensaje('configSection', '⚠️ Selecciona las fechas.', 'error');
                 return;
             }
 
-            if (!validarFecha(fin)) {
-                mostrarMensaje('configSection', '⚠️ Fecha de fin inválida. Usa DD/MM/YYYY', 'error');
-                return;
-            }
+            const fechaInicioObj = parseDateInput(inicio);
+            const fechaFinObj = parseDateInput(fin);
 
-            if (!compararFechas(inicio, fin)) {
+            if (fechaInicioObj > fechaFinObj) {
                 mostrarMensaje('configSection', '⚠️ La fecha de inicio debe ser menor o igual a la fecha de fin.', 'error');
                 return;
             }
@@ -492,44 +714,45 @@
             document.getElementById('registroSection').classList.remove('hidden');
             document.getElementById('listaSection').classList.remove('hidden');
 
-            // Sugerir fecha actual como fecha de registro
+            // Actualizar fecha de registro por defecto
             const hoy = new Date();
-            document.getElementById('fechaRegistro').value = formatearFechaDMY(hoy);
+            document.getElementById('fechaRegistro').value = formatDateInput(hoy);
 
-            mostrarMensaje('configSection', `✅ Quincena iniciada para ${nombre} del ${inicio} al ${fin}`, 'exito');
+            mostrarMensaje('configSection', `✅ Jornada iniciada para ${nombre}`, 'exito');
             actualizarLista();
         }
 
-        function agregarRegistro() {
-            const fecha = document.getElementById('fechaRegistro').value.trim();
+        // ============ AGREGAR AUTO ============
+        function agregarAuto() {
+            const fecha = document.getElementById('fechaRegistro').value;
             const horaEntrada = document.getElementById('horaEntrada').value;
             const horaSalida = document.getElementById('horaSalida').value;
-            const auto = document.getElementById('auto').value.trim();
-            const servicio = document.getElementById('servicio').value.trim();
+            const auto = document.getElementById('auto').value.trim() || 'No especificado';
+            const servicio = document.getElementById('servicio').value.trim() || 'No especificado';
             const cobro = parseFloat(document.getElementById('cobro').value) || 0;
             const propina = parseFloat(document.getElementById('propina').value) || 0;
 
             if (!fecha) {
-                mostrarMensaje('registroSection', '⚠️ Ingresa una fecha.', 'error');
-                return;
-            }
-
-            if (!validarFecha(fecha)) {
-                mostrarMensaje('registroSection', '⚠️ Fecha inválida. Usa DD/MM/YYYY', 'error');
-                return;
-            }
-
-            if (!compararFechas(fechaInicio, fecha) || !compararFechas(fecha, fechaFin)) {
-                mostrarMensaje('registroSection', `⚠️ La fecha debe estar entre ${fechaInicio} y ${fechaFin}`, 'error');
+                mostrarMensaje('registroSection', '⚠️ Selecciona una fecha.', 'error');
                 return;
             }
 
             if (!horaEntrada || !horaSalida) {
-                mostrarMensaje('registroSection', '⚠️ Ingresa la hora de entrada y salida.', 'error');
+                mostrarMensaje('registroSection', '⚠️ Ingresa hora de entrada y salida.', 'error');
                 return;
             }
 
-            // Calcular horas trabajadas
+            // Validar que la fecha esté dentro del rango
+            const fechaObj = parseDateInput(fecha);
+            const inicioObj = parseDateInput(fechaInicio);
+            const finObj = parseDateInput(fechaFin);
+
+            if (fechaObj < inicioObj || fechaObj > finObj) {
+                mostrarMensaje('registroSection', `⚠️ La fecha debe estar entre ${formatDateDisplay(fechaInicio)} y ${formatDateDisplay(fechaFin)}`, 'error');
+                return;
+            }
+
+            // Calcular horas
             const horas = calcularHoras(horaEntrada, horaSalida);
 
             const registro = {
@@ -537,8 +760,8 @@
                 horaEntrada: horaEntrada,
                 horaSalida: horaSalida,
                 horas: horas,
-                auto: auto || 'No especificado',
-                servicio: servicio || 'No especificado',
+                auto: auto,
+                servicio: servicio,
                 cobro: cobro,
                 propina: propina
             };
@@ -546,7 +769,7 @@
             registros.push(registro);
             actualizarLista();
 
-            // Limpiar campos
+            // Limpiar campos (excepto fecha)
             document.getElementById('horaEntrada').value = '';
             document.getElementById('horaSalida').value = '';
             document.getElementById('auto').value = '';
@@ -554,15 +777,14 @@
             document.getElementById('cobro').value = '';
             document.getElementById('propina').value = '';
 
-            // Avanzar fecha
-            const fechaActual = parseFechaDMY(fecha);
-            fechaActual.setDate(fechaActual.getDate() + 1);
-            document.getElementById('fechaRegistro').value = formatearFechaDMY(fechaActual);
+            // Mantener la misma fecha para seguir agregando autos del mismo día
+            document.getElementById('fechaRegistro').value = fecha;
 
-            mostrarMensaje('registroSection', '✅ Registro guardado correctamente.', 'exito');
+            mostrarMensaje('registroSection', `✅ Auto "${auto}" registrado correctamente.`, 'exito');
         }
 
-        function eliminarRegistro(index) {
+        // ============ ELIMINAR AUTO ============
+        function eliminarAuto(index) {
             if (confirm('¿Eliminar este registro?')) {
                 registros.splice(index, 1);
                 actualizarLista();
@@ -570,8 +792,9 @@
             }
         }
 
+        // ============ LIMPIAR TODO ============
         function limpiarTodo() {
-            if (confirm('⚠️ ¿Borrar TODOS los registros? Esta acción no se puede deshacer.')) {
+            if (confirm('⚠️ ¿Borrar TODOS los registros?')) {
                 registros = [];
                 actualizarLista();
                 mostrarMensaje('listaSection', '🗑️ Todos los registros han sido eliminados.', 'info');
@@ -581,56 +804,87 @@
         // ============ ACTUALIZAR LISTA ============
         function actualizarLista() {
             const container = document.getElementById('registrosList');
-            
+
             if (registros.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún. Agrega tu primer día de trabajo.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#555; padding:30px;">No hay autos registrados aún.<br>¡Comienza a registrar tu trabajo!</p>';
                 actualizarEstadisticas();
                 return;
             }
 
-            // Ordenar por fecha
-            registros.sort((a, b) => {
-                const fa = parseFechaDMY(a.fecha);
-                const fb = parseFechaDMY(b.fecha);
-                return fa - fb;
-            });
-
-            let html = '<div class="table-wrapper"><table><thead><tr>';
-            html += '<th>#</th><th>Fecha</th><th>Entrada</th><th>Salida</th><th>Horas</th><th>Auto</th><th>Servicio</th><th>Cobro</th><th>Propina</th><th>Acciones</th>';
-            html += '</tr></thead><tbody>';
-
+            // Agrupar por fecha
+            const grupos = {};
             registros.forEach((r, i) => {
-                html += `<tr>
-                    <td>${i + 1}</td>
-                    <td><strong>${r.fecha}</strong></td>
-                    <td>${r.horaEntrada}</td>
-                    <td>${r.horaSalida}</td>
-                    <td>${formatearHoras(r.horas)}</td>
-                    <td>${r.auto}</td>
-                    <td>${r.servicio}</td>
-                    <td>$${r.cobro.toFixed(2)}</td>
-                    <td>$${r.propina.toFixed(2)}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(${i})">🗑️</button>
-                    </td>
-                </tr>`;
+                const fechaKey = r.fecha;
+                if (!grupos[fechaKey]) {
+                    grupos[fechaKey] = [];
+                }
+                grupos[fechaKey].push({ ...r, index: i });
             });
 
-            html += '</tbody></table></div>';
+            // Ordenar fechas
+            const fechasOrdenadas = Object.keys(grupos).sort();
+
+            let html = '';
+            fechasOrdenadas.forEach(fechaKey => {
+                const items = grupos[fechaKey];
+                const totalDia = items.length;
+                const totalCobroDia = items.reduce((sum, r) => sum + r.cobro, 0);
+                const totalPropinaDia = items.reduce((sum, r) => sum + r.propina, 0);
+
+                html += `
+                    <div class="dia-group">
+                        <div class="dia-header">
+                            <span class="fecha">📅 ${formatDateDisplay(fechaKey)}</span>
+                            <span class="total-dia">
+                                ${totalDia} auto${totalDia > 1 ? 's' : ''} · 
+                                Cobro: <span>$${totalCobroDia.toFixed(2)}</span> · 
+                                Propina: <span>$${totalPropinaDia.toFixed(2)}</span>
+                            </span>
+                        </div>
+                        <div class="dia-body">
+                `;
+
+                items.forEach((r) => {
+                    const horasFormateadas = formatearHoras(r.horas);
+                    html += `
+                        <div class="registro-item">
+                            <div class="info">
+                                <span class="auto">🚗 ${r.auto}</span>
+                                <span class="detalle">⏱ ${r.horaEntrada} - ${r.horaSalida} · ${horasFormateadas}</span>
+                                <span class="detalle">🔧 ${r.servicio}</span>
+                                <span class="monto">💰 $${r.cobro.toFixed(2)}</span>
+                                <span class="monto" style="color:#ff9800;">💵 $${r.propina.toFixed(2)}</span>
+                            </div>
+                            <div class="acciones">
+                                <button class="btn btn-danger btn-xs" onclick="eliminarAuto(${r.index})">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
             container.innerHTML = html;
             actualizarEstadisticas();
+
+            // Actualizar badge
+            document.getElementById('totalAutosBadge').textContent = `${registros.length} auto${registros.length > 1 ? 's' : ''}`;
         }
 
         // ============ ESTADÍSTICAS ============
         function actualizarEstadisticas() {
-            document.getElementById('totalRegistros').textContent = registros.length;
-            
+            document.getElementById('totalAutos').textContent = registros.length;
+
             const totalHoras = registros.reduce((sum, r) => sum + r.horas, 0);
             document.getElementById('totalHoras').textContent = formatearHoras(totalHoras);
-            
+
             const totalCobro = registros.reduce((sum, r) => sum + r.cobro, 0);
             document.getElementById('totalCobros').textContent = `$${totalCobro.toFixed(2)}`;
-            
+
             const totalPropina = registros.reduce((sum, r) => sum + r.propina, 0);
             document.getElementById('totalPropinas').textContent = `$${totalPropina.toFixed(2)}`;
         }
@@ -642,13 +896,13 @@
                 return;
             }
 
-            const headers = ['#', 'Fecha', 'Entrada', 'Salida', 'Horas', 'Auto', 'Servicio', 'Cobro', 'Propina'];
+            const headers = ['#', 'Fecha', 'Hora Entrada', 'Hora Salida', 'Horas', 'Auto', 'Servicio', 'Cobro', 'Propina'];
             let csv = headers.join(',') + '\n';
 
             registros.forEach((r, i) => {
                 const row = [
                     i + 1,
-                    r.fecha,
+                    formatDateDisplay(r.fecha),
                     r.horaEntrada,
                     r.horaSalida,
                     r.horas.toFixed(2).replace('.', ','),
@@ -660,79 +914,27 @@
                 csv += row.join(',') + '\n';
             });
 
-            // Agregar totales al final
+            // Totales
             const totalHoras = registros.reduce((sum, r) => sum + r.horas, 0);
             const totalCobro = registros.reduce((sum, r) => sum + r.cobro, 0);
             const totalPropina = registros.reduce((sum, r) => sum + r.propina, 0);
-            
-            csv += '\nTOTALES,,,,' + totalHoras.toFixed(2).replace('.', ',') + ',,' + totalCobro.toFixed(2).replace('.', ',') + ',' + totalPropina.toFixed(2).replace('.', ',');
+
+            csv += '\nTOTALES,,,,,' + totalHoras.toFixed(2).replace('.', ',') + ',,' + totalCobro.toFixed(2).replace('.', ',') + ',' + totalPropina.toFixed(2).replace('.', ',');
+
+            // Info del empleado
+            csv += `\n\nEmpleado: ${empleadoActual}`;
+            csv += `\nPeríodo: ${formatDateDisplay(fechaInicio)} - ${formatDateDisplay(fechaFin)}`;
+            csv += `\nCapitol Shine - Detailing & Auto Spa`;
 
             const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.href = url;
-            link.download = `registro_${empleadoActual}_${fechaInicio}_${fechaFin}.csv`;
+            link.download = `CapitolShine_${empleadoActual}_${formatDateDisplay(fechaInicio)}_${formatDateDisplay(fechaFin)}.csv`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-        }
-
-        // ============ EXPORTAR A PDF (Imprimir) ============
-        function exportarPDF() {
-            if (registros.length === 0) {
-                alert('⚠️ No hay registros para exportar.');
-                return;
-            }
-            window.print();
-        }
-
-        function imprimir() {
-            window.print();
-        }
-
-        // ============ FUNCIONES DE FECHA ============
-        function validarFecha(fecha) {
-            const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-            if (!regex.test(fecha)) return false;
-            
-            const [, dia, mes, año] = fecha.match(regex);
-            const d = parseInt(dia);
-            const m = parseInt(mes);
-            const a = parseInt(año);
-            
-            if (m < 1 || m > 12) return false;
-            if (d < 1 || d > 31) return false;
-            
-            // Validar días por mes
-            const diasMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            // Año bisiesto
-            if (m === 2) {
-                const esBisiesto = (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
-                if (d > (esBisiesto ? 29 : 28)) return false;
-            } else if (d > diasMes[m - 1]) {
-                return false;
-            }
-            
-            return true;
-        }
-
-        function parseFechaDMY(fecha) {
-            const [dia, mes, año] = fecha.split('/').map(Number);
-            return new Date(año, mes - 1, dia);
-        }
-
-        function formatearFechaDMY(fecha) {
-            const dia = String(fecha.getDate()).padStart(2, '0');
-            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-            const año = fecha.getFullYear();
-            return `${dia}/${mes}/${año}`;
-        }
-
-        function compararFechas(fecha1, fecha2) {
-            const f1 = parseFechaDMY(fecha1);
-            const f2 = parseFechaDMY(fecha2);
-            return f1 <= f2;
         }
 
         // ============ CÁLCULO DE HORAS ============
@@ -774,27 +976,11 @@
         }
 
         // ============ INICIALIZAR ============
-        // Poner fecha actual por defecto
-        const hoy = new Date();
-        document.getElementById('fechaRegistro').value = formatearFechaDMY(hoy);
-        
-        // Fecha inicio por defecto: primer día del mes
-        const primerDia = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-        document.getElementById('fechaInicio').value = formatearFechaDMY(primerDia);
-        
-        // Fecha fin por defecto: día 15 del mes o último día
-        const dia = hoy.getDate();
-        let ultimoDia = 15;
-        if (dia > 15) {
-            const proximoMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
-            ultimoDia = proximoMes.getDate();
-        }
-        const fechaFinDefault = new Date(hoy.getFullYear(), hoy.getMonth(), ultimoDia);
-        document.getElementById('fechaFin').value = formatearFechaDMY(fechaFinDefault);
+        inicializarFechas();
 
-        console.log('📋 Sistema de Registro Temporal cargado.');
-        console.log('💡 Fecha actual: ' + formatearFechaDMY(hoy));
-        console.log('📅 Quincena sugerida: ' + document.getElementById('fechaInicio').value + ' al ' + document.getElementById('fechaFin').value);
+        console.log('✨ Capitol Shine - Sistema de Registro cargado');
+        console.log('🚗 Formato de fecha: MM/DD/YYYY (Estilo EE.UU.)');
+        console.log('📅 Fecha actual: ' + formatDateDisplay(document.getElementById('fechaRegistro').value));
     </script>
 </body>
 </html>
