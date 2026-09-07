@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Registro con Administración</title>
+    <title>Sistema de Registro</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -32,9 +32,17 @@
             transition: background 0.5s, color 0.5s;
         }
 
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
         .header-logo {
             text-align: center;
-            margin-bottom: 10px;
+            flex: 1;
         }
 
         .header-logo img {
@@ -45,6 +53,35 @@
 
         .header-logo .logo-placeholder {
             font-size: 48px;
+        }
+
+        .idioma-selector {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .idioma-selector button {
+            padding: 6px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .idioma-selector button:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .idioma-selector button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
         }
 
         h1 {
@@ -228,9 +265,9 @@
             background: #e74c3c;
             color: white;
             border: none;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -284,7 +321,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
@@ -304,7 +341,7 @@
         }
 
         .stats-card .label {
-            font-size: 13px;
+            font-size: 12px;
             opacity: 0.9;
         }
 
@@ -318,6 +355,10 @@
 
         .stats-card.blue {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .stats-card.purple {
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
         }
 
         .employee-selector {
@@ -404,12 +445,13 @@
             transition: background 0.5s;
         }
 
-        .quincena-selector select {
+        .quincena-selector select,
+        .quincena-selector input {
             padding: 10px 20px;
             border-radius: 8px;
             border: 2px solid #e0e6ed;
             font-size: 15px;
-            min-width: 200px;
+            min-width: 150px;
         }
 
         .admin-section {
@@ -449,14 +491,6 @@
             padding: 2px;
         }
 
-        .color-picker-group input[type="text"] {
-            padding: 8px 12px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            flex: 1;
-            min-width: 150px;
-        }
-
         .logo-upload {
             display: flex;
             gap: 10px;
@@ -487,6 +521,31 @@
             border-radius: 8px;
             margin: 10px 0;
             border-left: 4px solid #dc3545;
+        }
+
+        .password-list {
+            margin: 15px 0;
+        }
+
+        .password-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e0e6ed;
+        }
+
+        .password-item .employee-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .password-item .employee-password {
+            color: #7f8c8d;
+            font-family: monospace;
         }
 
         .tag-container {
@@ -545,6 +604,42 @@
             font-size: 14px;
         }
 
+        .boss-name-section {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .boss-name-section input {
+            padding: 10px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .empleado-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #e0e6ed;
+        }
+
+        .empleado-item .emp-name {
+            font-weight: 600;
+        }
+
+        .empleado-item .emp-actions {
+            display: flex;
+            gap: 5px;
+        }
+
         @media print {
             .tab-btn,
             .actions,
@@ -556,7 +651,9 @@
             .btn-edit,
             .btn-danger,
             .modal,
-            .filtro-fecha {
+            .filtro-fecha,
+            .idioma-selector,
+            .boss-name-section {
                 display: none !important;
             }
             .tab-content {
@@ -586,13 +683,13 @@
             h1 {
                 font-size: 1.6em;
             }
-            .password-section input,
-            .color-picker-group input[type="text"] {
+            .password-section input {
                 width: 100%;
                 margin-bottom: 10px;
             }
-            .logo-upload input[type="file"] {
-                width: 100%;
+            .header-top {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -600,31 +697,37 @@
 <body>
     <div class="container">
         <div class="main-card" id="mainCard">
-            <div class="header-logo" id="headerLogo">
-                <div class="logo-placeholder" id="logoPlaceholder">🔧</div>
-                <img id="logoImage" style="display:none; max-height:80px; max-width:100%; object-fit:contain;" alt="Logo">
+            <div class="header-top">
+                <div class="header-logo" id="headerLogo">
+                    <div class="logo-placeholder" id="logoPlaceholder">🔧</div>
+                    <img id="logoImage" style="display:none; max-height:80px; max-width:100%; object-fit:contain;" alt="Logo">
+                </div>
+                <div class="idioma-selector">
+                    <button class="active" onclick="cambiarIdioma('es')" id="btnEs">🇪🇸 Español</button>
+                    <button onclick="cambiarIdioma('en')" id="btnEn">🇬🇧 English</button>
+                </div>
             </div>
 
             <h1 id="mainTitle">📋 Sistema de Registro</h1>
-            <p class="subtitle" id="mainSubtitle">Sistema con administración completa • Personaliza colores, logo y servicios</p>
+            <p class="subtitle" id="mainSubtitle">Sistema completo con administración • Personaliza colores, logo y servicios</p>
 
             <div class="tabs">
-                <button class="tab-btn active" data-tab="employee">👤 Empleado</button>
-                <button class="tab-btn" data-tab="boss">👔 Jefe</button>
-                <button class="tab-btn" data-tab="admin">⚙️ Administración</button>
+                <button class="tab-btn active" data-tab="employee" id="tabEmployee">👤 Empleado</button>
+                <button class="tab-btn" data-tab="boss" id="tabBoss">👔 Jefe</button>
+                <button class="tab-btn" data-tab="admin" id="tabAdmin">⚙️ Administración</button>
             </div>
 
             <!-- ==================== PESTAÑA EMPLEADO ==================== -->
             <div id="employee" class="tab-content active">
                 <div class="employee-selector">
-                    <label style="font-weight:600; margin-right:15px;">👤 Selecciona tu nombre:</label>
+                    <label style="font-weight:600; margin-right:15px;" id="lblSelectEmployee">👤 Selecciona tu nombre:</label>
                     <select id="employeeSelect"></select>
                 </div>
 
                 <div class="password-section">
-                    <label style="font-weight:600; margin-right:15px;">🔑 Ingresa tu clave:</label>
+                    <label style="font-weight:600; margin-right:15px;" id="lblEnterPassword">🔑 Ingresa tu clave:</label>
                     <input type="password" id="employeePassword" placeholder="Ingresa tu clave">
-                    <button class="btn-primary" onclick="verifyPassword()" style="padding: 10px 20px;">✅ Verificar</button>
+                    <button class="btn-primary" onclick="verifyPassword()" style="padding: 10px 20px;" id="btnVerify">✅ Verificar</button>
                     <div id="passwordStatus" style="margin-top: 10px; font-weight: 600;"></div>
                 </div>
 
@@ -632,19 +735,19 @@
                     <form id="registerForm">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>📅 Fecha</label>
+                                <label id="lblDate">📅 Fecha</label>
                                 <input type="date" id="fecha" required>
                             </div>
                             <div class="form-group">
-                                <label>🕐 Hora Entrada</label>
+                                <label id="lblEntryTime">🕐 Hora Entrada</label>
                                 <input type="time" id="horaEntrada" required>
                             </div>
                             <div class="form-group">
-                                <label>🕐 Hora Salida</label>
+                                <label id="lblExitTime">🕐 Hora Salida</label>
                                 <input type="time" id="horaSalida" required>
                             </div>
                             <div class="form-group">
-                                <label>🚗 Auto Atendido</label>
+                                <label id="lblAuto">🚗 Auto Atendido</label>
                                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                     <select id="autoSelect" style="flex: 2; min-width: 120px;">
                                         <option value="">Selecciona o escribe...</option>
@@ -653,7 +756,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>🔧 Servicio</label>
+                                <label id="lblService">🔧 Servicio</label>
                                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                     <select id="servicioSelect" style="flex: 2; min-width: 120px;">
                                         <option value="">Selecciona o escribe...</option>
@@ -662,42 +765,43 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>💰 Cobro ($)</label>
+                                <label id="lblCharge">💰 Cobro ($)</label>
                                 <input type="number" id="cobro" placeholder="0.00" step="0.01" required>
                             </div>
                             <div class="form-group">
-                                <label>💵 Propina ($)</label>
+                                <label id="lblTip">💵 Propina ($)</label>
                                 <input type="number" id="propina" placeholder="0.00" step="0.01" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn-primary">📝 Guardar Registro</button>
+                        <button type="submit" class="btn-primary" id="btnSaveRecord">📝 Guardar Registro</button>
                     </form>
 
                     <!-- HISTORIAL DEL EMPLEADO -->
                     <div class="historial-empleado">
-                        <h3>📊 Tu Historial</h3>
+                        <h3 id="lblYourHistory">📊 Tu Historial</h3>
                         <div class="filtro-fecha">
-                            <label>📅 Filtrar por fecha:</label>
+                            <label id="lblFilterDate">📅 Filtrar por fecha:</label>
                             <input type="date" id="empleadoFiltroFecha" onchange="renderEmpleadoHistorial()">
-                            <button class="btn-info btn-sm" onclick="empleadoFiltroFecha.value=''; renderEmpleadoHistorial();">Mostrar todo</button>
+                            <button class="btn-info btn-sm" onclick="empleadoFiltroFecha.value=''; renderEmpleadoHistorial();" id="btnShowAll">Mostrar todo</button>
                         </div>
                         <div class="table-wrapper">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Fecha</th>
-                                        <th>Entrada</th>
-                                        <th>Salida</th>
-                                        <th>Auto</th>
-                                        <th>Servicio</th>
-                                        <th>Cobro</th>
-                                        <th>Propina</th>
-                                        <th>Quincena</th>
+                                        <th id="thDate">Fecha</th>
+                                        <th id="thEntry">Entrada</th>
+                                        <th id="thExit">Salida</th>
+                                        <th id="thHours">Horas</th>
+                                        <th id="thAuto">Auto</th>
+                                        <th id="thService">Servicio</th>
+                                        <th id="thCharge">Cobro</th>
+                                        <th id="thTip">Propina</th>
+                                        <th id="thQuincena">Quincena</th>
                                     </tr>
                                 </thead>
                                 <tbody id="empleadoHistorialBody">
                                     <tr>
-                                        <td colspan="8" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún</td>
+                                        <td colspan="9" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -705,34 +809,42 @@
                         <div class="stats-grid" id="empleadoHistorialStats">
                             <div class="stats-card blue">
                                 <div class="number" id="empHistorialTotal">0</div>
-                                <div class="label">Total Registros</div>
+                                <div class="label" id="lblTotalRecords">Total Registros</div>
+                            </div>
+                            <div class="stats-card purple">
+                                <div class="number" id="empHistorialHoras">0h</div>
+                                <div class="label" id="lblTotalHours">Total Horas</div>
                             </div>
                             <div class="stats-card green">
                                 <div class="number" id="empHistorialCobros">$0</div>
-                                <div class="label">Total Cobros</div>
+                                <div class="label" id="lblTotalCharges">Total Cobros</div>
                             </div>
                             <div class="stats-card orange">
                                 <div class="number" id="empHistorialPropinas">$0</div>
-                                <div class="label">Total Propinas</div>
+                                <div class="label" id="lblTotalTips">Total Propinas</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Totales del empleado actual (quincena) -->
                     <div id="employeeTotals" style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; transition: background 0.5s;">
-                        <h3 style="margin-bottom: 15px;">📊 Tus Totales de Esta Quincena</h3>
+                        <h3 style="margin-bottom: 15px;" id="lblQuincenaTotals">📊 Tus Totales de Esta Quincena</h3>
                         <div class="stats-grid" id="employeeStatsGrid">
                             <div class="stats-card blue">
                                 <div class="number" id="empTotalRegistros">0</div>
-                                <div class="label">Registros</div>
+                                <div class="label" id="lblRecords">Registros</div>
+                            </div>
+                            <div class="stats-card purple">
+                                <div class="number" id="empTotalHoras">0h</div>
+                                <div class="label" id="lblHours">Horas</div>
                             </div>
                             <div class="stats-card green">
                                 <div class="number" id="empTotalCobros">$0</div>
-                                <div class="label">Total Cobros</div>
+                                <div class="label" id="lblCharges">Total Cobros</div>
                             </div>
                             <div class="stats-card orange">
                                 <div class="number" id="empTotalPropinas">$0</div>
-                                <div class="label">Total Propinas</div>
+                                <div class="label" id="lblTips">Total Propinas</div>
                             </div>
                         </div>
                     </div>
@@ -742,54 +854,79 @@
             <!-- ==================== PESTAÑA JEFE ==================== -->
             <div id="boss" class="tab-content">
                 <div class="password-section" style="border-left-color: #28a745;">
-                    <label style="font-weight:600; margin-right:15px;">👔 Ingresa como Jefe:</label>
+                    <label style="font-weight:600; margin-right:15px;" id="lblBossLogin">👔 Ingresa como Jefe:</label>
                     <input type="password" id="bossPasswordInput" placeholder="Clave del jefe">
-                    <button class="btn-success" onclick="verifyBossAccess()" style="padding: 10px 20px;">✅ Acceder</button>
+                    <button class="btn-success" onclick="verifyBossAccess()" style="padding: 10px 20px;" id="btnBossAccess">✅ Acceder</button>
                     <div id="bossStatus" style="margin-top: 10px; font-weight: 600;"></div>
                 </div>
 
                 <div id="bossContent" style="display: none;">
+                    <!-- Cambiar nombre del jefe -->
+                    <div class="admin-section" style="border-left-color: #28a745;">
+                        <h3 id="lblChangeBossName">✏️ Cambiar nombre del jefe</h3>
+                        <div class="boss-name-section">
+                            <input type="text" id="bossNameInput" placeholder="Nuevo nombre del jefe">
+                            <button class="btn-warning" onclick="changeBossName()" id="btnSaveBossName">💾 Guardar Nombre</button>
+                            <span id="bossNameDisplay" style="font-weight:600; color:#2c3e50;"></span>
+                        </div>
+                    </div>
+
                     <!-- Gestión de empleados y claves para el JEFE -->
                     <div class="admin-section" style="border-left-color: #28a745;">
-                        <h3>👔 Gestión de Empleados y Claves (Jefe)</h3>
+                        <h3 id="lblManageEmployees">👔 Gestión de Empleados y Claves</h3>
                         <div style="background: #d4edda; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                            <strong>👔 Jefe actual:</strong> <span id="bossNameDisplay">BOSS</span>
-                            <button class="btn-warning" onclick="changeBossPassword()" style="padding: 5px 15px; font-size: 12px; margin-left: 10px;">Cambiar clave del jefe</button>
+                            <strong id="lblCurrentBoss">👔 Jefe actual:</strong> <span id="bossNameDisplay2">BOSS</span>
+                            <button class="btn-warning" onclick="changeBossPassword()" style="padding: 5px 15px; font-size: 12px; margin-left: 10px;" id="lblChangeBossPass">Cambiar clave del jefe</button>
                         </div>
-                        <div class="password-list" id="bossPasswordList"></div>
+
+                        <!-- Lista de empleados -->
+                        <h4 id="lblEmployeeList">📋 Lista de Empleados</h4>
+                        <div id="empleadosList" style="margin: 10px 0;"></div>
+
+                        <!-- Agregar empleado -->
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px;">
+                            <input type="text" id="nuevoEmpleadoInput" placeholder="Nombre del nuevo empleado" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
+                            <input type="text" id="nuevoEmpleadoClave" placeholder="Clave inicial" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 120px;">
+                            <button class="btn-success" onclick="agregarEmpleado()" id="btnAddEmployee">➕ Agregar Empleado</button>
+                        </div>
+                        <div id="empleadoMessage" style="margin-top: 10px;"></div>
+
+                        <hr style="margin: 20px 0;">
+
+                        <!-- Cambiar claves -->
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                             <select id="bossPasswordEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
                             <input type="text" id="bossNewPasswordInput" placeholder="Nueva clave" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-primary" onclick="bossSetEmployeePassword()">💾 Guardar Clave</button>
+                            <button class="btn-primary" onclick="bossSetEmployeePassword()" id="btnSavePassword">💾 Guardar Clave</button>
                         </div>
                         <div id="bossPasswordMessage" style="margin-top: 10px;"></div>
                     </div>
 
                     <div class="admin-section" style="border-left-color: #ffc107;">
-                        <h3>✏️ Cambiar nombre de empleados</h3>
+                        <h3 id="lblRenameEmployee">✏️ Cambiar nombre de empleados</h3>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                             <select id="bossRenameEmployeeSelect" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed;"></select>
                             <input type="text" id="bossNewEmployeeNameInput" placeholder="Nuevo nombre" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-warning" onclick="bossRenameEmployee()">✏️ Cambiar Nombre</button>
+                            <button class="btn-warning" onclick="bossRenameEmployee()" id="btnRenameEmployee">✏️ Cambiar Nombre</button>
                         </div>
                         <div id="bossRenameMessage" style="margin-top: 10px;"></div>
                     </div>
 
                     <div class="quincena-selector">
                         <div>
-                            <label style="font-weight:600; margin-right:10px;">📆 Selecciona Quincena:</label>
+                            <label style="font-weight:600; margin-right:10px;" id="lblSelectQuincena">📆 Selecciona Quincena:</label>
                             <select id="quincenaSelect">
                                 <option value="todas">Todas las quincenas</option>
                             </select>
                         </div>
                         <div>
-                            <label style="font-weight:600; margin-right:10px;">👤 Filtrar por empleado:</label>
+                            <label style="font-weight:600; margin-right:10px;" id="lblFilterEmployee">👤 Filtrar por empleado:</label>
                             <select id="filterEmployee">
                                 <option value="todos">Todos</option>
                             </select>
                         </div>
                         <div>
-                            <label style="font-weight:600; margin-right:10px;">📅 Fecha:</label>
+                            <label style="font-weight:600; margin-right:10px;" id="lblFilterDate2">📅 Fecha:</label>
                             <input type="date" id="bossFiltroFecha" onchange="renderTable()" style="padding:8px; border-radius:8px; border:2px solid #e0e6ed;">
                         </div>
                     </div>
@@ -797,43 +934,48 @@
                     <div class="stats-grid" id="bossStatsGrid">
                         <div class="stats-card blue">
                             <div class="number" id="bossTotalRegistros">0</div>
-                            <div class="label">Total Registros</div>
+                            <div class="label" id="lblTotalRecords2">Total Registros</div>
+                        </div>
+                        <div class="stats-card purple">
+                            <div class="number" id="bossTotalHoras">0h</div>
+                            <div class="label" id="lblTotalHours2">Total Horas</div>
                         </div>
                         <div class="stats-card green">
                             <div class="number" id="bossTotalCobros">$0</div>
-                            <div class="label">Total Cobros</div>
+                            <div class="label" id="lblTotalCharges2">Total Cobros</div>
                         </div>
                         <div class="stats-card orange">
                             <div class="number" id="bossTotalPropinas">$0</div>
-                            <div class="label">Total Propinas</div>
+                            <div class="label" id="lblTotalTips2">Total Propinas</div>
                         </div>
                     </div>
 
                     <div class="actions">
-                        <button class="btn-success" onclick="exportToExcel()">📊 Exportar a Excel</button>
-                        <button class="btn-warning" onclick="window.print()">🖨️ Imprimir</button>
-                        <button class="btn-danger" onclick="clearAllData()" style="padding:12px 25px; font-size:14px;">🗑️ Borrar Todos</button>
+                        <button class="btn-success" onclick="exportToExcel()" id="btnExportExcel">📊 Exportar a Excel</button>
+                        <button class="btn-warning" onclick="window.print()" id="btnPrint">🖨️ Imprimir</button>
+                        <button class="btn-danger" onclick="clearAllData()" style="padding:12px 25px; font-size:14px;" id="btnDeleteAll">🗑️ Borrar Todos</button>
                     </div>
 
                     <div class="table-wrapper">
                         <table id="recordsTable">
                             <thead>
                                 <tr>
-                                    <th>Empleado</th>
-                                    <th>Fecha</th>
-                                    <th>Entrada</th>
-                                    <th>Salida</th>
-                                    <th>Auto</th>
-                                    <th>Servicio</th>
-                                    <th>Cobro</th>
-                                    <th>Propina</th>
-                                    <th>Quincena</th>
-                                    <th>Acciones</th>
+                                    <th id="thEmployee">Empleado</th>
+                                    <th id="thDate2">Fecha</th>
+                                    <th id="thEntry2">Entrada</th>
+                                    <th id="thExit2">Salida</th>
+                                    <th id="thHours2">Horas</th>
+                                    <th id="thAuto2">Auto</th>
+                                    <th id="thService2">Servicio</th>
+                                    <th id="thCharge2">Cobro</th>
+                                    <th id="thTip2">Propina</th>
+                                    <th id="thQuincena2">Quincena</th>
+                                    <th id="thActions">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
                                 <tr>
-                                    <td colspan="10" style="text-align:center; color:#95a5a6; padding:30px;">No hay registros aún</td>
+                                    <td colspan="11" style="text-align:center; color:#95a5a6; padding:30px;">No hay registros aún</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -844,67 +986,63 @@
             <!-- ==================== PESTAÑA ADMINISTRACIÓN ==================== -->
             <div id="admin" class="tab-content">
                 <div class="password-section" style="border-left-color: #3498db;">
-                    <label style="font-weight:600; margin-right:15px;">⚙️ Acceso Administrador:</label>
+                    <label style="font-weight:600; margin-right:15px;" id="lblAdminAccess">⚙️ Acceso Administrador:</label>
                     <input type="password" id="adminPasswordInput" placeholder="Clave de administrador">
-                    <button class="btn-info" onclick="verifyAdminAccess()" style="padding: 10px 20px;">🔓 Acceder</button>
+                    <button class="btn-info" onclick="verifyAdminAccess()" style="padding: 10px 20px;" id="btnAdminAccess">🔓 Acceder</button>
                     <div id="adminStatus" style="margin-top: 10px; font-weight: 600;"></div>
                 </div>
 
                 <div id="adminContent" style="display: none;">
-                    <!-- Personalización de colores -->
                     <div class="admin-section">
-                        <h3>🎨 Personalizar Colores</h3>
+                        <h3 id="lblCustomColors">🎨 Personalizar Colores</h3>
                         <div class="color-picker-group">
-                            <label>Fondo del sitio:</label>
+                            <label id="lblBgColor">Fondo del sitio:</label>
                             <input type="color" id="bgColor" value="#667eea">
-                            <button class="btn-info btn-sm" onclick="applyColor('bgColor', 'body', 'background')">Aplicar</button>
+                            <button class="btn-info btn-sm" onclick="applyColor('bgColor', 'body', 'background')" id="btnApplyColor">Aplicar</button>
                         </div>
                         <div class="color-picker-group">
-                            <label>Fondo tarjeta:</label>
+                            <label id="lblCardColor">Fondo tarjeta:</label>
                             <input type="color" id="cardColor" value="#ffffff">
                             <button class="btn-info btn-sm" onclick="applyColor('cardColor', '#mainCard', 'background')">Aplicar</button>
                         </div>
                         <div class="color-picker-group">
-                            <label>Color título:</label>
+                            <label id="lblTitleColor">Color título:</label>
                             <input type="color" id="titleColor" value="#2c3e50">
                             <button class="btn-info btn-sm" onclick="applyColor('titleColor', '#mainTitle', 'color')">Aplicar</button>
                         </div>
                         <div class="color-picker-group">
-                            <label>Color subtítulo:</label>
+                            <label id="lblSubtitleColor">Color subtítulo:</label>
                             <input type="color" id="subtitleColor" value="#7f8c8d">
                             <button class="btn-info btn-sm" onclick="applyColor('subtitleColor', '#mainSubtitle', 'color')">Aplicar</button>
                         </div>
-                        <button class="btn-danger btn-sm" onclick="resetColors()" style="margin-top:10px;">🔄 Restaurar colores por defecto</button>
+                        <button class="btn-danger btn-sm" onclick="resetColors()" style="margin-top:10px;" id="btnResetColors">🔄 Restaurar colores</button>
                     </div>
 
-                    <!-- Logo -->
                     <div class="admin-section">
-                        <h3>🖼️ Logo / Icono</h3>
+                        <h3 id="lblLogo">🖼️ Logo / Icono</h3>
                         <div class="logo-upload">
                             <input type="file" id="logoUpload" accept="image/*" onchange="uploadLogo(event)">
-                            <button class="btn-danger btn-sm" onclick="removeLogo()">🗑️ Quitar logo</button>
-                            <button class="btn-warning btn-sm" onclick="resetLogo()">🔄 Restaurar icono</button>
+                            <button class="btn-danger btn-sm" onclick="removeLogo()" id="btnRemoveLogo">🗑️ Quitar logo</button>
+                            <button class="btn-warning btn-sm" onclick="resetLogo()" id="btnResetLogo">🔄 Restaurar icono</button>
                         </div>
                         <div id="logoMessage" style="margin-top: 10px;"></div>
                     </div>
 
-                    <!-- Gestión de Autos -->
                     <div class="admin-section">
-                        <h3>🚗 Gestionar Autos</h3>
+                        <h3 id="lblManageAutos">🚗 Gestionar Autos</h3>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px;">
                             <input type="text" id="newAutoInput" placeholder="Nuevo auto" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-success" onclick="addAuto()">➕ Agregar Auto</button>
+                            <button class="btn-success" onclick="addAuto()" id="btnAddAuto">➕ Agregar Auto</button>
                         </div>
                         <div id="autoList" class="tag-container"></div>
                         <div id="autoMessage" style="margin-top: 10px;"></div>
                     </div>
 
-                    <!-- Gestión de Servicios -->
                     <div class="admin-section">
-                        <h3>🔧 Gestionar Servicios</h3>
+                        <h3 id="lblManageServices">🔧 Gestionar Servicios</h3>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px;">
                             <input type="text" id="newServicioInput" placeholder="Nuevo servicio" style="padding: 10px; border-radius: 8px; border: 2px solid #e0e6ed; min-width: 150px;">
-                            <button class="btn-success" onclick="addServicio()">➕ Agregar Servicio</button>
+                            <button class="btn-success" onclick="addServicio()" id="btnAddService">➕ Agregar Servicio</button>
                         </div>
                         <div id="servicioList" class="tag-container"></div>
                         <div id="servicioMessage" style="margin-top: 10px;"></div>
@@ -917,48 +1055,350 @@
     <!-- ==================== MODAL DE EDICIÓN ==================== -->
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h2>✏️ Editar Registro</h2>
+            <h2 id="lblEditRecord">✏️ Editar Registro</h2>
             <form id="editForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>📅 Fecha</label>
+                        <label id="lblDateEdit">📅 Fecha</label>
                         <input type="date" id="editFecha" required>
                     </div>
                     <div class="form-group">
-                        <label>🕐 Hora Entrada</label>
+                        <label id="lblEntryTimeEdit">🕐 Hora Entrada</label>
                         <input type="time" id="editHoraEntrada" required>
                     </div>
                     <div class="form-group">
-                        <label>🕐 Hora Salida</label>
+                        <label id="lblExitTimeEdit">🕐 Hora Salida</label>
                         <input type="time" id="editHoraSalida" required>
                     </div>
                     <div class="form-group">
-                        <label>🚗 Auto</label>
+                        <label id="lblAutoEdit">🚗 Auto</label>
                         <input type="text" id="editAuto" required>
                     </div>
                     <div class="form-group">
-                        <label>🔧 Servicio</label>
+                        <label id="lblServiceEdit">🔧 Servicio</label>
                         <input type="text" id="editServicio" required>
                     </div>
                     <div class="form-group">
-                        <label>💰 Cobro ($)</label>
+                        <label id="lblChargeEdit">💰 Cobro ($)</label>
                         <input type="number" id="editCobro" step="0.01" required>
                     </div>
                     <div class="form-group">
-                        <label>💵 Propina ($)</label>
+                        <label id="lblTipEdit">💵 Propina ($)</label>
                         <input type="number" id="editPropina" step="0.01" required>
                     </div>
                 </div>
                 <input type="hidden" id="editIndex">
                 <div class="modal-actions">
-                    <button type="button" class="btn-danger" onclick="closeEditModal()">Cancelar</button>
-                    <button type="submit" class="btn-primary">💾 Guardar Cambios</button>
+                    <button type="button" class="btn-danger" onclick="closeEditModal()" id="btnCancelEdit">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="btnSaveEdit">💾 Guardar Cambios</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+        // ============ IDIOMAS ============
+        let idiomaActual = localStorage.getItem('idioma') || 'es';
+
+        const textos = {
+            es: {
+                titulo: '📋 Sistema de Registro',
+                subtitulo: 'Sistema completo con administración • Personaliza colores, logo y servicios',
+                tabEmployee: '👤 Empleado',
+                tabBoss: '👔 Jefe',
+                tabAdmin: '⚙️ Administración',
+                selectEmployee: '👤 Selecciona tu nombre:',
+                enterPassword: '🔑 Ingresa tu clave:',
+                verify: '✅ Verificar',
+                date: '📅 Fecha',
+                entryTime: '🕐 Hora Entrada',
+                exitTime: '🕐 Hora Salida',
+                auto: '🚗 Auto Atendido',
+                service: '🔧 Servicio',
+                charge: '💰 Cobro ($)',
+                tip: '💵 Propina ($)',
+                saveRecord: '📝 Guardar Registro',
+                yourHistory: '📊 Tu Historial',
+                filterDate: '📅 Filtrar por fecha:',
+                showAll: 'Mostrar todo',
+                totalRecords: 'Total Registros',
+                totalHours: 'Total Horas',
+                totalCharges: 'Total Cobros',
+                totalTips: 'Total Propinas',
+                quincenaTotals: '📊 Tus Totales de Esta Quincena',
+                records: 'Registros',
+                hours: 'Horas',
+                charges: 'Total Cobros',
+                tips: 'Total Propinas',
+                bossLogin: '👔 Ingresa como Jefe:',
+                bossAccess: '✅ Acceder',
+                changeBossName: '✏️ Cambiar nombre del jefe',
+                saveBossName: '💾 Guardar Nombre',
+                manageEmployees: '👔 Gestión de Empleados y Claves',
+                currentBoss: '👔 Jefe actual:',
+                changeBossPass: 'Cambiar clave del jefe',
+                employeeList: '📋 Lista de Empleados',
+                addEmployee: '➕ Agregar Empleado',
+                savePassword: '💾 Guardar Clave',
+                renameEmployee: '✏️ Cambiar nombre de empleados',
+                renameBtn: '✏️ Cambiar Nombre',
+                selectQuincena: '📆 Selecciona Quincena:',
+                filterEmployee: '👤 Filtrar por empleado:',
+                filterDate2: '📅 Fecha:',
+                totalRecords2: 'Total Registros',
+                totalHours2: 'Total Horas',
+                totalCharges2: 'Total Cobros',
+                totalTips2: 'Total Propinas',
+                exportExcel: '📊 Exportar a Excel',
+                print: '🖨️ Imprimir',
+                deleteAll: '🗑️ Borrar Todos',
+                employee: 'Empleado',
+                date2: 'Fecha',
+                entry2: 'Entrada',
+                exit2: 'Salida',
+                hours2: 'Horas',
+                auto2: 'Auto',
+                service2: 'Servicio',
+                charge2: 'Cobro',
+                tip2: 'Propina',
+                quincena2: 'Quincena',
+                actions: 'Acciones',
+                adminAccess: '⚙️ Acceso Administrador:',
+                adminBtn: '🔓 Acceder',
+                customColors: '🎨 Personalizar Colores',
+                bgColor: 'Fondo del sitio:',
+                cardColor: 'Fondo tarjeta:',
+                titleColor: 'Color título:',
+                subtitleColor: 'Color subtítulo:',
+                resetColors: '🔄 Restaurar colores',
+                logo: '🖼️ Logo / Icono',
+                removeLogo: '🗑️ Quitar logo',
+                resetLogo: '🔄 Restaurar icono',
+                manageAutos: '🚗 Gestionar Autos',
+                addAuto: '➕ Agregar Auto',
+                manageServices: '🔧 Gestionar Servicios',
+                addService: '➕ Agregar Servicio',
+                editRecord: '✏️ Editar Registro',
+                cancelEdit: 'Cancelar',
+                saveEdit: '💾 Guardar Cambios',
+                dateEdit: '📅 Fecha',
+                entryTimeEdit: '🕐 Hora Entrada',
+                exitTimeEdit: '🕐 Hora Salida',
+                autoEdit: '🚗 Auto',
+                serviceEdit: '🔧 Servicio',
+                chargeEdit: '💰 Cobro ($)',
+                tipEdit: '💵 Propina ($)',
+            },
+            en: {
+                titulo: '📋 Registration System',
+                subtitulo: 'Complete administration system • Customize colors, logo and services',
+                tabEmployee: '👤 Employee',
+                tabBoss: '👔 Boss',
+                tabAdmin: '⚙️ Admin',
+                selectEmployee: '👤 Select your name:',
+                enterPassword: '🔑 Enter your password:',
+                verify: '✅ Verify',
+                date: '📅 Date',
+                entryTime: '🕐 Entry Time',
+                exitTime: '🕐 Exit Time',
+                auto: '🚗 Vehicle',
+                service: '🔧 Service',
+                charge: '💰 Charge ($)',
+                tip: '💵 Tip ($)',
+                saveRecord: '📝 Save Record',
+                yourHistory: '📊 Your History',
+                filterDate: '📅 Filter by date:',
+                showAll: 'Show all',
+                totalRecords: 'Total Records',
+                totalHours: 'Total Hours',
+                totalCharges: 'Total Charges',
+                totalTips: 'Total Tips',
+                quincenaTotals: '📊 Your Current Fortnight Totals',
+                records: 'Records',
+                hours: 'Hours',
+                charges: 'Total Charges',
+                tips: 'Total Tips',
+                bossLogin: '👔 Login as Boss:',
+                bossAccess: '✅ Access',
+                changeBossName: '✏️ Change boss name',
+                saveBossName: '💾 Save Name',
+                manageEmployees: '👔 Employee and Password Management',
+                currentBoss: '👔 Current boss:',
+                changeBossPass: 'Change boss password',
+                employeeList: '📋 Employee List',
+                addEmployee: '➕ Add Employee',
+                savePassword: '💾 Save Password',
+                renameEmployee: '✏️ Rename employees',
+                renameBtn: '✏️ Rename',
+                selectQuincena: '📆 Select Fortnight:',
+                filterEmployee: '👤 Filter by employee:',
+                filterDate2: '📅 Date:',
+                totalRecords2: 'Total Records',
+                totalHours2: 'Total Hours',
+                totalCharges2: 'Total Charges',
+                totalTips2: 'Total Tips',
+                exportExcel: '📊 Export to Excel',
+                print: '🖨️ Print',
+                deleteAll: '🗑️ Delete All',
+                employee: 'Employee',
+                date2: 'Date',
+                entry2: 'Entry',
+                exit2: 'Exit',
+                hours2: 'Hours',
+                auto2: 'Vehicle',
+                service2: 'Service',
+                charge2: 'Charge',
+                tip2: 'Tip',
+                quincena2: 'Fortnight',
+                actions: 'Actions',
+                adminAccess: '⚙️ Admin Access:',
+                adminBtn: '🔓 Access',
+                customColors: '🎨 Customize Colors',
+                bgColor: 'Site background:',
+                cardColor: 'Card background:',
+                titleColor: 'Title color:',
+                subtitleColor: 'Subtitle color:',
+                resetColors: '🔄 Reset colors',
+                logo: '🖼️ Logo / Icon',
+                removeLogo: '🗑️ Remove logo',
+                resetLogo: '🔄 Reset icon',
+                manageAutos: '🚗 Manage Vehicles',
+                addAuto: '➕ Add Vehicle',
+                manageServices: '🔧 Manage Services',
+                addService: '➕ Add Service',
+                editRecord: '✏️ Edit Record',
+                cancelEdit: 'Cancel',
+                saveEdit: '💾 Save Changes',
+                dateEdit: '📅 Date',
+                entryTimeEdit: '🕐 Entry Time',
+                exitTimeEdit: '🕐 Exit Time',
+                autoEdit: '🚗 Vehicle',
+                serviceEdit: '🔧 Service',
+                chargeEdit: '💰 Charge ($)',
+                tipEdit: '💵 Tip ($)',
+            }
+        };
+
+        function cambiarIdioma(idioma) {
+            idiomaActual = idioma;
+            localStorage.setItem('idioma', idioma);
+            
+            document.getElementById('btnEs').classList.toggle('active', idioma === 'es');
+            document.getElementById('btnEn').classList.toggle('active', idioma === 'en');
+            
+            const t = textos[idioma];
+            document.getElementById('mainTitle').textContent = t.titulo;
+            document.getElementById('mainSubtitle').textContent = t.subtitulo;
+            document.getElementById('tabEmployee').textContent = t.tabEmployee;
+            document.getElementById('tabBoss').textContent = t.tabBoss;
+            document.getElementById('tabAdmin').textContent = t.tabAdmin;
+            
+            aplicarTextos(t);
+        }
+
+        function aplicarTextos(t) {
+            // Empleado
+            document.getElementById('lblSelectEmployee').textContent = t.selectEmployee;
+            document.getElementById('lblEnterPassword').textContent = t.enterPassword;
+            document.getElementById('btnVerify').textContent = t.verify;
+            document.getElementById('lblDate').textContent = t.date;
+            document.getElementById('lblEntryTime').textContent = t.entryTime;
+            document.getElementById('lblExitTime').textContent = t.exitTime;
+            document.getElementById('lblAuto').textContent = t.auto;
+            document.getElementById('lblService').textContent = t.service;
+            document.getElementById('lblCharge').textContent = t.charge;
+            document.getElementById('lblTip').textContent = t.tip;
+            document.getElementById('btnSaveRecord').textContent = t.saveRecord;
+            document.getElementById('lblYourHistory').textContent = t.yourHistory;
+            document.getElementById('lblFilterDate').textContent = t.filterDate;
+            document.getElementById('btnShowAll').textContent = t.showAll;
+            document.getElementById('lblTotalRecords').textContent = t.totalRecords;
+            document.getElementById('lblTotalHours').textContent = t.totalHours;
+            document.getElementById('lblTotalCharges').textContent = t.totalCharges;
+            document.getElementById('lblTotalTips').textContent = t.totalTips;
+            document.getElementById('lblQuincenaTotals').textContent = t.quincenaTotals;
+            document.getElementById('lblRecords').textContent = t.records;
+            document.getElementById('lblHours').textContent = t.hours;
+            document.getElementById('lblCharges').textContent = t.charges;
+            document.getElementById('lblTips').textContent = t.tips;
+            
+            // Jefe
+            document.getElementById('lblBossLogin').textContent = t.bossLogin;
+            document.getElementById('btnBossAccess').textContent = t.bossAccess;
+            document.getElementById('lblChangeBossName').textContent = t.changeBossName;
+            document.getElementById('btnSaveBossName').textContent = t.saveBossName;
+            document.getElementById('lblManageEmployees').textContent = t.manageEmployees;
+            document.getElementById('lblCurrentBoss').textContent = t.currentBoss;
+            document.getElementById('lblChangeBossPass').textContent = t.changeBossPass;
+            document.getElementById('lblEmployeeList').textContent = t.employeeList;
+            document.getElementById('btnAddEmployee').textContent = t.addEmployee;
+            document.getElementById('btnSavePassword').textContent = t.savePassword;
+            document.getElementById('lblRenameEmployee').textContent = t.renameEmployee;
+            document.getElementById('btnRenameEmployee').textContent = t.renameBtn;
+            document.getElementById('lblSelectQuincena').textContent = t.selectQuincena;
+            document.getElementById('lblFilterEmployee').textContent = t.filterEmployee;
+            document.getElementById('lblFilterDate2').textContent = t.filterDate2;
+            document.getElementById('lblTotalRecords2').textContent = t.totalRecords2;
+            document.getElementById('lblTotalHours2').textContent = t.totalHours2;
+            document.getElementById('lblTotalCharges2').textContent = t.totalCharges2;
+            document.getElementById('lblTotalTips2').textContent = t.totalTips2;
+            document.getElementById('btnExportExcel').textContent = t.exportExcel;
+            document.getElementById('btnPrint').textContent = t.print;
+            document.getElementById('btnDeleteAll').textContent = t.deleteAll;
+            
+            // Admin
+            document.getElementById('lblAdminAccess').textContent = t.adminAccess;
+            document.getElementById('btnAdminAccess').textContent = t.adminBtn;
+            document.getElementById('lblCustomColors').textContent = t.customColors;
+            document.getElementById('lblBgColor').textContent = t.bgColor;
+            document.getElementById('lblCardColor').textContent = t.cardColor;
+            document.getElementById('lblTitleColor').textContent = t.titleColor;
+            document.getElementById('lblSubtitleColor').textContent = t.subtitleColor;
+            document.getElementById('btnResetColors').textContent = t.resetColors;
+            document.getElementById('lblLogo').textContent = t.logo;
+            document.getElementById('btnRemoveLogo').textContent = t.removeLogo;
+            document.getElementById('btnResetLogo').textContent = t.resetLogo;
+            document.getElementById('lblManageAutos').textContent = t.manageAutos;
+            document.getElementById('btnAddAuto').textContent = t.addAuto;
+            document.getElementById('lblManageServices').textContent = t.manageServices;
+            document.getElementById('btnAddService').textContent = t.addService;
+            
+            // Modal
+            document.getElementById('lblEditRecord').textContent = t.editRecord;
+            document.getElementById('btnCancelEdit').textContent = t.cancelEdit;
+            document.getElementById('btnSaveEdit').textContent = t.saveEdit;
+            document.getElementById('lblDateEdit').textContent = t.dateEdit;
+            document.getElementById('lblEntryTimeEdit').textContent = t.entryTimeEdit;
+            document.getElementById('lblExitTimeEdit').textContent = t.exitTimeEdit;
+            document.getElementById('lblAutoEdit').textContent = t.autoEdit;
+            document.getElementById('lblServiceEdit').textContent = t.serviceEdit;
+            document.getElementById('lblChargeEdit').textContent = t.chargeEdit;
+            document.getElementById('lblTipEdit').textContent = t.tipEdit;
+            
+            // Tablas
+            document.getElementById('thDate').textContent = t.date;
+            document.getElementById('thEntry').textContent = t.entry;
+            document.getElementById('thExit').textContent = t.exit;
+            document.getElementById('thHours').textContent = t.hours;
+            document.getElementById('thAuto').textContent = t.auto;
+            document.getElementById('thService').textContent = t.service;
+            document.getElementById('thCharge').textContent = t.charge;
+            document.getElementById('thTip').textContent = t.tip;
+            document.getElementById('thQuincena').textContent = t.quincena;
+            
+            document.getElementById('thEmployee').textContent = t.employee;
+            document.getElementById('thDate2').textContent = t.date;
+            document.getElementById('thEntry2').textContent = t.entry;
+            document.getElementById('thExit2').textContent = t.exit;
+            document.getElementById('thHours2').textContent = t.hours;
+            document.getElementById('thAuto2').textContent = t.auto;
+            document.getElementById('thService2').textContent = t.service;
+            document.getElementById('thCharge2').textContent = t.charge;
+            document.getElementById('thTip2').textContent = t.tip;
+            document.getElementById('thQuincena2').textContent = t.quincena;
+            document.getElementById('thActions').textContent = t.actions;
+        }
+
         // ============ CONFIGURACIÓN ============
         const STORAGE_KEY = 'registros_quincenales';
         const PASSWORDS_KEY = 'empleados_claves';
@@ -967,7 +1407,7 @@
         const LOGO_KEY = 'logo_personalizado';
         const AUTOS_KEY = 'lista_autos';
         const SERVICIOS_KEY = 'lista_servicios';
-        const MAX_EMPLOYEES = 8;
+        const MAX_EMPLOYEES = 20;
 
         // ============ LISTAS DE AUTOS Y SERVICIOS ============
         function getAutos() {
@@ -1020,7 +1460,7 @@
                 admin: 'admin123',
                 empleados: {}
             };
-            for (let i = 1; i <= MAX_EMPLOYEES; i++) {
+            for (let i = 1; i <= 8; i++) {
                 defaultPasswords.empleados[`Empleado ${i}`] = `emp${i}`;
             }
             savePasswords(defaultPasswords);
@@ -1060,13 +1500,101 @@
             savePasswords(passwords);
             renderPasswordLists();
             updateSelectors();
+            renderEmpleadosList();
         }
 
         function setBossPassword(nuevaClave) {
             const passwords = getPasswords();
             passwords.jefe = nuevaClave;
             savePasswords(passwords);
-            alert('✅ Clave del jefe actualizada.');
+            showMessage('bossPasswordMessage', '✅ Clave del jefe actualizada.', 'exito');
+        }
+
+        // ============ GESTIÓN DE EMPLEADOS ============
+        function getEmpleados() {
+            const passwords = getPasswords();
+            return Object.keys(passwords.empleados).sort();
+        }
+
+        function agregarEmpleado() {
+            const nombre = document.getElementById('nuevoEmpleadoInput').value.trim();
+            const clave = document.getElementById('nuevoEmpleadoClave').value.trim() || '1234';
+            const msgDiv = document.getElementById('empleadoMessage');
+
+            if (!nombre) {
+                showMessage('empleadoMessage', '⚠️ Escribe un nombre para el empleado.', 'error');
+                return;
+            }
+
+            if (nombre === 'BOSS' || nombre.toUpperCase() === 'BOSS') {
+                showMessage('empleadoMessage', '⚠️ No puedes usar ese nombre.', 'error');
+                return;
+            }
+
+            const passwords = getPasswords();
+            if (passwords.empleados[nombre]) {
+                showMessage('empleadoMessage', '⚠️ Ese empleado ya existe.', 'error');
+                return;
+            }
+
+            if (Object.keys(passwords.empleados).length >= MAX_EMPLOYEES) {
+                showMessage('empleadoMessage', `⚠️ Límite de ${MAX_EMPLOYEES} empleados alcanzado.`, 'error');
+                return;
+            }
+
+            passwords.empleados[nombre] = clave;
+            savePasswords(passwords);
+            
+            document.getElementById('nuevoEmpleadoInput').value = '';
+            document.getElementById('nuevoEmpleadoClave').value = '';
+            
+            updateSelectors();
+            renderPasswordLists();
+            renderEmpleadosList();
+            renderTable();
+            updateAllStats();
+            
+            showMessage('empleadoMessage', `✅ Empleado "${nombre}" agregado con clave "${clave}".`, 'exito');
+        }
+
+        function eliminarEmpleado(nombre) {
+            if (!confirm(`¿Eliminar al empleado "${nombre}"? Se borrarán todos sus registros.`)) return;
+
+            const passwords = getPasswords();
+            delete passwords.empleados[nombre];
+            savePasswords(passwords);
+
+            const records = getRecords();
+            const nuevosRecords = records.filter(r => r.empleado !== nombre);
+            saveRecords(nuevosRecords);
+
+            updateSelectors();
+            renderPasswordLists();
+            renderEmpleadosList();
+            renderTable();
+            updateAllStats();
+            updateQuincenaSelector();
+
+            showMessage('empleadoMessage', `🗑️ Empleado "${nombre}" eliminado.`, 'exito');
+        }
+
+        function renderEmpleadosList() {
+            const empleados = getEmpleados();
+            const container = document.getElementById('empleadosList');
+            
+            if (empleados.length === 0) {
+                container.innerHTML = '<p style="color:#95a5a6;">No hay empleados registrados.</p>';
+                return;
+            }
+
+            container.innerHTML = empleados.map(emp => `
+                <div class="empleado-item">
+                    <span class="emp-name">👤 ${emp}</span>
+                    <div class="emp-actions">
+                        <button class="btn-danger btn-sm" onclick="eliminarEmpleado('${emp}')">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // ============ COLORES ============
@@ -1319,6 +1847,29 @@
             }
         }
 
+        // ============ CÁLCULO DE HORAS ============
+        function calcularHoras(horaEntrada, horaSalida) {
+            if (!horaEntrada || !horaSalida) return 0;
+            const [h1, m1] = horaEntrada.split(':').map(Number);
+            const [h2, m2] = horaSalida.split(':').map(Number);
+            let horas = h2 - h1;
+            let minutos = m2 - m1;
+            if (minutos < 0) {
+                horas--;
+                minutos += 60;
+            }
+            if (horas < 0) horas += 24;
+            return horas + (minutos / 60);
+        }
+
+        function formatearHoras(horas) {
+            if (!horas || horas === 0) return '0h';
+            const h = Math.floor(horas);
+            const m = Math.round((horas - h) * 60);
+            if (m === 0) return `${h}h`;
+            return `${h}h ${m}min`;
+        }
+
         // ============ MOSTRAR MENSAJES ============
         function showMessage(elementId, message, type) {
             const el = document.getElementById(elementId);
@@ -1376,8 +1927,10 @@
                 status.innerHTML = '✅ Acceso concedido.';
                 status.style.color = '#27ae60';
                 document.getElementById('bossContent').style.display = 'block';
-                document.getElementById('bossNameDisplay').textContent = getBossName();
+                document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${getBossName()}`;
+                document.getElementById('bossNameDisplay2').textContent = getBossName();
                 renderPasswordLists();
+                renderEmpleadosList();
                 updateSelectors();
                 updateQuincenaSelector();
                 renderTable();
@@ -1466,10 +2019,24 @@
 
             updateSelectors();
             renderPasswordLists();
+            renderEmpleadosList();
             renderTable();
             updateAllStats();
             document.getElementById('bossNewEmployeeNameInput').value = '';
             showMessage('bossRenameMessage', `✅ Renombrado a "${newName}"`, 'exito');
+        }
+
+        function changeBossName() {
+            const newName = document.getElementById('bossNameInput').value.trim();
+            if (!newName) {
+                showMessage('empleadoMessage', '⚠️ Escribe un nombre.', 'error');
+                return;
+            }
+            saveBossName(newName);
+            document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${newName}`;
+            document.getElementById('bossNameDisplay2').textContent = newName;
+            document.getElementById('bossNameInput').value = '';
+            showMessage('empleadoMessage', `✅ Nombre del jefe actualizado a: ${newName}`, 'exito');
         }
 
         function changeBossPassword() {
@@ -1513,11 +2080,16 @@
         function addRecord(record) {
             const records = getRecords();
             const empleados = new Set(records.map(r => r.empleado));
-            if (empleados.size >= MAX_EMPLOYEES && !empleados.has(record.empleado)) {
-                alert(`⚠️ Ya hay ${MAX_EMPLOYEES} empleados.`);
+            const passwords = getPasswords();
+            const totalEmpleados = Object.keys(passwords.empleados).length;
+            
+            if (empleados.size >= totalEmpleados && !empleados.has(record.empleado)) {
+                alert(`⚠️ Ya hay ${totalEmpleados} empleados registrados.`);
                 return false;
             }
             record.quincena = getQuincena(record.fecha);
+            // Calcular horas
+            record.horas = calcularHoras(record.horaEntrada, record.horaSalida);
             records.push(record);
             saveRecords(records);
             return true;
@@ -1526,6 +2098,7 @@
         function updateRecord(index, updatedRecord) {
             const records = getRecords();
             updatedRecord.quincena = getQuincena(updatedRecord.fecha);
+            updatedRecord.horas = calcularHoras(updatedRecord.horaEntrada, updatedRecord.horaSalida);
             records[index] = updatedRecord;
             saveRecords(records);
         }
@@ -1585,7 +2158,7 @@
             const tbody = document.getElementById('tableBody');
 
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:#95a5a6; padding:30px;">No hay registros</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:#95a5a6; padding:30px;">No hay registros</td></tr>`;
                 return;
             }
 
@@ -1598,6 +2171,7 @@
                         <td>${r.fecha}</td>
                         <td>${r.horaEntrada}</td>
                         <td>${r.horaSalida}</td>
+                        <td>${formatearHoras(r.horas || 0)}</td>
                         <td>${r.auto}</td>
                         <td>${r.servicio}</td>
                         <td>$${parseFloat(r.cobro).toFixed(2)}</td>
@@ -1624,14 +2198,14 @@
                 filtered = filtered.filter(r => r.fecha === fechaFiltro);
             }
             
-            // Ordenar por fecha descendente (más reciente primero)
             filtered.sort((a, b) => b.fecha.localeCompare(a.fecha) || b.horaEntrada.localeCompare(a.horaEntrada));
             
             const tbody = document.getElementById('empleadoHistorialBody');
             
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros para esta fecha</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros para esta fecha</td></tr>`;
                 document.getElementById('empHistorialTotal').textContent = '0';
+                document.getElementById('empHistorialHoras').textContent = '0h';
                 document.getElementById('empHistorialCobros').textContent = '$0';
                 document.getElementById('empHistorialPropinas').textContent = '$0';
                 return;
@@ -1642,6 +2216,7 @@
                     <td>${r.fecha}</td>
                     <td>${r.horaEntrada}</td>
                     <td>${r.horaSalida}</td>
+                    <td>${formatearHoras(r.horas || 0)}</td>
                     <td>${r.auto}</td>
                     <td>${r.servicio}</td>
                     <td>$${parseFloat(r.cobro).toFixed(2)}</td>
@@ -1652,6 +2227,8 @@
             
             // Actualizar estadísticas del historial
             document.getElementById('empHistorialTotal').textContent = filtered.length;
+            const totalHoras = filtered.reduce((sum, r) => sum + (r.horas || 0), 0);
+            document.getElementById('empHistorialHoras').textContent = formatearHoras(totalHoras);
             const totalCobro = filtered.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
             document.getElementById('empHistorialCobros').textContent = `$${totalCobro.toFixed(2)}`;
             const totalPropina = filtered.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
@@ -1673,6 +2250,8 @@
             const empRecords = records.filter(r => r.empleado === currentEmployee && r.quincena === quincenaActual);
 
             document.getElementById('empTotalRegistros').textContent = empRecords.length;
+            const totalHoras = empRecords.reduce((sum, r) => sum + (r.horas || 0), 0);
+            document.getElementById('empTotalHoras').textContent = formatearHoras(totalHoras);
             const totalCobro = empRecords.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
             document.getElementById('empTotalCobros').textContent = `$${totalCobro.toFixed(2)}`;
             const totalPropina = empRecords.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
@@ -1683,6 +2262,8 @@
             if (!isBossVerified) return;
             const records = getFilteredRecords();
             document.getElementById('bossTotalRegistros').textContent = records.length;
+            const totalHoras = records.reduce((sum, r) => sum + (r.horas || 0), 0);
+            document.getElementById('bossTotalHoras').textContent = formatearHoras(totalHoras);
             const totalCobro = records.reduce((sum, r) => sum + parseFloat(r.cobro || 0), 0);
             document.getElementById('bossTotalCobros').textContent = `$${totalCobro.toFixed(2)}`;
             const totalPropina = records.reduce((sum, r) => sum + parseFloat(r.propina || 0), 0);
@@ -1718,18 +2299,19 @@
                 return;
             }
 
-            const headers = ['Empleado', 'Fecha', 'Hora Entrada', 'Hora Salida', 'Auto', 'Servicio', 'Cobro', 'Propina', 'Quincena'];
+            const headers = ['Empleado', 'Fecha', 'Hora Entrada', 'Hora Salida', 'Horas', 'Auto', 'Servicio', 'Cobro', 'Propina', 'Quincena'];
             let csv = headers.join(',') + '\n';
             records.forEach(r => {
                 const row = [
                     r.empleado, r.fecha, r.horaEntrada, r.horaSalida,
+                    (r.horas || 0).toFixed(2).replace('.', ','),
                     `"${r.auto}"`, `"${r.servicio}"`, r.cobro, r.propina,
                     `"${getQuincenaLabel(r.quincena)}"`
                 ];
                 csv += row.join(',') + '\n';
             });
 
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.href = url;
@@ -1913,16 +2495,23 @@
         applyLogo();
         updateSelectors();
         renderPasswordLists();
+        renderEmpleadosList();
         renderAutos();
         renderServicios();
         updateQuincenaSelector();
         renderTable();
         updateAllStats();
+        
+        // Cargar idioma guardado
+        const idiomaGuardado = localStorage.getItem('idioma') || 'es';
+        cambiarIdioma(idiomaGuardado);
 
         console.log('🚀 Sistema de Registro cargado correctamente.');
         console.log('👔 Jefe: admin123 (Gestiona empleados, claves y ve todos los registros)');
         console.log('⚙️ Admin: admin123 (Personaliza colores, logo, autos y servicios)');
         console.log('👥 Empleados: emp1, emp2, emp3, ... (Ven su historial y registros)');
+        console.log('📊 Cálculo automático de horas trabajadas.');
+        console.log('🌍 Cambia de idioma con los botones en la esquina superior derecha.');
     </script>
 </body>
 </html>
