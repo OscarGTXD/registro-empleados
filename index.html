@@ -640,6 +640,40 @@
             gap: 5px;
         }
 
+        .btn-edit-record {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-edit-record:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .btn-delete-record {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-delete-record:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
         @media print {
             .tab-btn,
             .actions,
@@ -797,11 +831,12 @@
                                         <th id="thCharge">Cobro</th>
                                         <th id="thTip">Propina</th>
                                         <th id="thQuincena">Quincena</th>
+                                        <th id="thActionsEmp">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="empleadoHistorialBody">
                                     <tr>
-                                        <td colspan="9" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún</td>
+                                        <td colspan="10" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros aún</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -970,7 +1005,7 @@
                                     <th id="thCharge2">Cobro</th>
                                     <th id="thTip2">Propina</th>
                                     <th id="thQuincena2">Quincena</th>
-                                    <th id="thActions">Acciones</th>
+                                    <th id="thActionsBoss">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -1188,6 +1223,8 @@
                 serviceEdit: '🔧 Servicio',
                 chargeEdit: '💰 Cobro ($)',
                 tipEdit: '💵 Propina ($)',
+                actionsEmp: 'Acciones',
+                actionsBoss: 'Acciones'
             },
             en: {
                 titulo: '📋 Registration System',
@@ -1276,6 +1313,8 @@
                 serviceEdit: '🔧 Service',
                 chargeEdit: '💰 Charge ($)',
                 tipEdit: '💵 Tip ($)',
+                actionsEmp: 'Actions',
+                actionsBoss: 'Actions'
             }
         };
 
@@ -1297,7 +1336,6 @@
         }
 
         function aplicarTextos(t) {
-            // Empleado
             document.getElementById('lblSelectEmployee').textContent = t.selectEmployee;
             document.getElementById('lblEnterPassword').textContent = t.enterPassword;
             document.getElementById('btnVerify').textContent = t.verify;
@@ -1321,8 +1359,6 @@
             document.getElementById('lblHours').textContent = t.hours;
             document.getElementById('lblCharges').textContent = t.charges;
             document.getElementById('lblTips').textContent = t.tips;
-            
-            // Jefe
             document.getElementById('lblBossLogin').textContent = t.bossLogin;
             document.getElementById('btnBossAccess').textContent = t.bossAccess;
             document.getElementById('lblChangeBossName').textContent = t.changeBossName;
@@ -1345,8 +1381,6 @@
             document.getElementById('btnExportExcel').textContent = t.exportExcel;
             document.getElementById('btnPrint').textContent = t.print;
             document.getElementById('btnDeleteAll').textContent = t.deleteAll;
-            
-            // Admin
             document.getElementById('lblAdminAccess').textContent = t.adminAccess;
             document.getElementById('btnAdminAccess').textContent = t.adminBtn;
             document.getElementById('lblCustomColors').textContent = t.customColors;
@@ -1362,8 +1396,6 @@
             document.getElementById('btnAddAuto').textContent = t.addAuto;
             document.getElementById('lblManageServices').textContent = t.manageServices;
             document.getElementById('btnAddService').textContent = t.addService;
-            
-            // Modal
             document.getElementById('lblEditRecord').textContent = t.editRecord;
             document.getElementById('btnCancelEdit').textContent = t.cancelEdit;
             document.getElementById('btnSaveEdit').textContent = t.saveEdit;
@@ -1374,8 +1406,6 @@
             document.getElementById('lblServiceEdit').textContent = t.serviceEdit;
             document.getElementById('lblChargeEdit').textContent = t.chargeEdit;
             document.getElementById('lblTipEdit').textContent = t.tipEdit;
-            
-            // Tablas
             document.getElementById('thDate').textContent = t.date;
             document.getElementById('thEntry').textContent = t.entry;
             document.getElementById('thExit').textContent = t.exit;
@@ -1385,7 +1415,7 @@
             document.getElementById('thCharge').textContent = t.charge;
             document.getElementById('thTip').textContent = t.tip;
             document.getElementById('thQuincena').textContent = t.quincena;
-            
+            document.getElementById('thActionsEmp').textContent = t.actionsEmp;
             document.getElementById('thEmployee').textContent = t.employee;
             document.getElementById('thDate2').textContent = t.date;
             document.getElementById('thEntry2').textContent = t.entry;
@@ -1396,7 +1426,7 @@
             document.getElementById('thCharge2').textContent = t.charge;
             document.getElementById('thTip2').textContent = t.tip;
             document.getElementById('thQuincena2').textContent = t.quincena;
-            document.getElementById('thActions').textContent = t.actions;
+            document.getElementById('thActionsBoss').textContent = t.actionsBoss;
         }
 
         // ============ CONFIGURACIÓN ============
@@ -1927,8 +1957,9 @@
                 status.innerHTML = '✅ Acceso concedido.';
                 status.style.color = '#27ae60';
                 document.getElementById('bossContent').style.display = 'block';
-                document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${getBossName()}`;
-                document.getElementById('bossNameDisplay2').textContent = getBossName();
+                const bossName = getBossName();
+                document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${bossName}`;
+                document.getElementById('bossNameDisplay2').textContent = bossName;
                 renderPasswordLists();
                 renderEmpleadosList();
                 updateSelectors();
@@ -2033,8 +2064,9 @@
                 return;
             }
             saveBossName(newName);
-            document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${newName}`;
-            document.getElementById('bossNameDisplay2').textContent = newName;
+            const bossName = getBossName();
+            document.getElementById('bossNameDisplay').textContent = `👔 Nombre actual: ${bossName}`;
+            document.getElementById('bossNameDisplay2').textContent = bossName;
             document.getElementById('bossNameInput').value = '';
             showMessage('empleadoMessage', `✅ Nombre del jefe actualizado a: ${newName}`, 'exito');
         }
@@ -2088,7 +2120,6 @@
                 return false;
             }
             record.quincena = getQuincena(record.fecha);
-            // Calcular horas
             record.horas = calcularHoras(record.horaEntrada, record.horaSalida);
             records.push(record);
             saveRecords(records);
@@ -2104,9 +2135,17 @@
         }
 
         function deleteRecord(index) {
-            if (!isBossVerified) {
-                alert('⚠️ Inicia sesión como jefe.');
+            if (!isBossVerified && !isEmployeeVerified) {
+                alert('⚠️ Inicia sesión para eliminar registros.');
                 return;
+            }
+            // Verificar que el empleado solo elimine sus propios registros
+            if (isEmployeeVerified && !isBossVerified) {
+                const records = getRecords();
+                if (records[index].empleado !== currentEmployee) {
+                    alert('⚠️ Solo puedes eliminar tus propios registros.');
+                    return;
+                }
             }
             if (confirm('¿Eliminar este registro?')) {
                 const records = getRecords();
@@ -2178,8 +2217,8 @@
                         <td>$${parseFloat(r.propina).toFixed(2)}</td>
                         <td>${getQuincenaLabel(r.quincena)}</td>
                         <td>
-                            <button class="btn-edit" onclick="openEditModal(${realIndex})">✏️ Editar</button>
-                            <button class="btn-danger" onclick="deleteRecord(${realIndex})">🗑️</button>
+                            <button class="btn-edit-record" onclick="openEditModal(${realIndex})">✏️ Editar</button>
+                            <button class="btn-delete-record" onclick="deleteRecord(${realIndex})">🗑️</button>
                         </td>
                     </tr>
                 `;
@@ -2203,7 +2242,7 @@
             const tbody = document.getElementById('empleadoHistorialBody');
             
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros para esta fecha</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:#95a5a6; padding:20px;">No hay registros para esta fecha</td></tr>`;
                 document.getElementById('empHistorialTotal').textContent = '0';
                 document.getElementById('empHistorialHoras').textContent = '0h';
                 document.getElementById('empHistorialCobros').textContent = '$0';
@@ -2211,19 +2250,27 @@
                 return;
             }
             
-            tbody.innerHTML = filtered.map(r => `
-                <tr>
-                    <td>${r.fecha}</td>
-                    <td>${r.horaEntrada}</td>
-                    <td>${r.horaSalida}</td>
-                    <td>${formatearHoras(r.horas || 0)}</td>
-                    <td>${r.auto}</td>
-                    <td>${r.servicio}</td>
-                    <td>$${parseFloat(r.cobro).toFixed(2)}</td>
-                    <td>$${parseFloat(r.propina).toFixed(2)}</td>
-                    <td>${getQuincenaLabel(r.quincena)}</td>
-                </tr>
-            `).join('');
+            const allRecords = getRecords();
+            tbody.innerHTML = filtered.map((r) => {
+                const realIndex = allRecords.indexOf(r);
+                return `
+                    <tr>
+                        <td>${r.fecha}</td>
+                        <td>${r.horaEntrada}</td>
+                        <td>${r.horaSalida}</td>
+                        <td>${formatearHoras(r.horas || 0)}</td>
+                        <td>${r.auto}</td>
+                        <td>${r.servicio}</td>
+                        <td>$${parseFloat(r.cobro).toFixed(2)}</td>
+                        <td>$${parseFloat(r.propina).toFixed(2)}</td>
+                        <td>${getQuincenaLabel(r.quincena)}</td>
+                        <td>
+                            <button class="btn-edit-record" onclick="openEditModal(${realIndex})">✏️ Editar</button>
+                            <button class="btn-delete-record" onclick="deleteRecord(${realIndex})">🗑️</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
             
             // Actualizar estadísticas del historial
             document.getElementById('empHistorialTotal').textContent = filtered.length;
@@ -2375,16 +2422,31 @@
             }
         });
 
-        // ============ MODAL ============
+        // ============ MODAL DE EDICIÓN ============
+        let editingIndex = null;
+
         function openEditModal(index) {
-            if (!isBossVerified) {
-                alert('⚠️ Inicia sesión como jefe.');
-                return;
-            }
+            // Verificar permisos
             const records = getRecords();
             const record = records[index];
+            
             if (!record) return;
 
+            // Si es empleado, solo puede editar sus propios registros
+            if (isEmployeeVerified && !isBossVerified) {
+                if (record.empleado !== currentEmployee) {
+                    alert('⚠️ Solo puedes editar tus propios registros.');
+                    return;
+                }
+            }
+
+            // Si no está verificado ni como empleado ni como jefe
+            if (!isEmployeeVerified && !isBossVerified) {
+                alert('⚠️ Inicia sesión para editar registros.');
+                return;
+            }
+
+            editingIndex = index;
             document.getElementById('editIndex').value = index;
             document.getElementById('editFecha').value = record.fecha;
             document.getElementById('editHoraEntrada').value = record.horaEntrada;
@@ -2399,6 +2461,7 @@
 
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('active');
+            editingIndex = null;
         }
 
         document.getElementById('editForm').addEventListener('submit', function(e) {
@@ -2507,9 +2570,10 @@
         cambiarIdioma(idiomaGuardado);
 
         console.log('🚀 Sistema de Registro cargado correctamente.');
-        console.log('👔 Jefe: admin123 (Gestiona empleados, claves y ve todos los registros)');
-        console.log('⚙️ Admin: admin123 (Personaliza colores, logo, autos y servicios)');
-        console.log('👥 Empleados: emp1, emp2, emp3, ... (Ven su historial y registros)');
+        console.log('👔 Jefe: admin123');
+        console.log('⚙️ Admin: admin123');
+        console.log('👥 Empleados: emp1, emp2, emp3, ...');
+        console.log('✅ Empleados y Jefe pueden editar registros anteriores.');
         console.log('📊 Cálculo automático de horas trabajadas.');
         console.log('🌍 Cambia de idioma con los botones en la esquina superior derecha.');
     </script>
