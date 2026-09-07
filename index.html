@@ -1439,6 +1439,17 @@
         const SERVICIOS_KEY = 'lista_servicios';
         const MAX_EMPLOYEES = 20;
 
+        // ============ FORMATO DE FECHA ============
+        function formatearFecha(fecha) {
+            if (!fecha) return '';
+            const partes = fecha.split('-');
+            if (partes.length !== 3) return fecha;
+            const año = partes[0];
+            const mes = parseInt(partes[1]);
+            const dia = parseInt(partes[2]);
+            return `${dia}/${mes}/${año}`;
+        }
+
         // ============ LISTAS DE AUTOS Y SERVICIOS ============
         function getAutos() {
             const data = localStorage.getItem(AUTOS_KEY);
@@ -2135,20 +2146,24 @@
         }
 
         function deleteRecord(index) {
+            const records = getRecords();
+            const record = records[index];
+            
+            // Verificar permisos
             if (!isBossVerified && !isEmployeeVerified) {
                 alert('⚠️ Inicia sesión para eliminar registros.');
                 return;
             }
-            // Verificar que el empleado solo elimine sus propios registros
+            
+            // Empleado solo puede eliminar sus propios registros
             if (isEmployeeVerified && !isBossVerified) {
-                const records = getRecords();
-                if (records[index].empleado !== currentEmployee) {
+                if (record.empleado !== currentEmployee) {
                     alert('⚠️ Solo puedes eliminar tus propios registros.');
                     return;
                 }
             }
+            
             if (confirm('¿Eliminar este registro?')) {
-                const records = getRecords();
                 records.splice(index, 1);
                 saveRecords(records);
                 renderTable();
@@ -2207,7 +2222,7 @@
                 return `
                     <tr>
                         <td><strong>${r.empleado}</strong></td>
-                        <td>${r.fecha}</td>
+                        <td>${formatearFecha(r.fecha)}</td>
                         <td>${r.horaEntrada}</td>
                         <td>${r.horaSalida}</td>
                         <td>${formatearHoras(r.horas || 0)}</td>
@@ -2255,7 +2270,7 @@
                 const realIndex = allRecords.indexOf(r);
                 return `
                     <tr>
-                        <td>${r.fecha}</td>
+                        <td>${formatearFecha(r.fecha)}</td>
                         <td>${r.horaEntrada}</td>
                         <td>${r.horaSalida}</td>
                         <td>${formatearHoras(r.horas || 0)}</td>
@@ -2350,7 +2365,7 @@
             let csv = headers.join(',') + '\n';
             records.forEach(r => {
                 const row = [
-                    r.empleado, r.fecha, r.horaEntrada, r.horaSalida,
+                    r.empleado, formatearFecha(r.fecha), r.horaEntrada, r.horaSalida,
                     (r.horas || 0).toFixed(2).replace('.', ','),
                     `"${r.auto}"`, `"${r.servicio}"`, r.cobro, r.propina,
                     `"${getQuincenaLabel(r.quincena)}"`
@@ -2423,16 +2438,19 @@
         });
 
         // ============ MODAL DE EDICIÓN ============
-        let editingIndex = null;
-
         function openEditModal(index) {
-            // Verificar permisos
             const records = getRecords();
             const record = records[index];
             
             if (!record) return;
 
-            // Si es empleado, solo puede editar sus propios registros
+            // Verificar permisos
+            if (!isBossVerified && !isEmployeeVerified) {
+                alert('⚠️ Inicia sesión para editar registros.');
+                return;
+            }
+
+            // Empleado solo puede editar sus propios registros
             if (isEmployeeVerified && !isBossVerified) {
                 if (record.empleado !== currentEmployee) {
                     alert('⚠️ Solo puedes editar tus propios registros.');
@@ -2440,13 +2458,6 @@
                 }
             }
 
-            // Si no está verificado ni como empleado ni como jefe
-            if (!isEmployeeVerified && !isBossVerified) {
-                alert('⚠️ Inicia sesión para editar registros.');
-                return;
-            }
-
-            editingIndex = index;
             document.getElementById('editIndex').value = index;
             document.getElementById('editFecha').value = record.fecha;
             document.getElementById('editHoraEntrada').value = record.horaEntrada;
@@ -2461,7 +2472,6 @@
 
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('active');
-            editingIndex = null;
         }
 
         document.getElementById('editForm').addEventListener('submit', function(e) {
@@ -2575,6 +2585,7 @@
         console.log('👥 Empleados: emp1, emp2, emp3, ...');
         console.log('✅ Empleados y Jefe pueden editar registros anteriores.');
         console.log('📊 Cálculo automático de horas trabajadas.');
+        console.log('📅 Formato de fecha: DD/MM/YYYY (ej: 9/7/2026)');
         console.log('🌍 Cambia de idioma con los botones en la esquina superior derecha.');
     </script>
 </body>
